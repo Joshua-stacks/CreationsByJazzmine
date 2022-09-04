@@ -67,6 +67,8 @@ const login = async (req, res) => {
       status: 500,
       message: "An unknown error occurred.",
     });
+  } finally {
+    client.close();
   }
 };
 
