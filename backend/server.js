@@ -4,8 +4,11 @@ const morgan = require("morgan");
 const PORT = 8000;
 
 const app = express();
+
+// Server will log more information to the console.
 app.use(morgan("tiny"));
 
+// Server will recognize incoming data as JSON.
 app.use(express.json());
 
 // Requests for static files will look in public.
