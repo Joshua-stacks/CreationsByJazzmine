@@ -31,3 +31,29 @@ Response will be in this structure:
   }
 }
 ```
+
+### PATCH /api/admin/account
+
+Change the user's password.
+
+Expects a body with the following structure:
+
+```json
+{
+  "username": "<username>",
+  "oldPassword": "<current password>",
+  "newPassword": "<new password>"
+}
+```
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "If a message is required it will be here.",
+  "data": {
+    "username": "Jazzmine"
+  }
+}
+```

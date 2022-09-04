@@ -2,9 +2,12 @@
 const router = require("express").Router();
 
 // Require handlers.
-const { login } = require("../handlers/admin");
+const { changePassword, login } = require("../handlers/admin");
 
 // #Endpoints.
+
+// Change the admin's password.
+router.patch("/api/admin/account", changePassword);
 
 // Sign in as admin.
 router.post("/api/admin/login", login);
