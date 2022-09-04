@@ -1,10 +1,10 @@
 const express = require("express");
-const morgan = require("morgan")
+const morgan = require("morgan");
 
 const PORT = 8000;
 
 const app = express();
-app.use(morgan("tiny"))
+app.use(morgan("tiny"));
 
 app.use(express.json());
 
@@ -12,6 +12,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Endpoints.
+app.use(require("./routes/admin"));
+
 app.get("*", (req, res) => {
   return res.status(404).json({ status: 404, message: "No endpoint found." });
 });
