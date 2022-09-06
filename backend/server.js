@@ -17,6 +17,8 @@ app.use(express.static("public"));
 // Endpoints.
 app.use(require("./routes/admin"));
 
+app.use(require("./routes/products"));
+
 app.get("*", (req, res) => {
   return res.status(404).json({ status: 404, message: "No endpoint found." });
 });
