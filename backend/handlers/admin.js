@@ -31,7 +31,7 @@ const changePassword = async (req, res) => {
 
   try {
     await client.connect();
-    const accounts = client.db("master").collection("admin-accounts");
+    const accounts = client.db("Project").collection("Administrators");
 
     // Get the specific user by username.
     const user = accounts.findOne({ username });
@@ -104,7 +104,7 @@ const login = async (req, res) => {
 
   try {
     await client.connect();
-    const accounts = client.db("master").collection("admin-accounts");
+    const accounts = client.db("Project").collection("Administrators");
 
     // Get the specific user by username.
     const user = await accounts.findOne({ username });
