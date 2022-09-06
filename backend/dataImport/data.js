@@ -1,7 +1,7 @@
 const PRODUCTS = [
   {
     name: "Basic Cake Topper",
-    category: "Cake Topper",
+    category: "Cake Toppers",
     price: 15,
     image_src: "/assets/CakeTopper.jpg",
     min: 1,
@@ -29,7 +29,7 @@ const PRODUCTS = [
   },
   {
     name: "3D Cake Topper",
-    category: "Cake Topper",
+    category: "Cake Toppers",
     price: 25,
     image_src: "/assets/3DCakeTopper.jpg",
     min: 1,
@@ -40,7 +40,7 @@ const PRODUCTS = [
   },
   {
     name: "Shaker Cake Topper",
-    category: "Cake Topper",
+    category: "Cake Toppers",
     price: 30,
     image_src: "/assets/ShakerCakeTopper.jpg",
     min: 1,
@@ -51,19 +51,8 @@ const PRODUCTS = [
     },
   },
   {
-    name: "Premade Cake Toppers 2d",
-    category: "Cake Topper",
-    price: 10,
-    image_src: "/assets/PremaidCakeTopper.jpg",
-    min: 1,
-    max: 10,
-    options: {
-      theme: ["mermaid", "dinosaur", "unicorn", "Super heroes"],
-    },
-  },
-  {
     name: "basic Cupcake Topper",
-    category: "Cupcake Topper",
+    category: "Cupcake Toppers",
     price: 0.5,
     image_src: "/assets/CupcakeTopper.jpg",
     min: 12,
@@ -91,7 +80,7 @@ const PRODUCTS = [
   },
   {
     name: "Intricate Cupcake Topper",
-    category: "Cupcake Topper",
+    category: "Cupcake Toppers",
     price: 0.75,
     image_src: "/assets/IntricateCupcakeTopper.jpg",
     min: 12,
@@ -179,7 +168,7 @@ const PRODUCTS = [
   },
   {
     name: "Number Candles",
-    category: "Candles",
+    category: "Party",
     price: 10,
     image_src: "/assets/number-candles.jpg",
     min: 1,
@@ -230,8 +219,8 @@ const PRODUCTS = [
     category: "Boxes",
     price: 6,
     image_src: "/assets/goodie-box-empty.jpg",
-    min: 1,
-    max: 20,
+    min: 5,
+    max: 50,
     options: {
       shape: ["custom"],
     },
@@ -241,12 +230,123 @@ const PRODUCTS = [
     category: "Boxes",
     price: 6,
     image_src: "/assets/goodie-bag-empty.jpg",
-    min: 1,
-    max: 20,
+    min: 5,
+    max: 50,
     options: {
       theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
       shirts: false,
       balloons: false,
+    },
+  },
+  {
+    name: "Montly Banner",
+    category: "Banners",
+    price: 30,
+    image_src: "/assets/montlyBanner.jpg",
+    min: 1,
+    max: 5,
+    options: {
+      theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
+    },
+  },
+  {
+    name: "Photo booth frame",
+    category: "Photography",
+    price: 40,
+    image_src: "/assets/photoBoothFrame.jpg",
+    min: 1,
+    max: 5,
+    options: {
+      theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
+    },
+  },
+  {
+    name: "Cardstock high chair banner",
+    category: "Banners",
+    price: 18,
+    image_src: "/assets/highChairBanner.jpg",
+    min: 1,
+    max: 5,
+    options: {
+      theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
+    },
+  },
+  {
+    name: "Fabric high chair banner",
+    category: "Banners",
+    price: 28,
+    image_src: "/assets/FabricHighChairBanner.jpg",
+    min: 1,
+    max: 5,
+    options: {
+      theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
+    },
+  },
+  {
+    name: "Custom Keychains",
+    category: "Epoxy",
+    price: 10,
+    image_src: "/assets/keychain.jpg",
+    min: 10,
+    max: 50,
+    options: {
+      theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
+    },
+  },
+  {
+    name: "Personalized notebook",
+    category: "Epoxy",
+    price: 40,
+    image_src: "/assets/notebook.jpg",
+    min: 1,
+    max: 10,
+    options: {
+      theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
+    },
+  },
+  {
+    name: "Party hats",
+    category: "Party",
+    price: 10,
+    image_src: "/assets/partyHats.jpg",
+    min: 1,
+    max: 50,
+    options: {
+      theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
+    },
+  },
+  {
+    name: "Ceramic frame",
+    category: "Home Decoration",
+    price: 50,
+    image_src: "/assets/CeramicFrame.jpg",
+    min: 1,
+    max: 50,
+    options: {
+      theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
+    },
+  },
+  {
+    name: "Custom frames",
+    category: "Home Decoration",
+    price: 15,
+    image_src: "/assets/frames.jpg",
+    min: 1,
+    max: 50,
+    options: {
+      theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
+    },
+  },
+  {
+    name: "3D letters/numbers",
+    category: "Party",
+    price: 15,
+    image_src: "/assets/partyHats.jpg",
+    min: 3,
+    max: 50,
+    options: {
+      theme: ["mermaid", "construction", "dinosaur", "unicorn", "custom"],
+      qty: 0,
     },
   },
 ];
