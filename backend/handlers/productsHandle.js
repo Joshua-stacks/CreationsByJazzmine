@@ -45,9 +45,17 @@ const getProd = async (req, res) => {
     const product = await db
       .collection("Product")
       .findOne({ _id: ObjectId(prod) });
-    return res
-      .status(200)
-      .json({ status: 200, product: product, message: "Product selected" });
+
+    // Verify that the product was found.
+    if (product) {
+      return res
+        .status(200)
+        .json({ status: 200, product: product, message: "Product selected" });
+    } else {
+      return res
+        .status(404)
+        .json({ status: 404, message: "No product found." });
+    }
   } catch (err) {
     console.error("Error fetching product:", err);
     return res.status(500).json({
