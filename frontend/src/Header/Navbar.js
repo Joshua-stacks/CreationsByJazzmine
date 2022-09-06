@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { Squash as Hamburger } from "hamburger-react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdCancel } from "react-icons/md";
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
    const [isOpen, setOpen] = useState(false);
@@ -22,6 +22,7 @@ const NavBar = () => {
                   <CompanyName
                      onClick={() => {
                         navigate("/");
+                        setOpen(false);
                      }}
                   >
                      CreationsByJazzmine
@@ -57,6 +58,22 @@ const NavBar = () => {
                      }}
                   >
                      Products
+                  </Li>
+                  <Li
+                     onClick={() => {
+                        navigate("/cart");
+                        setOpen(false);
+                     }}
+                  >
+                     Cart
+                  </Li>
+                  <Li
+                     onClick={() => {
+                        navigate("/orders");
+                        setOpen(false);
+                     }}
+                  >
+                     Find My Order
                   </Li>
                   <Li
                      onClick={() => {
