@@ -3,6 +3,7 @@
 Endpoints are grouped in the following categories:
 
 - **administrator** - relating to admin accounts and functions
+- **order** - relating to customer orders
 
 ## Administrator Endpoints
 
@@ -54,6 +55,46 @@ Response will be in this structure:
   "message": "If a message is required it will be here.",
   "data": {
     "username": "Jazzmine"
+  }
+}
+```
+
+## Order Endpoints
+
+### GET /api/orders
+
+Get all the orders in the database.
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "These are all the orders",
+  "orders": [
+    {
+      "_id": "6316f335c2031e209805f362",
+      "name": "john",
+      "lastname": "placeholder"
+    }
+  ]
+}
+```
+
+### GET /api/order/:id
+
+Get an order by specified id in the database.
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "Order selected",
+  "order": {
+    "_id": "6316f335c2031e209805f362",
+    "name": "john",
+    "lastname": "placeholder"
   }
 }
 ```
