@@ -1,7 +1,7 @@
 const PRODUCTS = [
   {
     name: "Basic Cake Topper",
-    category: "Cake Toppers",
+    category: "Toppers",
     price: 15,
     image_src: "/assets/CakeTopper.jpg",
     min: 1,
@@ -29,7 +29,7 @@ const PRODUCTS = [
   },
   {
     name: "3D Cake Topper",
-    category: "Cake Toppers",
+    category: "Toppers",
     price: 25,
     image_src: "/assets/3DCakeTopper.jpg",
     min: 1,
@@ -40,7 +40,7 @@ const PRODUCTS = [
   },
   {
     name: "Shaker Cake Topper",
-    category: "Cake Toppers",
+    category: "Toppers",
     price: 30,
     image_src: "/assets/ShakerCakeTopper.jpg",
     min: 1,
@@ -52,7 +52,7 @@ const PRODUCTS = [
   },
   {
     name: "basic Cupcake Topper",
-    category: "Cupcake Toppers",
+    category: "Toppers",
     price: 0.5,
     image_src: "/assets/CupcakeTopper.jpg",
     min: 12,
@@ -80,7 +80,7 @@ const PRODUCTS = [
   },
   {
     name: "Intricate Cupcake Topper",
-    category: "Cupcake Toppers",
+    category: "Toppers",
     price: 0.75,
     image_src: "/assets/IntricateCupcakeTopper.jpg",
     min: 12,
@@ -141,7 +141,7 @@ const PRODUCTS = [
   },
   {
     name: "Cake Topper Set",
-    category: "Cake Toppers",
+    category: "Toppers",
     price: 22,
     image_src: "/assets/cake-topper-set.jpg",
     min: 1,
@@ -149,17 +149,8 @@ const PRODUCTS = [
     options: {},
   },
   {
-    name: "Photo Props (10pc)",
-    category: "Photography",
-    price: 25,
-    image_src: "/assets/photo-props.jpg",
-    min: 1,
-    max: 5,
-    options: {},
-  },
-  {
     name: "Acrylic Circle Cake Topper",
-    category: "Cake Toppers",
+    category: "Toppers",
     price: 28,
     image_src: "/assets/acrylic-circle-topper.jpg",
     min: 1,
@@ -341,7 +332,7 @@ const PRODUCTS = [
     name: "3D letters/numbers",
     category: "Party",
     price: 15,
-    image_src: "/assets/partyHats.jpg",
+    image_src: "/assets/letters.jpg",
     min: 3,
     max: 50,
     options: {
