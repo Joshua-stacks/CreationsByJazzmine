@@ -60,6 +60,47 @@ Response will be in this structure:
 }
 ```
 
+### POST /api/admin/products
+
+Create a new product in the database.
+
+Expects a body with the following structure:
+
+```json
+{
+  "name": "<name>",
+  "category": "<category>",
+  "price": 24,
+  "image_src": "<image location>",
+  "min": 1,
+  "max": 10,
+  "options": {
+    "<option name>": ["<selection>", "<selection>", "<...>"]
+  }
+}
+```
+
+Response will be in this structure:
+
+```json
+{
+  "status": 201,
+  "message": "If a message is required it will be here.",
+  "data": {
+    "_id": "63188924249fa329d91e0f78",
+    "name": "Cake Topper",
+    "category": "Toppers",
+    "price": 24,
+    "image_src": "/assets/cake-topper.jpg",
+    "min": 1,
+    "max": 10,
+    "options": {
+      "color": ["blue", "green"]
+    }
+  }
+}
+```
+
 ## Order Endpoints
 
 ### GET /api/orders
