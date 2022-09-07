@@ -8,20 +8,30 @@ import About from "./components/About";
 import Orders from "./components/Orders";
 import Cart from "./components/Cart";
 
+import { ProductProvider } from "./components/ContextComponents/ProductContext";
+
 const App = () => {
-   return (
-      <Router>
-         <GlobalStyles />
-         <NavBar />
-         <Routes>
-            <Route exact path="/" element={<Homepage />} />
-            <Route exact path="/products" element={<Products />} />
-            <Route exact path="/about" element={<About />} />
-            <Route exact path="/orders" element={<Orders />} />
-            <Route exact path="/cart" element={<Cart />} />
-         </Routes>
-      </Router>
-   );
+  return (
+    <Router>
+      <GlobalStyles />
+      <NavBar />
+      <Routes>
+        <Route exact path="/" element={<Homepage />} />
+        <Route
+          exact
+          path="/products"
+          element={
+            <ProductProvider>
+              <Products />
+            </ProductProvider>
+          }
+        />
+        <Route exact path="/about" element={<About />} />
+        <Route exact path="/orders" element={<Orders />} />
+        <Route exact path="/cart" element={<Cart />} />
+      </Routes>
+    </Router>
+  );
 };
 
 export default App;
