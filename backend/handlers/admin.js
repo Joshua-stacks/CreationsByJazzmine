@@ -1,5 +1,5 @@
 // Require MongoDB related functions.
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 
 // Require environment variables.
 require("dotenv").config();
@@ -107,13 +107,11 @@ const createProduct = async (req, res) => {
   try {
     await client.connect();
     const products = client.db("Project").collection("Product");
-    console.log(newProduct);
 
     // Insert the new product into the database.
     const response = await products.insertOne(newProduct);
 
     // Verify that the product insertion was successful.
-    console.log(newProduct);
     if (response.insertedId) {
       return res.status(201).json({ status: 201, data: { ...newProduct } });
     } else {
@@ -128,6 +126,39 @@ const createProduct = async (req, res) => {
     return res
       .status(500)
       .json({ status: 500, message: "An unknown error occured." });
+  } finally {
+    client.close();
+  }
+};
+
+// Delete a product.
+const deleteProduct = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, parameters);
+
+  // Extract the required details from the request.
+  const { _id } = req.params;
+
+  try {
+    await client.connect();
+    const products = client.db("Project").collection("Product");
+
+    // Delete the specified product by id.
+    const response = await products.deleteOne({ _id: ObjectId(_id) });
+
+    // Verify that the product was deleted.
+    if (response.deletedCount) {
+      return res.status(204).json({ status: 204 });
+    } else {
+      return res.status(502).json({
+        status: 502,
+        message: "Deletion failed, please try again.",
+      });
+    }
+  } catch (err) {
+    console.error("Error deleting product:", err);
+    return res
+      .status(500)
+      .json({ status: 500, message: "An unknown error occurred." });
   } finally {
     client.close();
   }
@@ -194,4 +225,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { changePassword, createProduct, login };
+module.exports = { changePassword, createProduct, deleteProduct, login };

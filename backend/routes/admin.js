@@ -2,7 +2,12 @@
 const router = require("express").Router();
 
 // Require handlers.
-const { changePassword, createProduct, login } = require("../handlers/admin");
+const {
+  changePassword,
+  createProduct,
+  deleteProduct,
+  login,
+} = require("../handlers/admin");
 
 // #Endpoints.
 
@@ -14,5 +19,8 @@ router.post("/api/admin/login", login);
 
 // Create a new product.
 router.post("/api/admin/products", createProduct);
+
+// Delete a product.
+router.delete("/api/admin/products/:_id", deleteProduct);
 
 module.exports = router;

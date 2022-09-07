@@ -101,6 +101,19 @@ Response will be in this structure:
 }
 ```
 
+### DELETE /api/admin/products/:id
+
+Delete a specified product in the database by id.
+
+Response will be in the following structure:
+
+```json
+{
+  "status": 204,
+  "message": "If a message is required it will be here."
+}
+```
+
 ## Order Endpoints
 
 ### GET /api/orders
