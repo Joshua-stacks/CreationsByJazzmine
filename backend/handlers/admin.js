@@ -156,9 +156,23 @@ const deleteProduct = async (req, res) => {
     }
   } catch (err) {
     console.error("Error deleting product:", err);
-    return res
-      .status(500)
-      .json({ status: 500, message: "An unknown error occurred." });
+
+    switch (err.name) {
+      // Id provided is not a valid ObjectId.
+      case "BSONTypeError":
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid id provided.",
+          data: { _id },
+        });
+
+      default:
+        return res.status(500).json({
+          status: 500,
+          message: "An unknown error occurred.",
+          data: { _id },
+        });
+    }
   } finally {
     client.close();
   }
