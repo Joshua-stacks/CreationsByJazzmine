@@ -1,5 +1,5 @@
 // Require MongoDB related functions.
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 
 // Require environment variables.
 require("dotenv").config();
@@ -8,15 +8,15 @@ const { MONGO_URI } = process.env;
 // Require bcrypt for password encryption.
 const bcrypt = require("bcrypt");
 
-// Set MongoDB options.
-const options = {
+// Set MongoDB parameters.
+const parameters = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
 
 // Change the user's password.
 const changePassword = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, options);
+  const client = new MongoClient(MONGO_URI, parameters);
 
   // Extract the required details from the request.
   const { username, oldPassword, newPassword } = req.body;
@@ -87,9 +87,100 @@ const changePassword = async (req, res) => {
   }
 };
 
+// Create a new product.
+const createProduct = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, parameters);
+
+  // Extract the required details from the request.
+  const { category, image_src, max, min, name, options, price } = req.body;
+
+  // If any values are missing respond with a bad request.
+  if (!category || !max || !min || !name || !options || !price) {
+    return res
+      .status(400)
+      .json({ status: 400, message: "Request is missing data." });
+  }
+
+  // Set the new product object to be inserted.
+  const newProduct = { name, category, price, image_src, min, max, options };
+
+  try {
+    await client.connect();
+    const products = client.db("Project").collection("Product");
+
+    // Insert the new product into the database.
+    const response = await products.insertOne(newProduct);
+
+    // Verify that the product insertion was successful.
+    if (response.insertedId) {
+      return res.status(201).json({ status: 201, data: { ...newProduct } });
+    } else {
+      return res.status(502).json({
+        status: 502,
+        message: "Something went wrong, please try again.",
+        data: { ...newProduct },
+      });
+    }
+  } catch (err) {
+    console.error("Error occurred creating product:", err);
+    return res
+      .status(500)
+      .json({ status: 500, message: "An unknown error occured." });
+  } finally {
+    client.close();
+  }
+};
+
+// Delete a product.
+const deleteProduct = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, parameters);
+
+  // Extract the required details from the request.
+  const { _id } = req.params;
+
+  try {
+    await client.connect();
+    const products = client.db("Project").collection("Product");
+
+    // Delete the specified product by id.
+    const response = await products.deleteOne({ _id: ObjectId(_id) });
+
+    // Verify that the product was deleted.
+    if (response.deletedCount) {
+      return res.status(204).json({ status: 204 });
+    } else {
+      return res.status(502).json({
+        status: 502,
+        message: "Deletion failed, please try again.",
+      });
+    }
+  } catch (err) {
+    console.error("Error deleting product:", err);
+
+    switch (err.name) {
+      // Id provided is not a valid ObjectId.
+      case "BSONTypeError":
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid id provided.",
+          data: { _id },
+        });
+
+      default:
+        return res.status(500).json({
+          status: 500,
+          message: "An unknown error occurred.",
+          data: { _id },
+        });
+    }
+  } finally {
+    client.close();
+  }
+};
+
 // Log the user in given username and password.
 const login = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, options);
+  const client = new MongoClient(MONGO_URI, parameters);
 
   // Extract the required details from the request.
   const { username, password } = req.body;
@@ -148,4 +239,71 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { changePassword, login };
+// Update an existing product.
+const updateProduct = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, parameters);
+
+  // Extract the required details from the request.
+  const { _id } = req.params;
+
+  try {
+    await client.connect();
+    const products = client.db("Project").collection("Product");
+
+    // Verify that the product exists.
+    const product = await products.findOne({ _id: ObjectId(_id) });
+
+    if (!product) {
+      return res
+        .status(404)
+        .json({ status: 404, message: "No product found.", data: { _id } });
+    }
+
+    // Set arguments for update.
+    const query = { _id: ObjectId(_id) };
+    const patch = { $set: { ...req.body } };
+
+    // Verify that the update was successful.
+    const response = await products.updateOne(query, patch);
+
+    if (response.modifiedCount) {
+      return res
+        .status(200)
+        .json({ status: 200, data: { ...product, ...req.body } });
+    } else {
+      // Mongo failed to update, throw a generic error.
+      return res
+        .status(502)
+        .json({ status: 502, message: "Update failed, please try again." });
+    }
+  } catch (err) {
+    console.error("Error occurred updating product:", err);
+
+    switch (err.name) {
+      // Id provided is not a valid ObjectId.
+      case "BSONTypeError":
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid id provided.",
+          data: { _id },
+        });
+
+      default:
+        return res.status(500).json({
+          status: 500,
+          message: "An unknown error occurred.",
+          data: { _id },
+        });
+    }
+  } finally {
+    client.close();
+  }
+};
+
+module.exports = {
+  changePassword,
+  createProduct,
+  deleteProduct,
+  login,
+  updateProduct,
+};

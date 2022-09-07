@@ -5,15 +5,15 @@ const { MongoClient, ObjectId } = require("mongodb");
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
-// Set MongoDB options.
-const options = {
+// Set MongoDB parameters.
+const parameters = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
 
 // Get all products
 const getAllProd = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, options);
+  const client = new MongoClient(MONGO_URI, parameters);
   try {
     await client.connect();
     const db = client.db("Project");
@@ -36,7 +36,7 @@ const getAllProd = async (req, res) => {
 
 //Get one product
 const getProd = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, options);
+  const client = new MongoClient(MONGO_URI, parameters);
   //Get the item by _id
   const prod = req.params._id;
   try {

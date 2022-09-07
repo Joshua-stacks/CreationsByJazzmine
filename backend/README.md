@@ -60,6 +60,101 @@ Response will be in this structure:
 }
 ```
 
+### POST /api/admin/products
+
+Create a new product in the database.
+
+Expects a body with the following structure:
+
+```json
+{
+  "name": "<name>",
+  "category": "<category>",
+  "price": 24,
+  "image_src": "<image location>",
+  "min": 1,
+  "max": 10,
+  "options": {
+    "<option name>": ["<selection>", "<selection>", "<...>"]
+  }
+}
+```
+
+Response will be in this structure:
+
+```json
+{
+  "status": 201,
+  "message": "If a message is required it will be here.",
+  "data": {
+    "_id": "63188924249fa329d91e0f78",
+    "name": "Cake Topper",
+    "category": "Toppers",
+    "price": 24,
+    "image_src": "/assets/cake-topper.jpg",
+    "min": 1,
+    "max": 10,
+    "options": {
+      "color": ["blue", "green"]
+    }
+  }
+}
+```
+
+### DELETE /api/admin/products/:id
+
+Delete a specified product in the database by id.
+
+Response will be in this structure:
+
+```json
+{
+  "status": 204,
+  "message": "If a message is required it will be here."
+}
+```
+
+### PATCH /api/admin/products/:id
+
+Update a specified product in the database by id.
+
+Expects a body with the following structure, keys can be omitted if they are not being changed:
+
+```json
+{
+  "name": "Basic Cake Topper",
+  "category": "Toppers",
+  "price": 15,
+  "image_src": "/assets/CakeTopper.jpg",
+  "min": 1,
+  "max": 10,
+  "options": {
+    "color": ["blue", "white", "black"]
+  }
+}
+```
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "If a message is required it will be here.",
+  "data": {
+    "_id": "6317c20ba45f837cfa3cf71e",
+    "name": "Basic Cake Topper",
+    "category": "Toppers",
+    "price": 15,
+    "image_src": "/assets/CakeTopper.jpg",
+    "min": 1,
+    "max": 10,
+    "options": {
+      "color": ["blue", "white", "black"]
+    }
+  }
+}
+```
+
 ## Order Endpoints
 
 ### GET /api/orders
