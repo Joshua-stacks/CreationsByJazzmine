@@ -225,4 +225,71 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { changePassword, createProduct, deleteProduct, login };
+// Update an existing product.
+const updateProduct = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, parameters);
+
+  // Extract the required details from the request.
+  const { _id } = req.params;
+
+  try {
+    await client.connect();
+    const products = client.db("Project").collection("Product");
+
+    // Verify that the product exists.
+    const product = await products.findOne({ _id: ObjectId(_id) });
+
+    if (!product) {
+      return res
+        .status(404)
+        .json({ status: 404, message: "No product found.", data: { _id } });
+    }
+
+    // Set arguments for update.
+    const query = { _id: ObjectId(_id) };
+    const patch = { $set: { ...req.body } };
+
+    // Verify that the update was successful.
+    const response = await products.updateOne(query, patch);
+
+    if (response.modifiedCount) {
+      return res
+        .status(200)
+        .json({ status: 200, data: { ...product, ...req.body } });
+    } else {
+      // Mongo failed to update, throw a generic error.
+      return res
+        .status(502)
+        .json({ status: 502, message: "Update failed, please try again." });
+    }
+  } catch (err) {
+    console.error("Error occurred updating product:", err);
+
+    switch (err.name) {
+      // Id provided is not a valid ObjectId.
+      case "BSONTypeError":
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid id provided.",
+          data: { _id },
+        });
+
+      default:
+        return res.status(500).json({
+          status: 500,
+          message: "An unknown error occurred.",
+          data: { _id },
+        });
+    }
+  } finally {
+    client.close();
+  }
+};
+
+module.exports = {
+  changePassword,
+  createProduct,
+  deleteProduct,
+  login,
+  updateProduct,
+};

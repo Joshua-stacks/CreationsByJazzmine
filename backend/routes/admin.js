@@ -7,6 +7,7 @@ const {
   createProduct,
   deleteProduct,
   login,
+  updateProduct,
 } = require("../handlers/admin");
 
 // #Endpoints.
@@ -22,5 +23,8 @@ router.post("/api/admin/products", createProduct);
 
 // Delete a product.
 router.delete("/api/admin/products/:_id", deleteProduct);
+
+// Update a product.
+router.patch("/api/admin/products/:_id", updateProduct);
 
 module.exports = router;
