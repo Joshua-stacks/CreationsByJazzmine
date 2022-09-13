@@ -1,9 +1,13 @@
 const express = require("express");
 const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 
 const PORT = 8000;
 
 const app = express();
+
+//Server will be using cookies to store information
+app.use(cookieParser());
 
 // Server will log more information to the console.
 app.use(morgan("tiny"));

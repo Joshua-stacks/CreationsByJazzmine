@@ -7,6 +7,8 @@ import Products from "./components/Products";
 import About from "./components/About";
 import Orders from "./components/Orders";
 import Cart from "./components/Cart";
+import Admin from "./components/Admin";
+import AdminPage from "./components/AdminPage";
 
 import { ProductProvider } from "./components/ContextComponents/ProductContext";
 
@@ -29,6 +31,16 @@ const App = () => {
         <Route exact path="/about" element={<About />} />
         <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/admin" element={<Admin />} />
+        <Route
+          exact
+          path="/adminPage"
+          element={
+            <ProductProvider>
+              <AdminPage />
+            </ProductProvider>
+          }
+        />
       </Routes>
     </Router>
   );

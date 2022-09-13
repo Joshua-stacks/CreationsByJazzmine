@@ -184,6 +184,13 @@ const login = async (req, res) => {
 
   // Extract the required details from the request.
   const { username, password } = req.body;
+  //testing cookies
+  if (req.cookies["cookiename"] === "admin") {
+    return res.status(200).json({
+      status: 200,
+      data: "good",
+    });
+  }
 
   // If either value is missing respond with a bad request.
   if (!username || !password) {
@@ -210,7 +217,7 @@ const login = async (req, res) => {
     }
 
     // Verify that the password entered is correct.
-    const isPasswordCorrect = await bcrypt.compare(password, admin.password);
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (!isPasswordCorrect) {
       return res.status(401).json({
@@ -222,7 +229,11 @@ const login = async (req, res) => {
       // Remove the password from the response.
       const clone = { ...user };
       delete clone.password;
-
+      res.cookie("signedin", true, {
+        maxAge: 86400 * 1000, // 24 hours
+        httpOnly: true, // http only, prevents JavaScript cookie access
+        secure: true, // cookie must be sent over https / ssl
+      });
       return res.status(200).json({
         status: 200,
         data: { user: clone },
