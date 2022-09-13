@@ -20,9 +20,8 @@ app.use(express.static("public"));
 
 // Endpoints.
 app.use(require("./routes/admin"));
-
+app.use(require("./routes/cart"));
 app.use(require("./routes/products"));
-
 app.use(require("./routes/orders"));
 
 app.get("*", (req, res) => {

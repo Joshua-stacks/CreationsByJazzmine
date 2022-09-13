@@ -3,6 +3,7 @@
 Endpoints are grouped in the following categories:
 
 - **administrator** - relating to admin accounts and functions
+- **cart** - relating to customer carts
 - **order** - relating to customer orders
 - **product** - relating to available products
 
@@ -152,6 +153,31 @@ Response will be in this structure:
       "color": ["blue", "white", "black"]
     }
   }
+}
+```
+
+## Cart Endpoints
+
+### GET /api/cart
+
+Get the customer's cart, or create it if they don't have one.
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "If a message is required it will be here.",
+  "data": [
+    {
+      "itemId": "63209c1c7e7c76941e32f1d0",
+      "count": 3
+    },
+    {
+      "itemId": "63209c1c7e7c76941e32fsd",
+      "count": 5
+    }
+  ]
 }
 ```
 
