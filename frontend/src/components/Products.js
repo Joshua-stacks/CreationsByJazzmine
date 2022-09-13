@@ -10,7 +10,6 @@ const Products = () => {
 
   const categories = [...new Set(products.map((x) => x.category))];
 
-  console.log(selectedCat);
   const filteredProd = products.filter((d) => d.category === selectedCat);
 
   return (
