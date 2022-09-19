@@ -208,7 +208,38 @@ Response will be in this structure:
     {
       "itemId": "63209c1c7e7c76941e32fsd",
       "count": 5
+    },
+    {
+      "itemId": "63209c1c7e7c7698s432fsd",
+      "count": 1
     }
+  ]
+}
+```
+
+### DELETE /api/cart/client
+
+Remove an item from the customer's cart.
+
+Expects a body with the following structure:
+
+```json
+{
+  "itemId": "<id of the item to be removed>"
+}
+```
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "If a message is required it will be here.",
+  "data": [
+    {
+      "itemId": "63209c1c7e7c76941e32f1d0",
+      "count": 3
+    },
     {
       "itemId": "63209c1c7e7c7698s432fsd",
       "count": 1
