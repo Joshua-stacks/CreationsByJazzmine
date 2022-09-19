@@ -2,7 +2,12 @@
 const router = require("express").Router();
 
 // Require handlers.
-const { addItem, createCart, deleteItem } = require("../handlers/cart");
+const {
+  addItem,
+  createCart,
+  deleteItem,
+  updateItem,
+} = require("../handlers/cart");
 
 // Endpoints.
 
@@ -14,5 +19,8 @@ router.get("/api/cart", createCart);
 
 // Delete an item from the user's cart.
 router.delete("/api/cart/client", deleteItem);
+
+// Update an item's quantity in the user's cart.
+router.patch("/api/cart/client", updateItem);
 
 module.exports = router;
