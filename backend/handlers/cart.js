@@ -84,7 +84,15 @@ const createCart = async (req, res) => {
       // Fetch the cart from the database.
       const cart = await carts.findOne({ _id: cartId });
 
-      return res.status(200).json({ status: 200, data: cart.items });
+      // Verify that the cart was found.
+      if (cart) {
+        return res.status(200).json({ status: 200, data: cart.items });
+      } else {
+        return res.status(404).json({
+          status: 404,
+          message: "Cart not found.",
+        });
+      }
     }
 
     // Create the cart.
