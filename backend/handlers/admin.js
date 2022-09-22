@@ -178,19 +178,17 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-// Log the user in given username and password.
+// Log the administrator in given username and password.
 const login = async (req, res) => {
   const client = new MongoClient(MONGO_URI, parameters);
 
+  // Check if the user is already logged in.
+  if (req.cookies["isAdmin"] === true) {
+    return res.status(200).json({ status: 200 });
+  }
+
   // Extract the required details from the request.
   const { username, password } = req.body;
-  //testing cookies
-  if (req.cookies["cookiename"] === "admin") {
-    return res.status(200).json({
-      status: 200,
-      data: "good",
-    });
-  }
 
   // If either value is missing respond with a bad request.
   if (!username || !password) {
@@ -229,11 +227,14 @@ const login = async (req, res) => {
       // Remove the password from the response.
       const clone = { ...user };
       delete clone.password;
-      res.cookie("signedin", true, {
-        maxAge: 86400 * 1000, // 24 hours
-        httpOnly: true, // http only, prevents JavaScript cookie access
-        secure: true, // cookie must be sent over https / ssl
+
+      // Send a cookie so the user does not need to re-enter their credentials.
+      res.cookie("isAdmin", true, {
+        maxAge: 86400 * 1000, // Cookie will timeout after 24hrs.
+        httpOnly: true,
+        secure: true,
       });
+
       return res.status(200).json({
         status: 200,
         data: { user: clone },

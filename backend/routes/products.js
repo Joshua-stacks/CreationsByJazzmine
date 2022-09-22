@@ -2,7 +2,7 @@
 const router = require("express").Router();
 
 // Require handlers.
-const { getAllProd, getProd } = require("../handlers/productsHandle");
+const { getAllProd, getProd } = require("../handlers/products");
 
 // #Endpoints.
 

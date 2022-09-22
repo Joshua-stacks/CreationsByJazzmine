@@ -3,6 +3,7 @@
 Endpoints are grouped in the following categories:
 
 - **administrator** - relating to admin accounts and functions
+- **cart** - relating to customer carts
 - **order** - relating to customer orders
 - **product** - relating to available products
 
@@ -152,6 +153,130 @@ Response will be in this structure:
       "color": ["blue", "white", "black"]
     }
   }
+}
+```
+
+## Cart Endpoints
+
+### GET /api/cart
+
+Get the customer's cart, or create it if they don't have one.
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "If a message is required it will be here.",
+  "data": [
+    {
+      "itemId": "63209c1c7e7c76941e32f1d0",
+      "count": 3
+    },
+    {
+      "itemId": "63209c1c7e7c76941e32fsd",
+      "count": 5
+    }
+  ]
+}
+```
+
+### POST /api/cart/client
+
+Add an item to the customer's cart.
+
+Expects a body with the following structure:
+
+```json
+{
+  "itemId": "<id of the item to be added>",
+  "count": "<amount to add>"
+}
+```
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "If a message is required it will be here.",
+  "data": [
+    {
+      "itemId": "63209c1c7e7c76941e32f1d0",
+      "count": 3
+    },
+    {
+      "itemId": "63209c1c7e7c76941e32fsd",
+      "count": 5
+    },
+    {
+      "itemId": "63209c1c7e7c7698s432fsd",
+      "count": 1
+    }
+  ]
+}
+```
+
+### DELETE /api/cart/client
+
+Remove an item from the customer's cart.
+
+Expects a body with the following structure:
+
+```json
+{
+  "itemId": "<id of the item to be removed>"
+}
+```
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "If a message is required it will be here.",
+  "data": [
+    {
+      "itemId": "63209c1c7e7c76941e32f1d0",
+      "count": 3
+    },
+    {
+      "itemId": "63209c1c7e7c7698s432fsd",
+      "count": 1
+    }
+  ]
+}
+```
+
+### PATCH /api/cart/client
+
+Update an item's count in the customer's cart.
+
+Expects a body with the following structure:
+
+```json
+{
+  "itemId": "<id of the item to be updated>",
+  "count": "<new count of the item>"
+}
+```
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "If a message is required it will be here.",
+  "data": [
+    {
+      "itemId": "63209c1c7e7c76941e32f1d0",
+      "count": 3
+    },
+    {
+      "itemId": "63209c1c7e7c7698s432fsd",
+      "count": 2
+    }
+  ]
 }
 ```
 
