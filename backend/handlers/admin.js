@@ -365,11 +365,21 @@ const updateOrder = async (req, res) => {
       });
     }
   } catch (err) {
-    console.error("Error updating order:", err);
-    return res.status(500).json({
-      status: 500,
-      message: "An unknown error occurred.",
-    });
+    switch (err.name) {
+      // An invalid order id was provided.
+      case "BSONTypeError":
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid order id provided.",
+        });
+
+      default:
+        console.error("Error updating order:", err);
+        return res.status(500).json({
+          status: 500,
+          message: "An unknown error occurred",
+        });
+    }
   } finally {
     client.close();
   }
