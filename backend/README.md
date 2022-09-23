@@ -180,6 +180,22 @@ Response will be in this structure:
 }
 ```
 
+### DELETE /api/admin/orders/:orderId
+
+Delete an order in the database by id.
+
+Response will be in this structure:
+
+```json
+{
+  "status": 204,
+  "message": "If a message is required it will be here.",
+  "data": {
+    "orderId": "631ba50bbf1ef0b0bb4341e4"
+  }
+}
+```
+
 ## Cart Endpoints
 
 ### POST /api/cart/client

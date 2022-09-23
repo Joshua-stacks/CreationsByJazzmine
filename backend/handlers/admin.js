@@ -375,6 +375,51 @@ const updateOrder = async (req, res) => {
   }
 };
 
+// Delete an order.
+const deleteOrder = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, mongoOptions);
+
+  // Extract the required details from the request.
+  const { orderId } = req.params;
+
+  try {
+    await client.connect();
+    const orders = client.db("Project").collection("Orders");
+
+    // Delete the specified order by id.
+    const response = await orders.deleteOne({ _id: ObjectId(orderId) });
+
+    // Verify that the order was deleted.
+    if (response.deletedCount) {
+      return res.status(204).json({ status: 204 });
+    } else {
+      return res.status(502).json({
+        status: 502,
+        message: "Deletion failed, please try again.",
+        data: { orderId },
+      });
+    }
+  } catch (err) {
+    switch (err.name) {
+      // An invalid order id was provided.
+      case "BSONTypeError":
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid order id provided.",
+        });
+
+      default:
+        console.error("Error deleting order:", err);
+        return res.status(500).json({
+          status: 500,
+          message: "An unknown error occurred",
+        });
+    }
+  } finally {
+    client.close();
+  }
+};
+
 module.exports = {
   login,
   changePassword,
@@ -382,4 +427,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   updateOrder,
+  deleteOrder,
 };

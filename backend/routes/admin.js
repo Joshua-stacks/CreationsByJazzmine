@@ -9,6 +9,7 @@ const {
   updateProduct,
   deleteProduct,
   updateOrder,
+  deleteOrder,
 } = require("../handlers/admin");
 
 // #Endpoints.
@@ -30,5 +31,8 @@ router.delete("/api/admin/products/:productId", deleteProduct);
 
 // Update an order.
 router.patch("/api/admin/orders/:orderId", updateOrder);
+
+// Delete an order.
+router.delete("/api/admin/orders/:orderId", deleteOrder);
 
 module.exports = router;
