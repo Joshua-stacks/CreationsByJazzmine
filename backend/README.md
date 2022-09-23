@@ -102,20 +102,7 @@ Response will be in this structure:
 }
 ```
 
-### DELETE /api/admin/products/:id
-
-Delete a specified product in the database by id.
-
-Response will be in this structure:
-
-```json
-{
-  "status": 204,
-  "message": "If a message is required it will be here."
-}
-```
-
-### PATCH /api/admin/products/:id
+### PATCH /api/admin/products/:productId
 
 Update a specified product in the database by id.
 
@@ -156,11 +143,30 @@ Response will be in this structure:
 }
 ```
 
-## Cart Endpoints
+### DELETE /api/admin/products/:productId
 
-### GET /api/cart
+Delete a specified product in the database by id.
 
-Get the customer's cart, or create it if they don't have one.
+Response will be in this structure:
+
+```json
+{
+  "status": 204,
+  "message": "If a message is required it will be here."
+}
+```
+
+### PATCH /api/admin/orders/:orderId
+
+Update an order in the database by id.
+
+Expects a body with the following structure:
+
+```json
+{
+  "status": "<order status>"
+}
+```
 
 Response will be in this structure:
 
@@ -168,18 +174,29 @@ Response will be in this structure:
 {
   "status": 200,
   "message": "If a message is required it will be here.",
-  "data": [
-    {
-      "itemId": "63209c1c7e7c76941e32f1d0",
-      "count": 3
-    },
-    {
-      "itemId": "63209c1c7e7c76941e32fsd",
-      "count": 5
-    }
-  ]
+  "data": {
+    "status": "Delivered"
+  }
 }
 ```
+
+### DELETE /api/admin/orders/:orderId
+
+Delete an order in the database by id.
+
+Response will be in this structure:
+
+```json
+{
+  "status": 204,
+  "message": "If a message is required it will be here.",
+  "data": {
+    "orderId": "631ba50bbf1ef0b0bb4341e4"
+  }
+}
+```
+
+## Cart Endpoints
 
 ### POST /api/cart/client
 
@@ -217,17 +234,9 @@ Response will be in this structure:
 }
 ```
 
-### DELETE /api/cart/client
+### GET /api/cart
 
-Remove an item from the customer's cart.
-
-Expects a body with the following structure:
-
-```json
-{
-  "itemId": "<id of the item to be removed>"
-}
-```
+Get the customer's cart, or create it if they don't have one.
 
 Response will be in this structure:
 
@@ -241,8 +250,8 @@ Response will be in this structure:
       "count": 3
     },
     {
-      "itemId": "63209c1c7e7c7698s432fsd",
-      "count": 1
+      "itemId": "63209c1c7e7c76941e32fsd",
+      "count": 5
     }
   ]
 }
@@ -280,6 +289,37 @@ Response will be in this structure:
 }
 ```
 
+### DELETE /api/cart/client
+
+Remove an item from the customer's cart.
+
+Expects a body with the following structure:
+
+```json
+{
+  "itemId": "<id of the item to be removed>"
+}
+```
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "If a message is required it will be here.",
+  "data": [
+    {
+      "itemId": "63209c1c7e7c76941e32f1d0",
+      "count": 3
+    },
+    {
+      "itemId": "63209c1c7e7c7698s432fsd",
+      "count": 1
+    }
+  ]
+}
+```
+
 ## Order Endpoints
 
 ### GET /api/orders
@@ -302,7 +342,7 @@ Response will be in this structure:
 }
 ```
 
-### GET /api/order/:id
+### GET /api/orders/:orderId
 
 Get an order by specified id in the database.
 
@@ -350,7 +390,7 @@ Response will be in this structure:
 }
 ```
 
-### GET /api/product/:id
+### GET /api/products/:productId
 
 Get a single product by id.
 

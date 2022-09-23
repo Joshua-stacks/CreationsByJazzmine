@@ -4,7 +4,7 @@ const router = require("express").Router();
 // Require handlers.
 const {
   addItem,
-  createCart,
+  getCart,
   deleteItem,
   updateItem,
 } = require("../handlers/cart");
@@ -14,8 +14,8 @@ const {
 // Add an item to the user's cart.
 router.post("/api/cart/client", addItem);
 
-// Create a cart for the user or retrieve it if it already exists.
-router.get("/api/cart", createCart);
+// Get the user's cart, or create one if it doesn't exist.
+router.get("/api/cart", getCart);
 
 // Delete an item from the user's cart.
 router.delete("/api/cart/client", deleteItem);

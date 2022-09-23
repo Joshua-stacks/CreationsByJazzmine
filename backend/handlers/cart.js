@@ -36,7 +36,10 @@ const addItem = async (req, res) => {
 
     // Verify that the cart was found.
     if (!cart) {
-      return res.status(404).json({ status: 404, message: "Cart not found." });
+      return res.status(404).json({
+        status: 404,
+        message: "Cart not found.",
+      });
     }
 
     // Add the item into the items array.
@@ -51,7 +54,10 @@ const addItem = async (req, res) => {
 
     // Verify that the update was successful.
     if (response.modifiedCount) {
-      return res.status(200).json({ status: 200, data: items });
+      return res.status(200).json({
+        status: 200,
+        data: items,
+      });
     } else {
       return res.status(502).json({
         status: 502,
@@ -69,8 +75,8 @@ const addItem = async (req, res) => {
   }
 };
 
-// Create a cart for the client.
-const createCart = async (req, res) => {
+// Get the client's cart, or create one if it doesn't exist.
+const getCart = async (req, res) => {
   const client = new MongoClient(MONGO_URI, mongoOptions);
 
   try {
@@ -86,7 +92,10 @@ const createCart = async (req, res) => {
 
       // Verify that the cart was found.
       if (cart) {
-        return res.status(200).json({ status: 200, data: cart.items });
+        return res.status(200).json({
+          status: 200,
+          data: cart.items,
+        });
       } else {
         return res.status(404).json({
           status: 404,
@@ -110,11 +119,11 @@ const createCart = async (req, res) => {
     } else {
       return res.status(502).json({
         status: 502,
-        message: "Cart creation failed, please try again.",
+        message: "Creation failed, please try again.",
       });
     }
   } catch (err) {
-    console.error("Error creating cart:", err);
+    console.error("Error getting cart:", err);
     return res.status(500).json({
       status: 500,
       message: "An unknown error occurred.",
@@ -149,7 +158,10 @@ const deleteItem = async (req, res) => {
 
     // Verify that the cart was found.
     if (!cart) {
-      return res.status(404).json({ status: 404, message: "Cart not found." });
+      return res.status(404).json({
+        status: 404,
+        message: "Cart not found.",
+      });
     }
 
     // Remove the item to be deleted from the items array.
@@ -207,7 +219,10 @@ const updateItem = async (req, res) => {
 
     // Verify that the cart was found.
     if (!cart) {
-      return res.status(404).json({ status: 404, message: "Cart not found." });
+      return res.status(404).json({
+        status: 404,
+        message: "Cart not found.",
+      });
     }
 
     // Update the item's quantity in the items array.
@@ -237,7 +252,7 @@ const updateItem = async (req, res) => {
       });
     }
   } catch (err) {
-    console.error("Error deleting item:", err);
+    console.error("Error updating item:", err);
     return res.status(500).json({
       status: 500,
       message: "An unknown error occured.",
@@ -247,4 +262,4 @@ const updateItem = async (req, res) => {
   }
 };
 
-module.exports = { addItem, createCart, deleteItem };
+module.exports = { addItem, getCart, updateItem, deleteItem };

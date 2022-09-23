@@ -3,28 +3,36 @@ const router = require("express").Router();
 
 // Require handlers.
 const {
+  login,
   changePassword,
   createProduct,
-  deleteProduct,
-  login,
   updateProduct,
+  deleteProduct,
+  updateOrder,
+  deleteOrder,
 } = require("../handlers/admin");
 
 // #Endpoints.
 
-// Change the admin's password.
-router.patch("/api/admin/account", changePassword);
-
 // Sign in as admin.
 router.post("/api/admin/login", login);
+
+// Change the admin's password.
+router.patch("/api/admin/account", changePassword);
 
 // Create a new product.
 router.post("/api/admin/products", createProduct);
 
-// Delete a product.
-router.delete("/api/admin/products/:_id", deleteProduct);
-
 // Update a product.
-router.patch("/api/admin/products/:_id", updateProduct);
+router.patch("/api/admin/products/:productId", updateProduct);
+
+// Delete a product.
+router.delete("/api/admin/products/:productId", deleteProduct);
+
+// Update an order.
+router.patch("/api/admin/orders/:orderId", updateOrder);
+
+// Delete an order.
+router.delete("/api/admin/orders/:orderId", deleteOrder);
 
 module.exports = router;
