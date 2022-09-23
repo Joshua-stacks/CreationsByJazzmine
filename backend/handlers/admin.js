@@ -9,14 +9,14 @@ const { MONGO_URI } = process.env;
 const bcrypt = require("bcrypt");
 
 // Set MongoDB parameters.
-const parameters = {
+const mongoOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
 
 // Log the administrator in given username and password.
 const login = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, parameters);
+  const client = new MongoClient(MONGO_URI, mongoOptions);
 
   // Check if the user is already logged in.
   if (req.cookies["isAdmin"] === true) {
@@ -89,7 +89,7 @@ const login = async (req, res) => {
 
 // Change the user's password.
 const changePassword = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, parameters);
+  const client = new MongoClient(MONGO_URI, mongoOptions);
 
   // Extract the required details from the request.
   const { username, oldPassword, newPassword } = req.body;
@@ -162,7 +162,7 @@ const changePassword = async (req, res) => {
 
 // Create a new product.
 const createProduct = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, parameters);
+  const client = new MongoClient(MONGO_URI, mongoOptions);
 
   // Extract the required details from the request.
   const { category, image_src, max, min, name, options, price } = req.body;
@@ -208,7 +208,7 @@ const createProduct = async (req, res) => {
 
 // Update an existing product.
 const updateProduct = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, parameters);
+  const client = new MongoClient(MONGO_URI, mongoOptions);
 
   // Extract the required details from the request.
   const { productId } = req.params;
@@ -273,7 +273,7 @@ const updateProduct = async (req, res) => {
 
 // Delete a product.
 const deleteProduct = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, parameters);
+  const client = new MongoClient(MONGO_URI, mongoOptions);
 
   // Extract the required details from the request.
   const { productId } = req.params;
@@ -318,10 +318,68 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// Update an order.
+const updateOrder = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, mongoOptions);
+
+  // Extract the required details from the request.
+  const { orderId } = req.params;
+  const { status } = req.body;
+
+  // If any details are missing respond with a bad request.
+  if (!status) {
+    return res.status(400).json({
+      status: 400,
+      message: "Request is missing data.",
+    });
+  }
+
+  try {
+    await client.connect();
+    const orders = client.db("Project").collection("Orders");
+
+    // Setup arguments for update.
+    const query = { _id: ObjectId(orderId) };
+    const patch = { $set: { status } };
+
+    // Verify that the update was successful.
+    const response = await orders.updateOne(query, patch);
+
+    if (!response.matchedCount) {
+      // Order with given id does not exist.
+      return res.status(404).json({
+        status: 404,
+        message: "No order found.",
+      });
+    } else if (!response.modifiedCount) {
+      // Mongo failed to update the order.
+      return res.status(502).json({
+        status: 502,
+        message: "Update failed, or nothing was changed.",
+        data: { status },
+      });
+    } else {
+      return res.status(200).json({
+        status: 200,
+        data: { status },
+      });
+    }
+  } catch (err) {
+    console.error("Error updating order:", err);
+    return res.status(500).json({
+      status: 500,
+      message: "An unknown error occurred.",
+    });
+  } finally {
+    client.close();
+  }
+};
+
 module.exports = {
   login,
   changePassword,
   createProduct,
   updateProduct,
   deleteProduct,
+  updateOrder,
 };

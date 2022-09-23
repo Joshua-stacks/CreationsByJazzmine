@@ -156,6 +156,30 @@ Response will be in this structure:
 }
 ```
 
+### PATCH /api/admin/orders/:orderId
+
+Update an order in the database by id.
+
+Expects a body with the following structure:
+
+```json
+{
+  "status": "<order status>"
+}
+```
+
+Response will be in this structure:
+
+```json
+{
+  "status": 200,
+  "message": "If a message is required it will be here.",
+  "data": {
+    "status": "Delivered"
+  }
+}
+```
+
 ## Cart Endpoints
 
 ### POST /api/cart/client

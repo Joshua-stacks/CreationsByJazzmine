@@ -3,11 +3,12 @@ const router = require("express").Router();
 
 // Require handlers.
 const {
+  login,
   changePassword,
   createProduct,
-  deleteProduct,
-  login,
   updateProduct,
+  deleteProduct,
+  updateOrder,
 } = require("../handlers/admin");
 
 // #Endpoints.
@@ -26,5 +27,8 @@ router.patch("/api/admin/products/:productId", updateProduct);
 
 // Delete a product.
 router.delete("/api/admin/products/:productId", deleteProduct);
+
+// Update an order.
+router.patch("/api/admin/orders/:orderId", updateOrder);
 
 module.exports = router;
