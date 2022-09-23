@@ -22,9 +22,9 @@ router.patch("/api/admin/account", changePassword);
 router.post("/api/admin/products", createProduct);
 
 // Update a product.
-router.patch("/api/admin/products/:_id", updateProduct);
+router.patch("/api/admin/products/:productId", updateProduct);
 
 // Delete a product.
-router.delete("/api/admin/products/:_id", deleteProduct);
+router.delete("/api/admin/products/:productId", deleteProduct);
 
 module.exports = router;

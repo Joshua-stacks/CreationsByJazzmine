@@ -10,6 +10,6 @@ const { getAllOrders, getOrder } = require("../handlers/orders");
 router.get("/api/orders", getAllOrders);
 
 // Get One order
-router.get("/api/orders/:_id", getOrder);
+router.get("/api/orders/:orderId", getOrder);
 
 module.exports = router;
