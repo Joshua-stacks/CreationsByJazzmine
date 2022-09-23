@@ -169,9 +169,10 @@ const createProduct = async (req, res) => {
 
   // If any values are missing respond with a bad request.
   if (!category || !max || !min || !name || !options || !price) {
-    return res
-      .status(400)
-      .json({ status: 400, message: "Request is missing data." });
+    return res.status(400).json({
+      status: 400,
+      message: "Request is missing data.",
+    });
   }
 
   // Set the new product object to be inserted.
@@ -190,15 +191,16 @@ const createProduct = async (req, res) => {
     } else {
       return res.status(502).json({
         status: 502,
-        message: "Something went wrong, please try again.",
+        message: "Creation failed, please try again.",
         data: { ...newProduct },
       });
     }
   } catch (err) {
-    console.error("Error occurred creating product:", err);
-    return res
-      .status(500)
-      .json({ status: 500, message: "An unknown error occured." });
+    console.error("Error creating product:", err);
+    return res.status(500).json({
+      status: 500,
+      message: "An unknown error occured.",
+    });
   } finally {
     client.close();
   }
@@ -209,40 +211,44 @@ const updateProduct = async (req, res) => {
   const client = new MongoClient(MONGO_URI, parameters);
 
   // Extract the required details from the request.
-  const { _id } = req.params;
+  const { productId } = req.params;
 
   try {
     await client.connect();
     const products = client.db("Project").collection("Product");
 
     // Verify that the product exists.
-    const product = await products.findOne({ _id: ObjectId(_id) });
+    const product = await products.findOne({ _id: ObjectId(productId) });
 
     if (!product) {
-      return res
-        .status(404)
-        .json({ status: 404, message: "No product found.", data: { _id } });
+      return res.status(404).json({
+        status: 404,
+        message: "No product found.",
+        data: { productId },
+      });
     }
 
     // Set arguments for update.
-    const query = { _id: ObjectId(_id) };
+    const query = { _id: ObjectId(productId) };
     const patch = { $set: { ...req.body } };
 
     // Verify that the update was successful.
     const response = await products.updateOne(query, patch);
 
     if (response.modifiedCount) {
-      return res
-        .status(200)
-        .json({ status: 200, data: { ...product, ...req.body } });
+      return res.status(200).json({
+        status: 200,
+        data: { ...product, ...req.body },
+      });
     } else {
       // Mongo failed to update, throw a generic error.
-      return res
-        .status(502)
-        .json({ status: 502, message: "Update failed, please try again." });
+      return res.status(502).json({
+        status: 502,
+        message: "Update failed, please try again.",
+      });
     }
   } catch (err) {
-    console.error("Error occurred updating product:", err);
+    console.error("Error updating product:", err);
 
     switch (err.name) {
       // Id provided is not a valid ObjectId.
@@ -270,14 +276,14 @@ const deleteProduct = async (req, res) => {
   const client = new MongoClient(MONGO_URI, parameters);
 
   // Extract the required details from the request.
-  const { _id } = req.params;
+  const { productId } = req.params;
 
   try {
     await client.connect();
     const products = client.db("Project").collection("Product");
 
     // Delete the specified product by id.
-    const response = await products.deleteOne({ _id: ObjectId(_id) });
+    const response = await products.deleteOne({ _id: ObjectId(productId) });
 
     // Verify that the product was deleted.
     if (response.deletedCount) {
@@ -297,14 +303,14 @@ const deleteProduct = async (req, res) => {
         return res.status(400).json({
           status: 400,
           message: "Invalid id provided.",
-          data: { _id },
+          data: { productId },
         });
 
       default:
         return res.status(500).json({
           status: 500,
           message: "An unknown error occurred.",
-          data: { _id },
+          data: { productId },
         });
     }
   } finally {
