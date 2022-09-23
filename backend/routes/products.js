@@ -10,6 +10,6 @@ const { getAllProd, getProd } = require("../handlers/products");
 router.get("/api/products", getAllProd);
 
 //Get one product
-router.get("/api/product/:_id", getProd);
+router.get("/api/products/:_id", getProd);
 
 module.exports = router;

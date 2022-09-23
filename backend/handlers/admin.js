@@ -14,6 +14,79 @@ const parameters = {
   useUnifiedTopology: true,
 };
 
+// Log the administrator in given username and password.
+const login = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, parameters);
+
+  // Check if the user is already logged in.
+  if (req.cookies["isAdmin"] === true) {
+    return res.status(200).json({ status: 200 });
+  }
+
+  // Extract the required details from the request.
+  const { username, password } = req.body;
+
+  // If either value is missing respond with a bad request.
+  if (!username || !password) {
+    return res.status(400).json({
+      status: 400,
+      message: "Request is missing data.",
+    });
+  }
+
+  try {
+    await client.connect();
+    const accounts = client.db("Project").collection("Administrators");
+
+    // Get the specific user by username.
+    const user = await accounts.findOne({ username });
+
+    // Verify that the user attempting to sign in exists.
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: "No user found.",
+        data: { username },
+      });
+    }
+
+    // Verify that the password entered is correct.
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
+      return res.status(401).json({
+        status: 401,
+        message: "Incorrect password provided.",
+        data: { username },
+      });
+    } else {
+      // Remove the password from the response.
+      const clone = { ...user };
+      delete clone.password;
+
+      // Send a cookie so the user does not need to re-enter their credentials.
+      res.cookie("isAdmin", true, {
+        maxAge: 86400 * 1000, // Cookie will timeout after 24hrs.
+        httpOnly: true,
+        secure: true,
+      });
+
+      return res.status(200).json({
+        status: 200,
+        data: { user: clone },
+      });
+    }
+  } catch (err) {
+    console.error("Error logging in:", err);
+    return res.status(500).json({
+      status: 500,
+      message: "An unknown error occurred.",
+    });
+  } finally {
+    client.close();
+  }
+};
+
 // Change the user's password.
 const changePassword = async (req, res) => {
   const client = new MongoClient(MONGO_URI, parameters);
@@ -131,126 +204,6 @@ const createProduct = async (req, res) => {
   }
 };
 
-// Delete a product.
-const deleteProduct = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, parameters);
-
-  // Extract the required details from the request.
-  const { _id } = req.params;
-
-  try {
-    await client.connect();
-    const products = client.db("Project").collection("Product");
-
-    // Delete the specified product by id.
-    const response = await products.deleteOne({ _id: ObjectId(_id) });
-
-    // Verify that the product was deleted.
-    if (response.deletedCount) {
-      return res.status(204).json({ status: 204 });
-    } else {
-      return res.status(502).json({
-        status: 502,
-        message: "Deletion failed, please try again.",
-      });
-    }
-  } catch (err) {
-    console.error("Error deleting product:", err);
-
-    switch (err.name) {
-      // Id provided is not a valid ObjectId.
-      case "BSONTypeError":
-        return res.status(400).json({
-          status: 400,
-          message: "Invalid id provided.",
-          data: { _id },
-        });
-
-      default:
-        return res.status(500).json({
-          status: 500,
-          message: "An unknown error occurred.",
-          data: { _id },
-        });
-    }
-  } finally {
-    client.close();
-  }
-};
-
-// Log the administrator in given username and password.
-const login = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, parameters);
-
-  // Check if the user is already logged in.
-  if (req.cookies["isAdmin"] === true) {
-    return res.status(200).json({ status: 200 });
-  }
-
-  // Extract the required details from the request.
-  const { username, password } = req.body;
-
-  // If either value is missing respond with a bad request.
-  if (!username || !password) {
-    return res.status(400).json({
-      status: 400,
-      message: "Request is missing data.",
-    });
-  }
-
-  try {
-    await client.connect();
-    const accounts = client.db("Project").collection("Administrators");
-
-    // Get the specific user by username.
-    const user = await accounts.findOne({ username });
-
-    // Verify that the user attempting to sign in exists.
-    if (!user) {
-      return res.status(404).json({
-        status: 404,
-        message: "No user found.",
-        data: { username },
-      });
-    }
-
-    // Verify that the password entered is correct.
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordCorrect) {
-      return res.status(401).json({
-        status: 401,
-        message: "Incorrect password provided.",
-        data: { username },
-      });
-    } else {
-      // Remove the password from the response.
-      const clone = { ...user };
-      delete clone.password;
-
-      // Send a cookie so the user does not need to re-enter their credentials.
-      res.cookie("isAdmin", true, {
-        maxAge: 86400 * 1000, // Cookie will timeout after 24hrs.
-        httpOnly: true,
-        secure: true,
-      });
-
-      return res.status(200).json({
-        status: 200,
-        data: { user: clone },
-      });
-    }
-  } catch (err) {
-    console.error("Error logging in:", err);
-    return res.status(500).json({
-      status: 500,
-      message: "An unknown error occurred.",
-    });
-  } finally {
-    client.close();
-  }
-};
-
 // Update an existing product.
 const updateProduct = async (req, res) => {
   const client = new MongoClient(MONGO_URI, parameters);
@@ -312,10 +265,57 @@ const updateProduct = async (req, res) => {
   }
 };
 
+// Delete a product.
+const deleteProduct = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, parameters);
+
+  // Extract the required details from the request.
+  const { _id } = req.params;
+
+  try {
+    await client.connect();
+    const products = client.db("Project").collection("Product");
+
+    // Delete the specified product by id.
+    const response = await products.deleteOne({ _id: ObjectId(_id) });
+
+    // Verify that the product was deleted.
+    if (response.deletedCount) {
+      return res.status(204).json({ status: 204 });
+    } else {
+      return res.status(502).json({
+        status: 502,
+        message: "Deletion failed, please try again.",
+      });
+    }
+  } catch (err) {
+    console.error("Error deleting product:", err);
+
+    switch (err.name) {
+      // Id provided is not a valid ObjectId.
+      case "BSONTypeError":
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid id provided.",
+          data: { _id },
+        });
+
+      default:
+        return res.status(500).json({
+          status: 500,
+          message: "An unknown error occurred.",
+          data: { _id },
+        });
+    }
+  } finally {
+    client.close();
+  }
+};
+
 module.exports = {
+  login,
   changePassword,
   createProduct,
-  deleteProduct,
-  login,
   updateProduct,
+  deleteProduct,
 };

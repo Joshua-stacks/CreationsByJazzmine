@@ -69,8 +69,8 @@ const addItem = async (req, res) => {
   }
 };
 
-// Create a cart for the client.
-const createCart = async (req, res) => {
+// Get the client's cart, or create one if it doesn't exist.
+const getCart = async (req, res) => {
   const client = new MongoClient(MONGO_URI, mongoOptions);
 
   try {
@@ -247,4 +247,4 @@ const updateItem = async (req, res) => {
   }
 };
 
-module.exports = { addItem, createCart, deleteItem };
+module.exports = { addItem, getCart, updateItem, deleteItem };
