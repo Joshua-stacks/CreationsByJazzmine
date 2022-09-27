@@ -206,8 +206,18 @@ Expects a body with the following structure:
 
 ```json
 {
-  "itemId": "<id of the item to be added>",
-  "count": "<amount to add>"
+  "count": "<amount to add>",
+  "item": {
+    "name": "<item name>",
+    "category": "<item category>",
+    "price": 25,
+    "image_src": "<item image url>",
+    "min": 1,
+    "max": 10,
+    "options": {
+      "theme": ["mermaid", "construction", "dinosaur", "unicorn", "custom"]
+    }
+  }
 }
 ```
 
@@ -219,16 +229,32 @@ Response will be in this structure:
   "message": "If a message is required it will be here.",
   "data": [
     {
-      "itemId": "63209c1c7e7c76941e32f1d0",
-      "count": 3
+      "count": 3,
+      "item": {
+        "name": "3D Cake Topper",
+        "category": "Toppers",
+        "price": 25,
+        "image_src": "/assets/3DCakeTopper.jpg",
+        "min": 1,
+        "max": 10,
+        "options": {
+          "theme": ["mermaid", "construction", "dinosaur", "unicorn", "custom"]
+        }
+      }
     },
     {
-      "itemId": "63209c1c7e7c76941e32fsd",
-      "count": 5
-    },
-    {
-      "itemId": "63209c1c7e7c7698s432fsd",
-      "count": 1
+      "count": 1,
+      "item": {
+        "name": "Montly Banner",
+        "category": "Banners",
+        "price": 30,
+        "image_src": "/assets/montlyBanner.jpg",
+        "min": 1,
+        "max": 5,
+        "options": {
+          "theme": ["mermaid", "construction", "dinosaur", "unicorn", "custom"]
+        }
+      }
     }
   ]
 }
@@ -246,12 +272,32 @@ Response will be in this structure:
   "message": "If a message is required it will be here.",
   "data": [
     {
-      "itemId": "63209c1c7e7c76941e32f1d0",
-      "count": 3
+      "count": 3,
+      "item": {
+        "name": "3D Cake Topper",
+        "category": "Toppers",
+        "price": 25,
+        "image_src": "/assets/3DCakeTopper.jpg",
+        "min": 1,
+        "max": 10,
+        "options": {
+          "theme": ["mermaid", "construction", "dinosaur", "unicorn", "custom"]
+        }
+      }
     },
     {
-      "itemId": "63209c1c7e7c76941e32fsd",
-      "count": 5
+      "count": 1,
+      "item": {
+        "name": "Montly Banner",
+        "category": "Banners",
+        "price": 30,
+        "image_src": "/assets/montlyBanner.jpg",
+        "min": 1,
+        "max": 5,
+        "options": {
+          "theme": ["mermaid", "construction", "dinosaur", "unicorn", "custom"]
+        }
+      }
     }
   ]
 }
@@ -265,8 +311,18 @@ Expects a body with the following structure:
 
 ```json
 {
-  "itemId": "<id of the item to be updated>",
-  "count": "<new count of the item>"
+  "count": "<new count of the item>",
+  "item": {
+    "name": "<item name>",
+    "category": "<item category>",
+    "price": 25,
+    "image_src": "<item image url>",
+    "min": 1,
+    "max": 10,
+    "options": {
+      "theme": ["mermaid", "construction", "dinosaur", "unicorn", "custom"]
+    }
+  }
 }
 ```
 
@@ -278,12 +334,32 @@ Response will be in this structure:
   "message": "If a message is required it will be here.",
   "data": [
     {
-      "itemId": "63209c1c7e7c76941e32f1d0",
-      "count": 3
+      "count": 3,
+      "item": {
+        "name": "3D Cake Topper",
+        "category": "Toppers",
+        "price": 25,
+        "image_src": "/assets/3DCakeTopper.jpg",
+        "min": 1,
+        "max": 10,
+        "options": {
+          "theme": ["mermaid", "construction", "dinosaur", "unicorn", "custom"]
+        }
+      }
     },
     {
-      "itemId": "63209c1c7e7c7698s432fsd",
-      "count": 2
+      "count": 1,
+      "item": {
+        "name": "Montly Banner",
+        "category": "Banners",
+        "price": 30,
+        "image_src": "/assets/montlyBanner.jpg",
+        "min": 1,
+        "max": 5,
+        "options": {
+          "theme": ["mermaid", "construction", "dinosaur", "unicorn", "custom"]
+        }
+      }
     }
   ]
 }
@@ -297,7 +373,17 @@ Expects a body with the following structure:
 
 ```json
 {
-  "itemId": "<id of the item to be removed>"
+  "item": {
+    "name": "<item name>",
+    "category": "<item category>",
+    "price": 25,
+    "image_src": "<item image url>",
+    "min": 1,
+    "max": 10,
+    "options": {
+      "theme": ["mermaid", "construction", "dinosaur", "unicorn", "custom"]
+    }
+  }
 }
 ```
 
@@ -309,12 +395,18 @@ Response will be in this structure:
   "message": "If a message is required it will be here.",
   "data": [
     {
-      "itemId": "63209c1c7e7c76941e32f1d0",
-      "count": 3
-    },
-    {
-      "itemId": "63209c1c7e7c7698s432fsd",
-      "count": 1
+      "count": 3,
+      "item": {
+        "name": "3D Cake Topper",
+        "category": "Toppers",
+        "price": 25,
+        "image_src": "/assets/3DCakeTopper.jpg",
+        "min": 1,
+        "max": 10,
+        "options": {
+          "theme": ["mermaid", "construction", "dinosaur", "unicorn", "custom"]
+        }
+      }
     }
   ]
 }
