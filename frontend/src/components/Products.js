@@ -1,7 +1,8 @@
 import { ProductContext } from "./ContextComponents/ProductContext";
 import { useContext, useState } from "react";
 import styled from "styled-components";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { color } from "@mui/system";
 
 const Products = () => {
   const { products } = useContext(ProductContext);
@@ -37,14 +38,30 @@ const Products = () => {
           ? products.map((s) => {
               return (
                 <>
-                  <ImgProd src={s.image_src} />
+                  <LinkProd to={`/product/${s._id}`}>
+                    <ProdsDiv>
+                      <ImgProd src={s.image_src} />
+                      <Info>
+                        <Name>{s.name}</Name>
+                        <div>From {s.price}$</div>
+                      </Info>
+                    </ProdsDiv>
+                  </LinkProd>
                 </>
               );
             })
-          : filteredProd.map((l) => {
+          : filteredProd.map((s) => {
               return (
                 <>
-                  <ImgProd src={l.image_src} />
+                  <LinkProd to={`/product/${s._id}`}>
+                    <ProdsDiv>
+                      <ImgProd src={s.image_src} />
+                      <Info>
+                        <Name>{s.name}</Name>
+                        <div>From {s.price}$</div>
+                      </Info>
+                    </ProdsDiv>
+                  </LinkProd>
                 </>
               );
             })}
@@ -52,6 +69,26 @@ const Products = () => {
     </Wrapper>
   );
 };
+
+const Name = styled.h1`
+  font-size: larger;
+`;
+const Info = styled.div`
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const LinkProd = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+const ProdsDiv = styled.div`
+  display: flex;
+  border-bottom: solid 1px lightgray;
+  padding: 5px;
+`;
 const Wrapper = styled.div``;
 
 const CatSelector = styled.div`
@@ -66,11 +103,18 @@ const ButtonCat = styled.button`
   background: none;
   border-radius: 5px;
   border: 1px solid;
+  &:checked {
+    background-color: blue;
+  }
 `;
-const ProdDiv = styled.div``;
+const ProdDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+`;
 const ImgProd = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: 15px;
 `;
 
