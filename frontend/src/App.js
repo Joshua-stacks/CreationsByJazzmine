@@ -9,8 +9,10 @@ import Orders from "./components/Orders";
 import Cart from "./components/Cart";
 import Admin from "./components/Admin";
 import AdminPage from "./components/AdminPage";
+import ProductPage from "./components/ProductPage";
 
 import { ProductProvider } from "./components/ContextComponents/ProductContext";
+import { ProductPageProvider } from "./components/ContextComponents/ProductPageContext";
 
 const App = () => {
   return (
@@ -26,6 +28,15 @@ const App = () => {
             <ProductProvider>
               <Products />
             </ProductProvider>
+          }
+        />
+        <Route
+          exact
+          path="/product/:_id"
+          element={
+            <ProductPageProvider>
+              <ProductPage />
+            </ProductPageProvider>
           }
         />
         <Route exact path="/about" element={<About />} />

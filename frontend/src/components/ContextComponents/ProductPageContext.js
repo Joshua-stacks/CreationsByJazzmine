@@ -1,19 +1,21 @@
 import { createContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-export const ProductContext = createContext();
+export const ProductPageContext = createContext();
 
-export const ProductProvider = ({ children }) => {
+export const ProductPageProvider = ({ children }) => {
   //States
-  const [products, setProducts] = useState();
+  const [product, setProduct] = useState();
   const [load, setLoad] = useState(false);
+  const value = useParams();
 
   //fetching data
   useEffect(() => {
     const fetchProd = async () => {
-      const data = await fetch("/api/products");
+      const data = await fetch(`/api/products/${value._id}`);
       const prod = await data.json();
       setLoad(true);
-      setProducts(prod.products);
+      setProduct(prod.product);
       return prod;
     };
     fetchProd().catch((err) => {
@@ -22,13 +24,13 @@ export const ProductProvider = ({ children }) => {
   }, []);
   //Loading data
   if (!load) {
-    return <>loading products</>;
+    return <>loading product</>;
   }
 
   //return provider
   return (
-    <ProductContext.Provider value={{ products }}>
+    <ProductPageContext.Provider value={{ product }}>
       {children}
-    </ProductContext.Provider>
+    </ProductPageContext.Provider>
   );
 };

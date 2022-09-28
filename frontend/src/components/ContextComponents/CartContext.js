@@ -1,19 +1,19 @@
 import { createContext, useEffect, useState } from "react";
 
-export const ProductContext = createContext();
+export const CartContext = createContext();
 
-export const ProductProvider = ({ children }) => {
+export const CartProvider = ({ children }) => {
   //States
-  const [products, setProducts] = useState();
+  const [cart, setCart] = useState();
   const [load, setLoad] = useState(false);
 
   //fetching data
   useEffect(() => {
     const fetchProd = async () => {
-      const data = await fetch("/api/products");
+      const data = await fetch("/api/cart");
       const prod = await data.json();
       setLoad(true);
-      setProducts(prod.products);
+      setCart(prod.data);
       return prod;
     };
     fetchProd().catch((err) => {
@@ -25,10 +25,10 @@ export const ProductProvider = ({ children }) => {
     return <>loading products</>;
   }
 
+  const addToCart = () => {};
+
   //return provider
   return (
-    <ProductContext.Provider value={{ products }}>
-      {children}
-    </ProductContext.Provider>
+    <CartContext.Provider value={{ cart }}>{children}</CartContext.Provider>
   );
 };

@@ -38,7 +38,7 @@ const getAllProd = async (req, res) => {
 const getProd = async (req, res) => {
   const client = new MongoClient(MONGO_URI, parameters);
   //Get the item by _id
-  const prod = req.params._id;
+  const prod = req.params.productId;
   try {
     await client.connect();
     const db = client.db("Project");
