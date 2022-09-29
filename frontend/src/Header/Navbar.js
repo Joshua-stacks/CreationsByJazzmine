@@ -1,8 +1,11 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import { Squash as Hamburger } from "hamburger-react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdCancel } from "react-icons/md";
+
+import Badge from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -27,24 +30,47 @@ const NavBar = () => {
             >
               CreationsByJazzmine
             </CompanyName>
-            <AiOutlineSearch
-              onClick={() => {
-                setSearchBar(true);
-              }}
-              size={25}
-              style={{ padding: "12px" }}
-            />
+            <DivSearch>
+              <AiOutlineSearch
+                onClick={() => {
+                  setSearchBar(true);
+                }}
+                size={25}
+                style={{ padding: "12px" }}
+              />
+              <Badge
+                badgeContent={4}
+                onClick={() => {
+                  navigate("/cart");
+                  setOpen(false);
+                }}
+              >
+                <ShoppingCartIcon />
+              </Badge>
+            </DivSearch>
           </>
         ) : (
           <>
             <SearchInput placeholder="Search for product" />
-            <MdCancel
-              size={20}
-              style={{ padding: "12px" }}
-              onClick={() => {
-                setSearchBar(false);
-              }}
-            />
+            <DivSearch>
+              <MdCancel
+                size={20}
+                style={{ padding: "1px" }}
+                onClick={() => {
+                  setSearchBar(false);
+                }}
+              />
+
+              <Badge
+                badgeContent={4}
+                onClick={() => {
+                  navigate("/cart");
+                  setOpen(false);
+                }}
+              >
+                <ShoppingCartIcon />
+              </Badge>
+            </DivSearch>
           </>
         )}
       </Wrapper>
@@ -53,19 +79,19 @@ const NavBar = () => {
           <Ul>
             <Li
               onClick={() => {
+                navigate("/");
+                setOpen(false);
+              }}
+            >
+              Home
+            </Li>
+            <Li
+              onClick={() => {
                 navigate("/products");
                 setOpen(false);
               }}
             >
-              Products
-            </Li>
-            <Li
-              onClick={() => {
-                navigate("/cart");
-                setOpen(false);
-              }}
-            >
-              Cart
+              Shop
             </Li>
             <Li
               onClick={() => {
@@ -75,30 +101,49 @@ const NavBar = () => {
             >
               Find My Order
             </Li>
-            <Li
-              onClick={() => {
-                navigate("/about");
-                setOpen(false);
-              }}
-            >
-              About Us
-            </Li>
           </Ul>
         </Dropdown>
       )}
     </>
   );
 };
+const fadeIn = keyframes`
+from {
+    opacity: 0;
+    transform: translatey(-10px)
+}
+to{
+    opacity: 1;
+}
+`;
+const fadeOut = keyframes`
+from {
+  opacity: 1;
+    
+}
+to{
+  opacity: 0;
+    transform: translatey(-10px)
+}
+`;
+const DivSearch = styled.div`
+  margin-right: 7px;
+  display: flex;
+  align-items: center;
+`;
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 55px;
+  width: 100%;
 `;
 
 const CompanyName = styled.div`
   color: var(--color-primary);
+  font-size: larger;
+  margin-left: 25px;
 `;
 
 const Dropdown = styled.div`
@@ -106,6 +151,7 @@ const Dropdown = styled.div`
   background-color: #f2f2f2;
   width: 100%;
   color: var(--color-primary);
+  animation: ${fadeIn} 500ms;
 `;
 
 const SearchInput = styled.input`
@@ -118,5 +164,4 @@ const Ul = styled.ul``;
 const Li = styled.li`
   padding: 10px 0px 10px 10px;
 `;
-
 export default NavBar;
