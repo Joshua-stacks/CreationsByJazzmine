@@ -105,7 +105,7 @@ const getCart = async (req, res) => {
     }
 
     // Create the cart.
-    const response = await carts.insertOne({});
+    const response = await carts.insertOne({ items: [] });
 
     // Verify that the cart was created successfully.
     if (response.insertedId) {

@@ -16,8 +16,26 @@ const ProductPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target[0].value);
-    fetch("/api/cart/client");
+    const options = {};
+    for (let index = 0; index < event.target.length; index++) {
+      const element = event.target[index];
+      if (element.type === "select-one" || element.type === "text") {
+        options[element.name] = element.value;
+      }
+    }
+    fetch("/api/cart/client", {
+      method: "POST",
+      body: JSON.stringify({
+        count: count,
+        item: {
+          ...product,
+          options,
+        },
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
 
   return (
@@ -37,7 +55,7 @@ const ProductPage = () => {
                     {typeof product.options[key] === "boolean" ? (
                       <>
                         <label>
-                          <select name="boolean" id={keys[i]}>
+                          <select name={keys[i]} id={keys[i]}>
                             <option value={true}>Yes</option>
                             <option value={false}>No</option>
                           </select>
@@ -46,7 +64,11 @@ const ProductPage = () => {
                     ) : (
                       <>
                         <label>
-                          <select onChange={(ev) => setTheme(ev.target.value)}>
+                          <select
+                            name={keys[i]}
+                            onChange={(ev) => setTheme(ev.target.value)}
+                            id={keys[i]}
+                          >
                             <option>chose</option>
                             {product.options[key].map((element) => {
                               return (

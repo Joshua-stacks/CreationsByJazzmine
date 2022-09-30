@@ -60,7 +60,6 @@ const NavBar = () => {
                   setSearchBar(false);
                 }}
               />
-
               <Badge
                 badgeContent={4}
                 onClick={() => {
