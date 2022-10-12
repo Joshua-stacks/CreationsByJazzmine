@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
-import { Radio } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 
 import { ProductPageContext } from "./ContextComponents/ProductPageContext";
+import { CartContext } from "./ContextComponents/CartContext";
 
 const ProductPage = () => {
   const { product } = useContext(ProductPageContext);
+  const { addCart } = useContext(CartContext);
 
   const [theme, setTheme] = useState("");
   const [count, setCount] = useState(product.min);
@@ -16,8 +17,27 @@ const ProductPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target[0].value);
-    fetch("/api/cart/client");
+    const options = {};
+    let custOption = "";
+    for (let index = 0; index < event.target.length; index++) {
+      const element = event.target[index];
+      switch (element.type) {
+        case "select-one":
+          if (element.value !== "custom") {
+            options[element.name] = element.value;
+          } else {
+            custOption = element.name;
+          }
+          break;
+        case "text":
+          options[custOption] = element.value;
+          break;
+
+        default:
+          break;
+      }
+    }
+    addCart(count, product, options);
   };
 
   return (
@@ -37,7 +57,7 @@ const ProductPage = () => {
                     {typeof product.options[key] === "boolean" ? (
                       <>
                         <label>
-                          <select name="boolean" id={keys[i]}>
+                          <select name={keys[i]} id={keys[i]}>
                             <option value={true}>Yes</option>
                             <option value={false}>No</option>
                           </select>
@@ -46,7 +66,11 @@ const ProductPage = () => {
                     ) : (
                       <>
                         <label>
-                          <select onChange={(ev) => setTheme(ev.target.value)}>
+                          <select
+                            name={keys[i]}
+                            onChange={(ev) => setTheme(ev.target.value)}
+                            id={keys[i]}
+                          >
                             <option>chose</option>
                             {product.options[key].map((element) => {
                               return (

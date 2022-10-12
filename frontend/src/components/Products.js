@@ -38,7 +38,7 @@ const Products = () => {
           ? products.map((s) => {
               return (
                 <>
-                  <LinkProd to={`/product/${s._id}`}>
+                  <LinkProd to={`/product/${s._id}`} key={s}>
                     <ProdsDiv>
                       <ImgProd src={s.image_src} />
                       <Info>
@@ -103,9 +103,6 @@ const ButtonCat = styled.button`
   background: none;
   border-radius: 5px;
   border: 1px solid;
-  &:checked {
-    background-color: blue;
-  }
 `;
 const ProdDiv = styled.div`
   display: flex;
