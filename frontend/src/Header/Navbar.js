@@ -7,12 +7,16 @@ import { MdCancel } from "react-icons/md";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { CartContext } from "../components/ContextComponents/CartContext";
 
 const NavBar = () => {
   const [isOpen, setOpen] = useState(false);
   const [searchBar, setSearchBar] = useState(false);
+
+  const { numItem } = useContext(CartContext);
 
   let navigate = useNavigate();
 
@@ -39,7 +43,7 @@ const NavBar = () => {
                 style={{ padding: "12px" }}
               />
               <Badge
-                badgeContent={4}
+                badgeContent={numItem}
                 onClick={() => {
                   navigate("/cart");
                   setOpen(false);
@@ -137,6 +141,8 @@ const Wrapper = styled.div`
   justify-content: space-between;
   height: 55px;
   width: 100%;
+  overflow-x: hidden;
+  border-bottom: solid 1px lightgray;
 `;
 
 const CompanyName = styled.div`

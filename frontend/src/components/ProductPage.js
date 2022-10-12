@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
-import { Radio } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 
 import { ProductPageContext } from "./ContextComponents/ProductPageContext";
+import { CartContext } from "./ContextComponents/CartContext";
 
 const ProductPage = () => {
   const { product } = useContext(ProductPageContext);
+  const { addCart } = useContext(CartContext);
 
   const [theme, setTheme] = useState("");
   const [count, setCount] = useState(product.min);
@@ -17,25 +18,26 @@ const ProductPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const options = {};
+    let custOption = "";
     for (let index = 0; index < event.target.length; index++) {
       const element = event.target[index];
-      if (element.type === "select-one" || element.type === "text") {
-        options[element.name] = element.value;
+      switch (element.type) {
+        case "select-one":
+          if (element.value !== "custom") {
+            options[element.name] = element.value;
+          } else {
+            custOption = element.name;
+          }
+          break;
+        case "text":
+          options[custOption] = element.value;
+          break;
+
+        default:
+          break;
       }
     }
-    fetch("/api/cart/client", {
-      method: "POST",
-      body: JSON.stringify({
-        count: count,
-        item: {
-          ...product,
-          options,
-        },
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    addCart(count, product, options);
   };
 
   return (
