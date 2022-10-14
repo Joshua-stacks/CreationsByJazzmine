@@ -112,6 +112,8 @@ const getCart = async (req, res) => {
       // Send a cookie with the cart's id.
       res.cookie("cartId", response.insertedId, {
         httpOnly: true,
+        // Set the cookie to expire in a decade.
+        maxAge: 10 * 365 * 86400 * 1000,
         secure: true,
       });
 
