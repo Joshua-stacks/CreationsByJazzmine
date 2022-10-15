@@ -40,6 +40,7 @@ const App = () => {
         />
         <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/quote" element={<>quote</>} />
         <Route exact path="/admin" element={<Admin />} />
         <Route
           exact

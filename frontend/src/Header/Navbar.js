@@ -65,7 +65,7 @@ const NavBar = () => {
                 }}
               />
               <Badge
-                badgeContent={4}
+                badgeContent={numItem}
                 onClick={() => {
                   navigate("/cart");
                   setOpen(false);

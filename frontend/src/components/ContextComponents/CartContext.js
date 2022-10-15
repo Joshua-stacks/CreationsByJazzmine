@@ -50,9 +50,63 @@ export const CartProvider = ({ children }) => {
       });
   };
 
+  const handleClickMinus = (min, product) => {
+    fetch("/api/cart/client", {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        count: min - 1,
+        item: { ...product },
+      }),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        window.location.href = "/cart";
+      });
+  };
+  const handleClickPlus = (max, product) => {
+    fetch("/api/cart/client", {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        count: max + 1,
+        item: { ...product },
+      }),
+    })
+      .then((res) => res.json())
+      .then(() => {});
+  };
+
+  const handleDelete = (product) => {
+    fetch("/api/cart/client", {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ item: { ...product } }),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        window.location.href = "/cart";
+      });
+  };
+
   //return provider
   return (
-    <CartContext.Provider value={{ cart, numItem, addCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        numItem,
+        addCart,
+        handleClickMinus,
+        handleClickPlus,
+        handleDelete,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
