@@ -238,7 +238,9 @@ const deleteItem = async (req, res) => {
     }
 
     // Remove the item to be deleted from the items array.
-    const items = cart.items.filter((element) => element !== item);
+    const items = cart.items.filter((element) => {
+      return !compareObjects(element.item, item);
+    });
 
     // Setup arguments for update.
     const query = { _id: ObjectId(cartId) };
