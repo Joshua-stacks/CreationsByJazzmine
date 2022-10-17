@@ -62,8 +62,8 @@ export const CartProvider = ({ children }) => {
       }),
     })
       .then((res) => res.json())
-      .then(() => {
-        window.location.href = "/cart";
+      .then((data) => {
+        setCart(data.data);
       });
   };
   const handleClickPlus = (max, product) => {
@@ -78,7 +78,9 @@ export const CartProvider = ({ children }) => {
       }),
     })
       .then((res) => res.json())
-      .then(() => {});
+      .then((data) => {
+        setCart(data.data);
+      });
   };
 
   const handleDelete = (product) => {
@@ -90,8 +92,8 @@ export const CartProvider = ({ children }) => {
       body: JSON.stringify({ item: { ...product } }),
     })
       .then((res) => res.json())
-      .then(() => {
-        window.location.href = "/cart";
+      .then((data) => {
+        setCart(data.data);
       });
   };
 

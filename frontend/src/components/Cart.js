@@ -30,39 +30,37 @@ const Cart = () => {
             const itms = itm.item;
             const num = cart[index].count;
             return (
-              <>
-                <Wrapper key={itm}>
-                  <div>{itms.name}</div>
-                  <div>From {itms.category}</div>
-                  <Edit>
-                    <ImgProd src={itms.image_src} />
-                    <DivAll>
-                      <DivPlusMin>
-                        <QtyButton
-                          disabled={num === itms.min}
-                          onClick={() => handleClickMinus(num, itms)}
-                          type="button"
-                        >
-                          <RemoveIcon />
-                        </QtyButton>
-                        <div>{num}</div>
-                        <QtyButton
-                          disabled={num === itms.max}
-                          onClick={() => handleClickPlus(num, itms)}
-                          type="button"
-                        >
-                          <AddIcon />
-                        </QtyButton>
-                      </DivPlusMin>
-                      <DeleteIcon onClick={() => handleDelete(itms)} />
-                    </DivAll>
-                  </Edit>
-                  <ItemPrice>
-                    <div>Est. Price</div>
-                    <div>{(parseFloat(itms.price) * num).toFixed(2)}$</div>
-                  </ItemPrice>
-                </Wrapper>
-              </>
+              <Wrapper key={itm}>
+                <div>{itms.name}</div>
+                <div>From {itms.category}</div>
+                <Edit>
+                  <ImgProd src={itms.image_src} />
+                  <DivAll>
+                    <DivPlusMin>
+                      <QtyButton
+                        disabled={num === itms.min}
+                        onClick={() => handleClickMinus(num, itms)}
+                        type="button"
+                      >
+                        <RemoveIcon />
+                      </QtyButton>
+                      <div>{num}</div>
+                      <QtyButton
+                        disabled={num === itms.max}
+                        onClick={() => handleClickPlus(num, itms)}
+                        type="button"
+                      >
+                        <AddIcon />
+                      </QtyButton>
+                    </DivPlusMin>
+                    <DeleteIcon onClick={() => handleDelete(itms)} />
+                  </DivAll>
+                </Edit>
+                <ItemPrice>
+                  <div>Est. Price</div>
+                  <div>{(parseFloat(itms.price) * num).toFixed(2)}$</div>
+                </ItemPrice>
+              </Wrapper>
             );
           })}
           <TotalPrice>

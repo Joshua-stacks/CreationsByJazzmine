@@ -5,6 +5,9 @@ const { MongoClient, ObjectId } = require("mongodb");
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
+// Require helper functions.
+const { compareObjects } = require("../helpers/objects");
+
 // Set MongoDB options.
 const mongoOptions = {
   useNewUrlParser: true,
@@ -168,7 +171,7 @@ const updateItem = async (req, res) => {
 
     // Update the item's quantity in the items array.
     const items = cart.items.map((element) => {
-      if (element !== item) {
+      if (!compareObjects(element.item, item)) {
         return element;
       } else {
         // If the item matches the item set for update then return the item with the new count.
@@ -235,7 +238,9 @@ const deleteItem = async (req, res) => {
     }
 
     // Remove the item to be deleted from the items array.
-    const items = cart.items.filter((element) => element !== item);
+    const items = cart.items.filter((element) => {
+      return !compareObjects(element.item, item);
+    });
 
     // Setup arguments for update.
     const query = { _id: ObjectId(cartId) };
