@@ -1,6 +1,6 @@
 import { NextApiResponse, NextApiRequest } from 'next'
 import { MongoClient, ObjectId } from 'mongodb';
-import { setCookie } from '../../utils/cookies';
+import { setCookie } from '@/utils/cookies';
 
 const { MONGO_URI } = process.env;
 
