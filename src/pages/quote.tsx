@@ -28,7 +28,7 @@ const Quote = () => {
             label="First name"
             variant="outlined"
             size="small"
-            color="neutral"
+            color={ ("neutral" as unknown) as undefined}
             onChange={(event) => {
               setName(event.target.value);
             }}
@@ -39,7 +39,7 @@ const Quote = () => {
             label="Last name"
             variant="outlined"
             size="small"
-            color="neutral"
+            color={ ("neutral" as unknown) as undefined}
             onChange={(event) => {
               setLastName(event.target.value);
             }}
@@ -50,7 +50,7 @@ const Quote = () => {
             label="Phone Number"
             variant="outlined"
             size="small"
-            color="neutral"
+            color={ ("neutral" as unknown) as undefined}
             onChange={(event) => {
               setNum(event.target.value);
             }}
@@ -61,7 +61,7 @@ const Quote = () => {
             label="email"
             variant="outlined"
             size="small"
-            color="neutral"
+            color={ ("neutral" as unknown) as undefined}
             onChange={(event) => {
               setEmail(event.target.value);
             }}
@@ -71,7 +71,7 @@ const Quote = () => {
           variant="contained"
           type={"submit"}
           size="small"
-          color="neutral"
+            color={ ("neutral" as unknown) as undefined}
         >
           Reserve
         </Button>
