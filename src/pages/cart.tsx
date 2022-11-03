@@ -1,10 +1,11 @@
+import Link from 'next/link'
 import styled from "styled-components";
 
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import { CartContext } from "@components/ContextComponents/CartContext";
+import { CartContext } from "@/components/ContextComponents/CartContext";
 
 import { useContext } from "react";
 
@@ -66,7 +67,7 @@ const Cart = () => {
             <div>{total}$</div>
           </TotalPrice>
           <DivQuote>
-            <Link to={"/quote"}>
+            <Link href={"/quote"}>
               <ButtonQuote>Get a quote</ButtonQuote>
             </Link>
           </DivQuote>

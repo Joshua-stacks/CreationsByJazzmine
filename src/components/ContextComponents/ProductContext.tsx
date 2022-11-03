@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
 export interface IProductProps {
-
+  products: any;
 }
 
 export const ProductContext = createContext<IProductProps>({} as IProductProps);

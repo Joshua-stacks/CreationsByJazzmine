@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ProductContext } from "@/components/ContextComponents/ProductContext";
 import { useContext, useState } from "react";
 import styled from "styled-components";
@@ -36,7 +37,7 @@ const Products = () => {
           ? products.map((s) => {
               return (
                 <>
-                  <LinkProd to={`/product/${s._id}`} key={s}>
+                  <LinkProd href={`/product/${s._id}`} key={s}>
                     <ProdsDiv>
                       <ImgProd src={s.image_src} />
                       <Info>
@@ -51,7 +52,7 @@ const Products = () => {
           : filteredProd.map((s) => {
               return (
                 <>
-                  <LinkProd to={`/product/${s._id}`}>
+                  <LinkProd href={`/product/${s._id}`}>
                     <ProdsDiv>
                       <ImgProd src={s.image_src} />
                       <Info>

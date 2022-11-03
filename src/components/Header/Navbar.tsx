@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styled, { keyframes } from "styled-components";
 
 import { Squash as Hamburger } from "hamburger-react";
@@ -8,7 +9,6 @@ import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { CartContext } from "@/components/ContextComponents/CartContext";
 
@@ -18,22 +18,18 @@ const NavBar = () => {
 
   const { numItem } = useContext(CartContext);
 
-  let navigate = useNavigate();
-
   return (
     <>
       <Wrapper>
         <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
         {searchBar === false ? (
           <>
-            <CompanyName
-              onClick={() => {
-                navigate("/");
-                setOpen(false);
-              }}
-            >
-              CreationsByJazzmine
-            </CompanyName>
+            <Link href='/'>
+              <CompanyName
+              >
+                CreationsByJazzmine
+              </CompanyName>
+            </Link>
             <DivSearch>
               <AiOutlineSearch
                 onClick={() => {
@@ -42,15 +38,15 @@ const NavBar = () => {
                 size={25}
                 style={{ padding: "12px" }}
               />
-              <Badge
-                badgeContent={numItem}
-                onClick={() => {
-                  navigate("/cart");
-                  setOpen(false);
-                }}
-              >
-                <ShoppingCartIcon />
-              </Badge>
+
+              <Link href='/cart'>
+                <Badge
+                  badgeContent={numItem}
+                >
+                  <ShoppingCartIcon />
+                </Badge>
+              </Link>
+
             </DivSearch>
           </>
         ) : (
@@ -64,15 +60,15 @@ const NavBar = () => {
                   setSearchBar(false);
                 }}
               />
-              <Badge
-                badgeContent={numItem}
-                onClick={() => {
-                  navigate("/cart");
-                  setOpen(false);
-                }}
-              >
-                <ShoppingCartIcon />
-              </Badge>
+
+              <Link href='/cart'>
+                <Badge
+                  badgeContent={numItem}
+                >
+                  <ShoppingCartIcon />
+                </Badge>
+              </Link>
+
             </DivSearch>
           </>
         )}
@@ -80,30 +76,26 @@ const NavBar = () => {
       {isOpen && (
         <Dropdown>
           <Ul>
-            <Li
-              onClick={() => {
-                navigate("/");
-                setOpen(false);
-              }}
-            >
-              Home
-            </Li>
-            <Li
-              onClick={() => {
-                navigate("/products");
-                setOpen(false);
-              }}
-            >
-              Shop
-            </Li>
-            <Li
-              onClick={() => {
-                navigate("/orders");
-                setOpen(false);
-              }}
-            >
-              Find My Order
-            </Li>
+            <Link href='/'>
+              <Li
+              >
+                Home
+              </Li>
+            </Link>
+
+            <Link href='/products'>
+              <Li
+              >
+                Shop
+              </Li>
+            </Link>
+
+            <Link href='/orders'>
+              <Li
+              >
+                Find My Order
+              </Li>
+            </Link>
           </Ul>
         </Dropdown>
       )}

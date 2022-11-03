@@ -1,12 +1,16 @@
 import React, { createContext, useEffect, useState } from "react";
 
 export interface ICartProps {
-
+  cart: any;
+  handleClickMinus: any;
+  handleClickPlus: any;
+  handleDelete: any;
+  numItem: any;
 }
 
 export const CartContext = createContext<ICartProps>({} as ICartProps);
 
-export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   //States
   const [cart, setCart] = useState();
   const [load, setLoad] = useState(false);
