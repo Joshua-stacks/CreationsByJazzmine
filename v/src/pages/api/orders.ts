@@ -1,11 +1,36 @@
-export const onRequestGet: PagesFunction<Bindings> = async (context) => {
-  // Contents of context object
-  const {
-    request, // same as existing Worker API
-    env, // same as existing Worker API
-    params, // if filename includes [id] or [[path]]
-    waitUntil, // same as ctx.waitUntil in existing Worker API
-    next, // used for middleware or to fetch assets
-    data, // arbitrary space for passing data between middlewares
-  } = context;
-};
+import { MongoClient } from "mongodb";
+import { NextApiRequest, NextApiResponse } from "next";
+
+const { MONGO_URI } = process.env;
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const client = new MongoClient(MONGO_URI);
+
+  try {
+    await client.connect();
+    const db = client.db("Project");
+
+    // Fetch the orders from the database.
+    const result = await db.collection("Orders").find().toArray();
+
+    // Verify that the orders were found before responding.
+    if (result) {
+      return res.status(200).json({
+        status: 200,
+        orders: result,
+        message: "These are all the orders",
+      });
+    }
+  } catch (err) {
+    console.error("Error getting orders:", err);
+    return res.status(500).json({
+      status: 500,
+      message: "An unknown error occurred.",
+    });
+  } finally {
+    client.close();
+  }
+}
