@@ -28,6 +28,8 @@
   },
   "devDependencies": {
     "@types/cookie": "^0.5.1",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "eslint": "8.26.0",
+    "eslint-config-next": "13.0.1"
   }
 }
