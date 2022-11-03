@@ -1,2 +1,3 @@
 # CreationsByJazzmine
-This is the start of something great 
+
+This is the start of something amazing
