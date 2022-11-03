@@ -12,9 +12,9 @@ const ProductPage = () => {
   const { addCart } = useContext(CartContext);
 
   const [theme, setTheme] = useState("");
-  const [count, setCount] = useState(product.min);
+  const [count, setCount] = useState(product?.min);
 
-  const keys = Object.keys(product.options);
+  const keys = product && Object.keys(product.options);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,6 +43,7 @@ const ProductPage = () => {
 
   return (
     <ProductPageProvider>
+      {product && count !== undefined &&
       <Wrapper>
         <DivInfo>
           <Name>{product.name}</Name>
@@ -50,7 +51,7 @@ const ProductPage = () => {
         </DivInfo>
         <DiForm>
           <form onSubmit={handleSubmit}>
-            {keys.map((key, i) => (
+            {keys?.map((key, i) => (
               <>
                 <DivOpt key={i}>
                   <KeySpan>{key}:</KeySpan>
@@ -59,8 +60,8 @@ const ProductPage = () => {
                       <>
                         <label>
                           <select name={keys[i]} id={keys[i]}>
-                            <option value={true}>Yes</option>
-                            <option value={false}>No</option>
+                            <option value={String(true)}>Yes</option>
+                            <option value={String(false)}>No</option>
                           </select>
                         </label>
                       </>
@@ -73,13 +74,14 @@ const ProductPage = () => {
                             id={keys[i]}
                           >
                             <option>chose</option>
-                            {product.options[key].map((element) => {
+                            {/* TODO: fix type */}
+                            {/* {product.options[key].map((element) => {
                               return (
                                 <>
                                   <option value={element}>{element}</option>
                                 </>
                               );
-                            })}
+                            })} */}
                           </select>
                           <div style={{ marginTop: "5px" }}>
                             {theme === "custom" && (
@@ -128,6 +130,7 @@ const ProductPage = () => {
           </form>
         </DiForm>
       </Wrapper>
+      }
     </ProductPageProvider>
   );
 };

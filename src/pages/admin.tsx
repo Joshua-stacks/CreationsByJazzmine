@@ -58,7 +58,7 @@ const Admin = () => {
         <AdminSign>
           <TextField
             label="Password"
-            varient="outlined"
+            variant="outlined"
             type={"password"}
             size="small"
             color="neutral"
