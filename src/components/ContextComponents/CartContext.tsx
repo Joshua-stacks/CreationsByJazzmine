@@ -1,7 +1,14 @@
 import React, { createContext, useEffect, useState } from "react";
+import { IProduct } from "./ProductContext";
+
+export interface Item {
+  item: IProduct;
+  count: number;
+}
 
 export interface ICartProps {
-  cart: any;
+  addCart: (count, product, options) => void;
+  cart: Item[];
   handleClickMinus: any;
   handleClickPlus: any;
   handleDelete: any;
@@ -12,7 +19,7 @@ export const CartContext = createContext<ICartProps>({} as ICartProps);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   //States
-  const [cart, setCart] = useState();
+  const [cart, setCart] = useState([]);
   const [load, setLoad] = useState(false);
   const [numItem, setNumItem] = useState(0);
 
@@ -38,7 +45,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return <></>;
   }
 
-  const addCart = (count, product, options) => {
+  const addCart = (count: number, product, options) => {
     fetch("/api/cart/client", {
       method: "POST",
       body: JSON.stringify({

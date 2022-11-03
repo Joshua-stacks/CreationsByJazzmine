@@ -8,24 +8,25 @@ const Products = () => {
 
   const [selectedCat, setSelectedCat] = useState("All");
 
-  const categories = [...new Set(products.map((x) => x.category))];
+  const categories = [...new Set(products?.map((x) => x.category))];
 
-  const filteredProd = products.filter((d) => d.category === selectedCat);
+  const filteredProd = products?.filter((d) => d.category === selectedCat);
 
   return (
     <Wrapper>
       <CatSelector>
         <ButtonCat
           value="All"
-          onClick={(ev) => setSelectedCat(ev.target.value)}
+          onClick={(ev) => setSelectedCat((ev.target as any).value)}
         >
           All
         </ButtonCat>
         {categories.map((cat) => {
           return (
             <ButtonCat
+              key={cat}
               value={cat}
-              onClick={(ev) => setSelectedCat(ev.target.value)}
+              onClick={(ev) => setSelectedCat((ev.target as any).value)}
             >
               {cat}
             </ButtonCat>
@@ -34,10 +35,10 @@ const Products = () => {
       </CatSelector>
       <ProdDiv>
         {selectedCat === "All"
-          ? products.map((s) => {
+          ? products?.map((s) => {
               return (
                 <>
-                  <LinkProd href={`/product/${s._id}`} key={s}>
+                  <LinkProd href={`/product/${s._id}`} key={s.name}>
                     <ProdsDiv>
                       <ImgProd src={s.image_src} />
                       <Info>
@@ -49,10 +50,10 @@ const Products = () => {
                 </>
               );
             })
-          : filteredProd.map((s) => {
+          : filteredProd?.map((s) => {
               return (
                 <>
-                  <LinkProd href={`/product/${s._id}`}>
+                  <LinkProd href={`/product/${s._id}`} key={s.name}>
                     <ProdsDiv>
                       <ImgProd src={s.image_src} />
                       <Info>

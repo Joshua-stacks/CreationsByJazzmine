@@ -1,13 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 import { useRouter } from 'next/router'
+import { IProduct } from "./ProductContext";
 
 export interface IProductPageProps {
-
+  product?: IProduct;
 }
 
 export const ProductPageContext = createContext<IProductPageProps>({} as IProductPageProps);
 
-export const ProductPageProvider : React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ProductPageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   //States
   const [product, setProduct] = useState();
   const [load, setLoad] = useState(false);
@@ -24,10 +25,14 @@ export const ProductPageProvider : React.FC<{ children: React.ReactNode }> = ({ 
       setProduct(prod.product);
       return prod;
     };
-    fetchProd().catch((err) => {
-      console.log(err);
-    });
-  }, []);
+
+    if (productId) {
+      fetchProd().catch((err) => {
+        console.log(err);
+      });
+    }
+
+  }, [productId]);
   //Loading data
   if (!load) {
     return <>loading product</>;

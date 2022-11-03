@@ -7,29 +7,38 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { CartContext } from "@/components/ContextComponents/CartContext";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const Cart = () => {
   const { cart, handleClickMinus, handleClickPlus, handleDelete } =
     useContext(CartContext);
 
-  let arrayPrice = cart.map((itm, index) => {
-    const itms = itm.item;
-    const num = cart[index].count;
-    return Number((parseFloat(itms.price) * num).toFixed(2));
-  });
-  let total = arrayPrice.reduce((acc, value) => value + acc, 0);
+  const total = useState(() => {
+    if (cart) {
+
+      const arrayPrice = cart.map((itm, index) => {
+        const itms = itm.item;
+        const num = cart[index].count;
+
+        return Number((parseFloat(itms.price) * num).toFixed(2));
+      });
+
+      return arrayPrice.reduce((acc, value) => value + acc, 0);
+    }
+
+    return 0;
+  })
 
   return (
     <>
       <Title>Your cart</Title>
-      {cart.length !== 0 ? (
+      {cart && cart.length !== 0 ? (
         <>
           {cart.map((itm, index) => {
             const itms = itm.item;
             const num = cart[index].count;
             return (
-              <Wrapper key={itm}>
+              <Wrapper key={itm.item.name}>
                 <div>{itms.name}</div>
                 <div>From {itms.category}</div>
                 <Edit>
@@ -64,7 +73,7 @@ const Cart = () => {
           })}
           <TotalPrice>
             <div>Est. Total Price</div>
-            <div>{total}$</div>
+            <div>{String(total)}$</div>
           </TotalPrice>
           <DivQuote>
             <Link href={"/quote"}>
