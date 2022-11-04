@@ -78,6 +78,7 @@ const NavBar = () => {
           <Ul>
             <Link href='/'>
               <Li
+                onClick={() => setOpen(false)}
               >
                 Home
               </Li>
@@ -85,6 +86,7 @@ const NavBar = () => {
 
             <Link href='/products'>
               <Li
+                onClick={() => setOpen(false)}
               >
                 Shop
               </Li>
@@ -92,6 +94,7 @@ const NavBar = () => {
 
             <Link href='/orders'>
               <Li
+                onClick={() => setOpen(false)}
               >
                 Find My Order
               </Li>

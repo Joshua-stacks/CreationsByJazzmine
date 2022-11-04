@@ -1,19 +1,6 @@
+import { IProduct } from "@/types/models";
 import { createContext, useEffect, useState } from "react";
 
-export interface IProductOptions {
-  [key: string]: string[] | boolean;
-}
-
-export interface IProduct {
-  name: string;
-  category: string;
-  price: string;
-  image_src: string;
-  min: number;
-  max: number;
-  options: IProductOptions;
-  _id: string;
-}
 export interface IProductProps {
   products?: IProduct[];
 }

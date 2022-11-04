@@ -7,21 +7,19 @@ import EmailIcon from "@mui/icons-material/Email";
 
 const Footer = () => {
   return (
-    <>
-      <Wrapper>
-        Connect with us:
-        <div>
-          <Web href="https://www.instagram.com/creationsbyjazzminerose/">
-            <InstagramIcon />
-          </Web>
-          <Web href="https://www.facebook.com/kidspartiesandmore">
-            <FacebookIcon />
-          </Web>
-          <EmailIcon />
-          <PhoneEnabledIcon />
-        </div>
-      </Wrapper>
-    </>
+    <Wrapper>
+      Connect with us:
+      <div>
+        <Web href="https://www.instagram.com/creationsbyjazzminerose/">
+          <InstagramIcon />
+        </Web>
+        <Web href="https://www.facebook.com/kidspartiesandmore">
+          <FacebookIcon />
+        </Web>
+        <EmailIcon />
+        <PhoneEnabledIcon />
+      </div>
+    </Wrapper>
   );
 };
 const Wrapper = styled.div`

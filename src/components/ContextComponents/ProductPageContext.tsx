@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useRouter } from 'next/router'
-import { IProduct } from "./ProductContext";
+import { IProduct } from "@/types/models";
 
 export interface IProductPageProps {
   product?: IProduct;

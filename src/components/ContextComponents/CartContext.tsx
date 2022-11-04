@@ -1,10 +1,5 @@
+import { Item } from "@/types/models";
 import React, { createContext, useEffect, useState } from "react";
-import { IProduct } from "./ProductContext";
-
-export interface Item {
-  item: IProduct;
-  count: number;
-}
 
 export interface ICartProps {
   addCart: (count, product, options) => void;

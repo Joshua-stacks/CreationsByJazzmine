@@ -14,10 +14,11 @@ export default async function handler(
     try {
       await client.connect();
       const carts = client.db("Project").collection("Carts");
+      const cartIdCookie = req.cookies["cartId"];
 
       // Check if the client already has a cart.
-      if (req.cookies["cartId"]) {
-        const cartId = new ObjectId(req.cookies["cartId"]);
+      if (cartIdCookie) {
+        const cartId = new ObjectId(cartIdCookie);
 
         // Fetch the cart from the database.
         const cart = await carts.findOne({ _id: cartId });
@@ -42,7 +43,7 @@ export default async function handler(
       // Verify that the cart was created successfully.
       if (response.insertedId) {
         // Send a cookie with the cart's id.
-        setCookie(res, "cartId", response.insertedId, {
+        setCookie(res, "cartId", response.insertedId.toString(), {
           httpOnly: true,
           // Set the cookie to expire in a decade.
           maxAge: 10 * 365 * 86400 * 1000,
