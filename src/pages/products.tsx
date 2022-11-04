@@ -1,9 +1,10 @@
 import Link from 'next/link'
-import { ProductContext } from "@/components/ContextComponents/ProductContext";
+import { ProductContext, ProductProvider } from "@/components/ContextComponents/ProductContext";
 import { useContext, useState } from "react";
 import styled from "styled-components";
+import { NextPageWithLayout } from './_app';
 
-const Products = () => {
+const Products: NextPageWithLayout = () => {
   const { products } = useContext(ProductContext);
 
   const [selectedCat, setSelectedCat] = useState("All");
@@ -36,39 +37,43 @@ const Products = () => {
       <ProdDiv>
         {selectedCat === "All"
           ? products?.map((s) => {
-              return (
-                <>
-                  <LinkProd href={`/product/${s._id}`} key={s.name}>
-                    <ProdsDiv>
-                      <ImgProd src={s.image_src} />
-                      <Info>
-                        <Name>{s.name}</Name>
-                        <div>From {s.price}$</div>
-                      </Info>
-                    </ProdsDiv>
-                  </LinkProd>
-                </>
-              );
-            })
+            return (
+              <LinkProd href={`/product/${s._id}`} key={s.name}>
+                <ProdsDiv>
+                  <ImgProd src={s.image_src} />
+                  <Info>
+                    <Name>{s.name}</Name>
+                    <div>From {s.price}$</div>
+                  </Info>
+                </ProdsDiv>
+              </LinkProd>
+            );
+          })
           : filteredProd?.map((s) => {
-              return (
-                <>
-                  <LinkProd href={`/product/${s._id}`} key={s.name}>
-                    <ProdsDiv>
-                      <ImgProd src={s.image_src} />
-                      <Info>
-                        <Name>{s.name}</Name>
-                        <div>From {s.price}$</div>
-                      </Info>
-                    </ProdsDiv>
-                  </LinkProd>
-                </>
-              );
-            })}
+            return (
+              <LinkProd href={`/product/${s._id}`} key={s.name}>
+                <ProdsDiv>
+                  <ImgProd src={s.image_src} />
+                  <Info>
+                    <Name>{s.name}</Name>
+                    <div>From {s.price}$</div>
+                  </Info>
+                </ProdsDiv>
+              </LinkProd>
+            );
+          })}
       </ProdDiv>
     </Wrapper>
   );
 };
+
+Products.getLayout = (page) => {
+  return (
+    <ProductProvider>
+      {page}
+    </ProductProvider>
+  )
+}
 
 const Name = styled.h1`
   font-size: larger;

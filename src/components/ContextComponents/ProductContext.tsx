@@ -9,7 +9,7 @@ export const ProductContext = createContext<IProductProps>({} as IProductProps);
 
 export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   //States
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [load, setLoad] = useState(false);
 
   //fetching data
@@ -19,12 +19,15 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const prod = await data.json();
       setLoad(true);
       setProducts(prod.products);
+
       return prod;
     };
+
     fetchProd().catch((err) => {
       console.log(err);
     });
   }, []);
+
   //Loading data
   if (!load) {
     return <>loading products</>;
