@@ -6,8 +6,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { ProductPageContext } from "@/components/ContextComponents/ProductPageContext";
 import { CartContext } from "@/components/ContextComponents/CartContext";
 import { ProductPageProvider } from "@/components/ContextComponents/ProductPageContext";
+import { NextPageWithLayout } from "../_app";
 
-const ProductPage = () => {
+const ProductPage: NextPageWithLayout = () => {
   const { product } = useContext(ProductPageContext);
   const { addCart } = useContext(CartContext);
 
@@ -42,99 +43,106 @@ const ProductPage = () => {
   };
 
   return (
-    <ProductPageProvider>
+    <>
       {product && count !== undefined &&
-      <Wrapper>
-        <DivInfo>
-          <Name>{product.name}</Name>
-          <ProdImg src={product.image_src} />
-        </DivInfo>
-        <DiForm>
-          <form onSubmit={handleSubmit}>
-            {keys?.map((key, i) => (
-              <>
-                <DivOpt key={i}>
-                  <KeySpan>{key}:</KeySpan>
-                  <span>
-                    {typeof product.options[key] === "boolean" ? (
-                      <>
-                        <label>
-                          <select name={keys[i]} id={keys[i]}>
-                            <option value={String(true)}>Yes</option>
-                            <option value={String(false)}>No</option>
-                          </select>
-                        </label>
-                      </>
-                    ) : (
-                      <>
-                        <label>
-                          <select
-                            name={keys[i]}
-                            onChange={(ev) => setTheme(ev.target.value)}
-                            id={keys[i]}
-                          >
-                            <option>chose</option>
-                            {/* TODO: fix type */}
-                            {/* {product.options[key].map((element) => {
+        <Wrapper>
+          <DivInfo>
+            <Name>{product.name}</Name>
+            <ProdImg src={product.image_src} />
+          </DivInfo>
+          <DiForm>
+            <form onSubmit={handleSubmit}>
+              {keys?.map((key, i) => (
+                <>
+                  <DivOpt key={i}>
+                    <KeySpan>{key}:</KeySpan>
+                    <span>
+                      {typeof product.options[key] === "boolean" ? (
+                        <>
+                          <label>
+                            <select name={keys[i]} id={keys[i]}>
+                              <option value={String(true)}>Yes</option>
+                              <option value={String(false)}>No</option>
+                            </select>
+                          </label>
+                        </>
+                      ) : (
+                        <>
+                          <label>
+                            <select
+                              name={keys[i]}
+                              onChange={(ev) => setTheme(ev.target.value)}
+                              id={keys[i]}
+                            >
+                              <option>chose</option>
+                              {/* TODO: fix type */}
+                              {/* {product.options[key].map((element) => {
                               return (
                                 <>
                                   <option value={element}>{element}</option>
                                 </>
                               );
                             })} */}
-                          </select>
-                          <div style={{ marginTop: "5px" }}>
-                            {theme === "custom" && (
-                              <input placeholder="Please write custom theme" />
-                            )}
-                          </div>
-                        </label>
-                      </>
-                    )}
-                  </span>
-                </DivOpt>
-              </>
-            ))}
-            <QtyDiv>
-              <div>
-                <QtyButton
-                  disabled={count === product.min}
-                  onClick={() => setCount(count - 1)}
-                  type="button"
-                >
-                  <RemoveIcon />
-                </QtyButton>
-                <span style={{ fontSize: "20px" }}>{count}</span>
-                <QtyButton
-                  disabled={count === product.max}
-                  onClick={() => setCount(count + 1)}
-                  type="button"
-                >
-                  <AddIcon />
-                </QtyButton>
-              </div>
-              <div>
-                min:{product.min} max:{product.max}
-              </div>
-            </QtyDiv>
-            <AddCart type="submit">add to cart</AddCart>
-            <Pricing>
-              <div style={{ marginBottom: "10px" }}>{product.price}$/each</div>
-              <div>
-                <b>
-                  Total:
-                  {(parseFloat(product.price) * count).toFixed(2)}$
-                </b>
-              </div>
-            </Pricing>
-          </form>
-        </DiForm>
-      </Wrapper>
+                            </select>
+                            <div style={{ marginTop: "5px" }}>
+                              {theme === "custom" && (
+                                <input placeholder="Please write custom theme" />
+                              )}
+                            </div>
+                          </label>
+                        </>
+                      )}
+                    </span>
+                  </DivOpt>
+                </>
+              ))}
+              <QtyDiv>
+                <div>
+                  <QtyButton
+                    disabled={count === product.min}
+                    onClick={() => setCount(count - 1)}
+                    type="button"
+                  >
+                    <RemoveIcon />
+                  </QtyButton>
+                  <span style={{ fontSize: "20px" }}>{count}</span>
+                  <QtyButton
+                    disabled={count === product.max}
+                    onClick={() => setCount(count + 1)}
+                    type="button"
+                  >
+                    <AddIcon />
+                  </QtyButton>
+                </div>
+                <div>
+                  min:{product.min} max:{product.max}
+                </div>
+              </QtyDiv>
+              <AddCart type="submit">add to cart</AddCart>
+              <Pricing>
+                <div style={{ marginBottom: "10px" }}>{product.price}$/each</div>
+                <div>
+                  <b>
+                    Total:
+                    {(parseFloat(product.price) * count).toFixed(2)}$
+                  </b>
+                </div>
+              </Pricing>
+            </form>
+          </DiForm>
+        </Wrapper>
       }
-    </ProductPageProvider>
+    </>
   );
 };
 
+ProductPage.getLayout = (page) => {
+  return (
+    <ProductPageProvider>
+      {page}
+    </ProductPageProvider>
+  )
+}
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
