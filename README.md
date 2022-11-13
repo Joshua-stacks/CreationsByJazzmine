@@ -1,3 +1,3 @@
-# CreationsByJazzmine
+# CreationsJAZZMINE
 
-This is the start of something amazing
+something cool this way come

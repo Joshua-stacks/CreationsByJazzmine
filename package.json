@@ -1,38 +1,30 @@
 {
-  "name": "v",
-  "version": "0.1.0",
+  "name": "jazz",
+  "version": "0.0.0",
   "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@mui/icons-material": "^5.10.9",
-    "@mui/material": "^5.10.12",
-    "@mui/styled-engine-sc": "^5.10.6",
-    "@types/node": "18.11.9",
-    "@types/react": "18.0.24",
-    "@types/react-dom": "18.0.8",
-    "bcrypt": "^5.1.0",
-    "cookie": "^0.5.0",
-    "hamburger-react": "^2.5.0",
-    "mongodb": "^4.11.0",
-    "next": "13.0.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-icons": "^4.6.0",
-    "styled-components": "^5.3.6",
-    "typescript": "4.8.4"
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
-    "@types/cookie": "^0.5.1",
-    "@types/styled-components": "^5.1.26",
-    "eslint": "8.26.0",
-    "eslint-config-next": "13.0.1"
-  }
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.10",
+    "prettier": "^2.7.1",
+    "turbo": "^1.6.2",
+    "typescript": "^4.8.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "packageManager": "yarn@1.22.19"
 }
