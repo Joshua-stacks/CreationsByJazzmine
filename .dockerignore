@@ -2,11 +2,15 @@ node_modules
 coverage
 
 .git
+.github
 
+.turbo
+.cache
 .next
-out
 
+out
 build
+dist
 
 .DS_Store
 *.pem
@@ -22,4 +26,3 @@ yarn-error.log*
 .vercel
 
 *.tsbuildinfo
-next-env.d.ts
