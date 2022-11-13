@@ -1,0 +1,6 @@
+**/*.d.ts
+packages/**/dist/**/*
+packages/**/fixtures/**/*
+examples/**/*
+scripts/**/*
+.github
