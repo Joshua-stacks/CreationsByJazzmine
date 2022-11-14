@@ -1,4 +1,4 @@
-import { NextApiResponse, NextApiRequest } from 'next'
+import { NextApiResponse, NextApiRequest } from 'next';
 import { MongoClient, ObjectId } from 'mongodb';
 
 const { MONGO_URI } = process.env;
@@ -15,15 +15,17 @@ export default async function handler(
 
     try {
       await client.connect();
-      const products = client.db("Project").collection("Product");
+      const products = client.db('Project').collection('Product');
 
       // Verify that the product exists.
-      const product = await products.findOne({ _id: new ObjectId(productId as string) });
+      const product = await products.findOne({
+        _id: new ObjectId(productId as string),
+      });
 
       if (!product) {
         return res.status(404).json({
           status: 404,
-          message: "No product found.",
+          message: 'No product found.',
           data: { productId },
         });
       }
@@ -44,25 +46,25 @@ export default async function handler(
         // Mongo failed to update, throw a generic error.
         return res.status(502).json({
           status: 502,
-          message: "Update failed, please try again.",
+          message: 'Update failed, please try again.',
         });
       }
     } catch (err) {
-      console.error("Error updating product:", err);
+      console.error('Error updating product:', err);
 
       switch ((err as any).name) {
         // Id provided is not a valid ObjectId.
-        case "BSONTypeError":
+        case 'BSONTypeError':
           return res.status(400).json({
             status: 400,
-            message: "Invalid id provided.",
+            message: 'Invalid id provided.',
             data: { productId },
           });
 
         default:
           return res.status(500).json({
             status: 500,
-            message: "An unknown error occurred.",
+            message: 'An unknown error occurred.',
             data: { productId },
           });
       }
@@ -77,10 +79,12 @@ export default async function handler(
 
     try {
       await client.connect();
-      const products = client.db("Project").collection("Product");
+      const products = client.db('Project').collection('Product');
 
       // Delete the specified product by id.
-      const response = await products.deleteOne({ _id: new ObjectId(productId as string) });
+      const response = await products.deleteOne({
+        _id: new ObjectId(productId as string),
+      });
 
       // Verify that the product was deleted.
       if (response.deletedCount) {
@@ -88,25 +92,25 @@ export default async function handler(
       } else {
         return res.status(502).json({
           status: 502,
-          message: "Deletion failed, please try again.",
+          message: 'Deletion failed, please try again.',
         });
       }
     } catch (err) {
-      console.error("Error deleting product:", err);
+      console.error('Error deleting product:', err);
 
       switch ((err as any).name) {
         // Id provided is not a valid ObjectId.
-        case "BSONTypeError":
+        case 'BSONTypeError':
           return res.status(400).json({
             status: 400,
-            message: "Invalid id provided.",
+            message: 'Invalid id provided.',
             data: { productId },
           });
 
         default:
           return res.status(500).json({
             status: 500,
-            message: "An unknown error occurred.",
+            message: 'An unknown error occurred.',
             data: { productId },
           });
       }

@@ -1,4 +1,4 @@
-import { NextApiResponse, NextApiRequest } from 'next'
+import { NextApiResponse, NextApiRequest } from 'next';
 import { MongoClient, ObjectId } from 'mongodb';
 import { compareObjects } from '@/utils/compare';
 
@@ -16,14 +16,14 @@ export default async function handler(
 
     try {
       await client.connect();
-      const carts = client.db("Project").collection("Carts");
+      const carts = client.db('Project').collection('Carts');
 
       // Verify that the client has a cart.
-      const cartId = req.cookies["cartId"];
+      const cartId = req.cookies['cartId'];
       if (!cartId) {
         return res.status(400).json({
           status: 400,
-          message: "Client does not have a cart.",
+          message: 'Client does not have a cart.',
         });
       }
 
@@ -34,7 +34,7 @@ export default async function handler(
       if (!cart) {
         return res.status(404).json({
           status: 404,
-          message: "Cart not found.",
+          message: 'Cart not found.',
         });
       }
 
@@ -57,20 +57,19 @@ export default async function handler(
       } else {
         return res.status(502).json({
           status: 502,
-          message: "Update failed, please try again.",
+          message: 'Update failed, please try again.',
         });
       }
     } catch (err) {
-      console.error("Error adding item to cart:", err);
+      console.error('Error adding item to cart:', err);
       return res.status(500).json({
         status: 500,
-        message: "An unknown error occurred.",
+        message: 'An unknown error occurred.',
       });
     } finally {
       client.close();
     }
   } else if (req.method === 'DELETE') {
-
     const client = new MongoClient(MONGO_URI);
 
     // Extract the required details from the request.
@@ -78,14 +77,14 @@ export default async function handler(
 
     try {
       await client.connect();
-      const carts = client.db("Project").collection("Carts");
+      const carts = client.db('Project').collection('Carts');
 
       // Verify that the client has a cart.
-      const cartId = req.cookies["cartId"];
+      const cartId = req.cookies['cartId'];
       if (!cartId) {
         return res.status(400).json({
           status: 400,
-          message: "Client does not have a cart.",
+          message: 'Client does not have a cart.',
         });
       }
 
@@ -96,7 +95,7 @@ export default async function handler(
       if (!cart) {
         return res.status(404).json({
           status: 404,
-          message: "Cart not found.",
+          message: 'Cart not found.',
         });
       }
 
@@ -118,19 +117,18 @@ export default async function handler(
       } else {
         return res.status(502).json({
           status: 502,
-          message: "Update failed, please try again.",
+          message: 'Update failed, please try again.',
         });
       }
     } catch (err) {
-      console.error("Error deleting item:", err);
+      console.error('Error deleting item:', err);
       return res.status(500).json({
         status: 500,
-        message: "An unknown error occured.",
+        message: 'An unknown error occured.',
       });
     } finally {
       client.close();
     }
-
   } else if (req.method === 'PATCH') {
     const client = new MongoClient(MONGO_URI);
 
@@ -139,14 +137,14 @@ export default async function handler(
 
     try {
       await client.connect();
-      const carts = client.db("Project").collection("Carts");
+      const carts = client.db('Project').collection('Carts');
 
       // Verify that the client has a cart.
-      const cartId = req.cookies["cartId"];
+      const cartId = req.cookies['cartId'];
       if (!cartId) {
         return res.status(400).json({
           status: 400,
-          message: "Client does not have a cart.",
+          message: 'Client does not have a cart.',
         });
       }
 
@@ -157,7 +155,7 @@ export default async function handler(
       if (!cart) {
         return res.status(404).json({
           status: 404,
-          message: "Cart not found.",
+          message: 'Cart not found.',
         });
       }
 
@@ -184,14 +182,14 @@ export default async function handler(
       } else {
         return res.status(502).json({
           status: 502,
-          message: "Update failed, please try again.",
+          message: 'Update failed, please try again.',
         });
       }
     } catch (err) {
-      console.error("Error updating item:", err);
+      console.error('Error updating item:', err);
       return res.status(500).json({
         status: 500,
-        message: "An unknown error occured.",
+        message: 'An unknown error occured.',
       });
     } finally {
       client.close();

@@ -1,4 +1,4 @@
-import { NextApiResponse, NextApiRequest } from 'next'
+import { NextApiResponse, NextApiRequest } from 'next';
 import { MongoClient, ObjectId } from 'mongodb';
 
 const { MONGO_URI } = process.env;
@@ -18,13 +18,13 @@ export default async function handler(
     if (!status) {
       return res.status(400).json({
         status: 400,
-        message: "Request is missing data.",
+        message: 'Request is missing data.',
       });
     }
 
     try {
       await client.connect();
-      const orders = client.db("Project").collection("Orders");
+      const orders = client.db('Project').collection('Orders');
 
       // Setup arguments for update.
       const query = { _id: new ObjectId(orderId as string) };
@@ -37,13 +37,13 @@ export default async function handler(
         // Order with given id does not exist.
         return res.status(404).json({
           status: 404,
-          message: "No order found.",
+          message: 'No order found.',
         });
       } else if (!response.modifiedCount) {
         // Mongo failed to update the order.
         return res.status(502).json({
           status: 502,
-          message: "Update failed, or nothing was changed.",
+          message: 'Update failed, or nothing was changed.',
           data: { status },
         });
       } else {
@@ -55,17 +55,17 @@ export default async function handler(
     } catch (err) {
       switch ((err as any).name) {
         // An invalid order id was provided.
-        case "BSONTypeError":
+        case 'BSONTypeError':
           return res.status(400).json({
             status: 400,
-            message: "Invalid order id provided.",
+            message: 'Invalid order id provided.',
           });
 
         default:
-          console.error("Error updating order:", err);
+          console.error('Error updating order:', err);
           return res.status(500).json({
             status: 500,
-            message: "An unknown error occurred",
+            message: 'An unknown error occurred',
           });
       }
     } finally {
@@ -79,10 +79,12 @@ export default async function handler(
 
     try {
       await client.connect();
-      const orders = client.db("Project").collection("Orders");
+      const orders = client.db('Project').collection('Orders');
 
       // Delete the specified order by id.
-      const response = await orders.deleteOne({ _id: new ObjectId(orderId as string) });
+      const response = await orders.deleteOne({
+        _id: new ObjectId(orderId as string),
+      });
 
       // Verify that the order was deleted.
       if (response.deletedCount) {
@@ -90,24 +92,24 @@ export default async function handler(
       } else {
         return res.status(502).json({
           status: 502,
-          message: "Deletion failed, please try again.",
+          message: 'Deletion failed, please try again.',
           data: { orderId },
         });
       }
     } catch (err) {
       switch ((err as any).name) {
         // An invalid order id was provided.
-        case "BSONTypeError":
+        case 'BSONTypeError':
           return res.status(400).json({
             status: 400,
-            message: "Invalid order id provided.",
+            message: 'Invalid order id provided.',
           });
 
         default:
-          console.error("Error deleting order:", err);
+          console.error('Error deleting order:', err);
           return res.status(500).json({
             status: 500,
-            message: "An unknown error occurred",
+            message: 'An unknown error occurred',
           });
       }
     } finally {

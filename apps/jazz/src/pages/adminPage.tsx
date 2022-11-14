@@ -1,6 +1,6 @@
-import { ProductContext } from "@/components/ContextComponents/ProductContext";
-import { useContext, useState } from "react";
-import { ProductProvider } from "@/components/ContextComponents/ProductContext";
+import { ProductContext } from '@/components/ContextComponents/ProductContext';
+import { useContext, useState } from 'react';
+import { ProductProvider } from '@/components/ContextComponents/ProductContext';
 
 const AdminPage = () => {
   const { products } = useContext(ProductContext);
@@ -9,9 +9,7 @@ const AdminPage = () => {
 
   return (
     <ProductProvider>
-      <div>
-        Hello Admin!
-      </div>
+      <div>Hello Admin!</div>
     </ProductProvider>
   );
 };

@@ -1,5 +1,5 @@
-import { IProduct } from "@/types/models";
-import { createContext, useEffect, useState } from "react";
+import { IProduct } from '@/types/models';
+import { createContext, useEffect, useState } from 'react';
 
 export interface IProductProps {
   products?: IProduct[];
@@ -7,7 +7,9 @@ export interface IProductProps {
 
 export const ProductContext = createContext<IProductProps>({} as IProductProps);
 
-export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   //States
   const [products, setProducts] = useState<IProduct[]>([]);
   const [load, setLoad] = useState(false);
@@ -15,7 +17,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
   //fetching data
   useEffect(() => {
     const fetchProd = async () => {
-      const data = await fetch("/api/products");
+      const data = await fetch('/api/products');
       const prod = await data.json();
       setLoad(true);
       setProducts(prod.products);

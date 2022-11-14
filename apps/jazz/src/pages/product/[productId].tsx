@@ -1,18 +1,18 @@
-import { useContext, useState } from "react";
-import styled from "styled-components";
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
+import { useContext, useState } from 'react';
+import styled from 'styled-components';
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 
-import { ProductPageContext } from "@/components/ContextComponents/ProductPageContext";
-import { CartContext } from "@/components/ContextComponents/CartContext";
-import { ProductPageProvider } from "@/components/ContextComponents/ProductPageContext";
-import { NextPageWithLayout } from "../_app";
+import { ProductPageContext } from '@/components/ContextComponents/ProductPageContext';
+import { CartContext } from '@/components/ContextComponents/CartContext';
+import { ProductPageProvider } from '@/components/ContextComponents/ProductPageContext';
+import { NextPageWithLayout } from '../_app';
 
 const ProductPage: NextPageWithLayout = () => {
   const { product } = useContext(ProductPageContext);
   const { addCart } = useContext(CartContext);
 
-  const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState('');
   const [count, setCount] = useState(product?.min);
 
   const keys = product && Object.keys(product.options);
@@ -20,18 +20,18 @@ const ProductPage: NextPageWithLayout = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const options = {};
-    let custOption = "";
+    let custOption = '';
     for (let index = 0; index < event.target.length; index++) {
       const element = event.target[index];
       switch (element.type) {
-        case "select-one":
-          if (element.value !== "custom") {
+        case 'select-one':
+          if (element.value !== 'custom') {
             options[element.name] = element.value;
           } else {
             custOption = element.name;
           }
           break;
-        case "text":
+        case 'text':
           options[custOption] = element.value;
           break;
 
@@ -44,7 +44,7 @@ const ProductPage: NextPageWithLayout = () => {
 
   return (
     <>
-      {product && count !== undefined &&
+      {product && count !== undefined && (
         <Wrapper>
           <DivInfo>
             <Name>{product.name}</Name>
@@ -57,7 +57,7 @@ const ProductPage: NextPageWithLayout = () => {
                   <DivOpt key={i}>
                     <KeySpan>{key}:</KeySpan>
                     <span>
-                      {typeof product.options[key] === "boolean" ? (
+                      {typeof product.options[key] === 'boolean' ? (
                         <>
                           <label>
                             <select name={keys[i]} id={keys[i]}>
@@ -84,8 +84,8 @@ const ProductPage: NextPageWithLayout = () => {
                               );
                             })} */}
                             </select>
-                            <div style={{ marginTop: "5px" }}>
-                              {theme === "custom" && (
+                            <div style={{ marginTop: '5px' }}>
+                              {theme === 'custom' && (
                                 <input placeholder="Please write custom theme" />
                               )}
                             </div>
@@ -105,7 +105,7 @@ const ProductPage: NextPageWithLayout = () => {
                   >
                     <RemoveIcon />
                   </QtyButton>
-                  <span style={{ fontSize: "20px" }}>{count}</span>
+                  <span style={{ fontSize: '20px' }}>{count}</span>
                   <QtyButton
                     disabled={count === product.max}
                     onClick={() => setCount(count + 1)}
@@ -120,7 +120,9 @@ const ProductPage: NextPageWithLayout = () => {
               </QtyDiv>
               <AddCart type="submit">add to cart</AddCart>
               <Pricing>
-                <div style={{ marginBottom: "10px" }}>{product.price}$/each</div>
+                <div style={{ marginBottom: '10px' }}>
+                  {product.price}$/each
+                </div>
                 <div>
                   <b>
                     Total:
@@ -131,18 +133,14 @@ const ProductPage: NextPageWithLayout = () => {
             </form>
           </DiForm>
         </Wrapper>
-      }
+      )}
     </>
   );
 };
 
 ProductPage.getLayout = (page) => {
-  return (
-    <ProductPageProvider>
-      {page}
-    </ProductPageProvider>
-  )
-}
+  return <ProductPageProvider>{page}</ProductPageProvider>;
+};
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;

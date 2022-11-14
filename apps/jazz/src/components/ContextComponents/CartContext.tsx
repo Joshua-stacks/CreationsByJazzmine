@@ -1,5 +1,5 @@
-import { Item } from "@/types/models";
-import React, { createContext, useEffect, useState } from "react";
+import { Item } from '@/types/models';
+import React, { createContext, useEffect, useState } from 'react';
 
 export interface ICartProps {
   addCart: (count, product, options) => void;
@@ -12,7 +12,9 @@ export interface ICartProps {
 
 export const CartContext = createContext<ICartProps>({} as ICartProps);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   //States
   const [cart, setCart] = useState([]);
   const [load, setLoad] = useState(false);
@@ -21,7 +23,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   //fetching data
   useEffect(() => {
     const fetchProd = async () => {
-      const data = await fetch("/api/cart");
+      const data = await fetch('/api/cart');
       const prod = await data.json();
       setCart(prod.data);
       setLoad(true);
@@ -41,8 +43,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }
 
   const addCart = (count: number, product, options) => {
-    fetch("/api/cart/client", {
-      method: "POST",
+    fetch('/api/cart/client', {
+      method: 'POST',
       body: JSON.stringify({
         count: count,
         item: {
@@ -51,20 +53,20 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         },
       }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     })
       .then((res) => res.json())
       .then(() => {
-        window.location.href = "/cart";
+        window.location.href = '/cart';
       });
   };
 
   const handleClickMinus = (min, product) => {
-    fetch("/api/cart/client", {
-      method: "PATCH",
+    fetch('/api/cart/client', {
+      method: 'PATCH',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       body: JSON.stringify({
         count: min - 1,
@@ -77,10 +79,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
   };
   const handleClickPlus = (max, product) => {
-    fetch("/api/cart/client", {
-      method: "PATCH",
+    fetch('/api/cart/client', {
+      method: 'PATCH',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       body: JSON.stringify({
         count: max + 1,
@@ -94,10 +96,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const handleDelete = (product) => {
-    fetch("/api/cart/client", {
-      method: "DELETE",
+    fetch('/api/cart/client', {
+      method: 'DELETE',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       body: JSON.stringify({ item: { ...product } }),
     })

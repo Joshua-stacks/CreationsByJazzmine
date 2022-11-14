@@ -1,20 +1,24 @@
-import { createContext, useEffect, useState } from "react";
-import { useRouter } from 'next/router'
-import { IProduct } from "@/types/models";
+import { createContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { IProduct } from '@/types/models';
 
 export interface IProductPageProps {
   product?: IProduct;
 }
 
-export const ProductPageContext = createContext<IProductPageProps>({} as IProductPageProps);
+export const ProductPageContext = createContext<IProductPageProps>(
+  {} as IProductPageProps
+);
 
-export const ProductPageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ProductPageProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   //States
   const [product, setProduct] = useState();
   const [load, setLoad] = useState(false);
 
   const router = useRouter();
-  const { productId } = router.query
+  const { productId } = router.query;
 
   //fetching data
   useEffect(() => {
@@ -31,7 +35,6 @@ export const ProductPageProvider: React.FC<{ children: React.ReactNode }> = ({ c
         console.log(err);
       });
     }
-
   }, [productId]);
   //Loading data
   if (!load) {

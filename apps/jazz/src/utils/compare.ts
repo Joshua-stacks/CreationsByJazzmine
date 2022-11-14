@@ -11,7 +11,7 @@ export const compareObjects = (object1: any, object2: any) => {
     const value2 = object2[key];
 
     // Check if there is a nested object that also needs to be compared.
-    const isObjects = typeof value1 === "object" && typeof value2 === "object";
+    const isObjects = typeof value1 === 'object' && typeof value2 === 'object';
 
     if (
       (isObjects && !compareObjects(value1, value2)) ||
@@ -23,4 +23,3 @@ export const compareObjects = (object1: any, object2: any) => {
 
   return true;
 };
-

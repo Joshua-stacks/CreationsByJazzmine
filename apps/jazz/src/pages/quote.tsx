@@ -1,23 +1,23 @@
-import { TextField } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import styled from "styled-components";
-import { useState } from "react";
-import Button from "@mui/material/Button";
+import { TextField } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import styled from 'styled-components';
+import { useState } from 'react';
+import Button from '@mui/material/Button';
 
 const theme = createTheme({
   palette: {
     neutral: {
-      main: "#C291A4",
-      contrastText: "#fff",
+      main: '#C291A4',
+      contrastText: '#fff',
     },
   },
 });
 
 const Quote = () => {
-  const [name, setName] = useState("");
-  const [LastName, setLastName] = useState("");
-  const [num, setNum] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('');
+  const [LastName, setLastName] = useState('');
+  const [num, setNum] = useState('');
+  const [email, setEmail] = useState('');
 
   return (
     <ThemeProvider theme={theme}>
@@ -69,7 +69,7 @@ const Quote = () => {
         </AdminSign>
         <Button
           variant="contained"
-          type={"submit"}
+          type={'submit'}
           size="small"
           color="neutral"
         >
