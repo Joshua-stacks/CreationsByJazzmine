@@ -1,4 +1,4 @@
-node_modules
+**/node_modules
 coverage
 
 .git
@@ -8,9 +8,9 @@ coverage
 .cache
 .next
 
-out
-build
-dist
+**/out
+**/build
+**/dist
 
 .DS_Store
 *.pem
@@ -20,9 +20,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-.env
+**/.env
 .env*.local
 
-.vercel
+**/.vercel
 
 *.tsbuildinfo
