@@ -1,12 +1,12 @@
 **/node_modules
-coverage
+**/coverage
 
 .git
 .github
 
-.turbo
-.cache
-.next
+**/.turbo
+**/.cache
+**/.next
 
 **/out
 **/build
@@ -21,7 +21,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 **/.env
-.env*.local
+**/.env*.local
 
 **/.vercel
 
