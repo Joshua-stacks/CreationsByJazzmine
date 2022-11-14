@@ -1,4 +1,4 @@
-import { NextApiResponse, NextApiRequest } from 'next'
+import { NextApiResponse, NextApiRequest } from 'next';
 import { MongoClient, ObjectId } from 'mongodb';
 import bcrypt from 'bcrypt';
 
@@ -18,13 +18,13 @@ export default async function handler(
     if (!username || !oldPassword || !newPassword) {
       return res.status(400).json({
         status: 400,
-        message: "Request is missing data.",
+        message: 'Request is missing data.',
       });
     }
 
     try {
       await client.connect();
-      const accounts = client.db("Project").collection("Administrators");
+      const accounts = client.db('Project').collection('Administrators');
 
       // Get the specific user by username.
       const user = await accounts.findOne({ username });
@@ -33,7 +33,7 @@ export default async function handler(
       if (!user) {
         return res.status(404).json({
           status: 404,
-          message: "No user found.",
+          message: 'No user found.',
           data: { username },
         });
       }
@@ -44,7 +44,7 @@ export default async function handler(
       if (!isPasswordCorrect) {
         return res.status(401).json({
           status: 401,
-          message: "Incorrect password provided.",
+          message: 'Incorrect password provided.',
         });
       }
 
@@ -66,14 +66,14 @@ export default async function handler(
       } else {
         return res.status(502).json({
           status: 502,
-          message: "Update failed, please try again.",
+          message: 'Update failed, please try again.',
         });
       }
     } catch (err) {
-      console.error("Error changing password:", err);
+      console.error('Error changing password:', err);
       return res.status(500).json({
         status: 500,
-        message: "An unknown error occurred.",
+        message: 'An unknown error occurred.',
       });
     } finally {
       client.close();

@@ -1,16 +1,16 @@
-import Link from 'next/link'
-import styled, { keyframes } from "styled-components";
+import Link from 'next/link';
+import styled, { keyframes } from 'styled-components';
 
-import { Squash as Hamburger } from "hamburger-react";
-import { AiOutlineSearch } from "react-icons/ai";
-import { MdCancel } from "react-icons/md";
+import { Squash as Hamburger } from 'hamburger-react';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { MdCancel } from 'react-icons/md';
 
-import Badge from "@mui/material/Badge";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Badge from '@mui/material/Badge';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-import { useState, useContext } from "react";
+import { useState, useContext } from 'react';
 
-import { CartContext } from "@/components/ContextComponents/CartContext";
+import { CartContext } from '@/components/ContextComponents/CartContext';
 
 const NavBar = () => {
   const [isOpen, setOpen] = useState(false);
@@ -24,11 +24,8 @@ const NavBar = () => {
         <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
         {searchBar === false ? (
           <>
-            <Link href='/'>
-              <CompanyName
-              >
-                CreationsByJazzmine
-              </CompanyName>
+            <Link href="/">
+              <CompanyName>CreationsByJazzmine</CompanyName>
             </Link>
             <DivSearch>
               <AiOutlineSearch
@@ -36,17 +33,14 @@ const NavBar = () => {
                   setSearchBar(true);
                 }}
                 size={25}
-                style={{ padding: "12px" }}
+                style={{ padding: '12px' }}
               />
 
-              <Link href='/cart'>
-                <Badge
-                  badgeContent={numItem}
-                >
+              <Link href="/cart">
+                <Badge badgeContent={numItem}>
                   <ShoppingCartIcon />
                 </Badge>
               </Link>
-
             </DivSearch>
           </>
         ) : (
@@ -55,20 +49,17 @@ const NavBar = () => {
             <DivSearch>
               <MdCancel
                 size={20}
-                style={{ padding: "1px" }}
+                style={{ padding: '1px' }}
                 onClick={() => {
                   setSearchBar(false);
                 }}
               />
 
-              <Link href='/cart'>
-                <Badge
-                  badgeContent={numItem}
-                >
+              <Link href="/cart">
+                <Badge badgeContent={numItem}>
                   <ShoppingCartIcon />
                 </Badge>
               </Link>
-
             </DivSearch>
           </>
         )}
@@ -76,28 +67,16 @@ const NavBar = () => {
       {isOpen && (
         <Dropdown>
           <Ul>
-            <Link href='/'>
-              <Li
-                onClick={() => setOpen(false)}
-              >
-                Home
-              </Li>
+            <Link href="/">
+              <Li onClick={() => setOpen(false)}>Home</Li>
             </Link>
 
-            <Link href='/products'>
-              <Li
-                onClick={() => setOpen(false)}
-              >
-                Shop
-              </Li>
+            <Link href="/products">
+              <Li onClick={() => setOpen(false)}>Shop</Li>
             </Link>
 
-            <Link href='/orders'>
-              <Li
-                onClick={() => setOpen(false)}
-              >
-                Find My Order
-              </Li>
+            <Link href="/orders">
+              <Li onClick={() => setOpen(false)}>Find My Order</Li>
             </Link>
           </Ul>
         </Dropdown>

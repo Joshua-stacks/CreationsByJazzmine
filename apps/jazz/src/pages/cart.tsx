@@ -1,13 +1,13 @@
-import Link from 'next/link'
-import styled from "styled-components";
+import Link from 'next/link';
+import styled from 'styled-components';
 
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-import { CartContext } from "@/components/ContextComponents/CartContext";
+import { CartContext } from '@/components/ContextComponents/CartContext';
 
-import { useContext, useState } from "react";
+import { useContext, useState } from 'react';
 
 const Cart = () => {
   const { cart, handleClickMinus, handleClickPlus, handleDelete } =
@@ -15,7 +15,6 @@ const Cart = () => {
 
   const total = useState(() => {
     if (cart) {
-
       const arrayPrice = cart.map((itm, index) => {
         const itms = itm.item;
         const num = cart[index].count;
@@ -27,7 +26,7 @@ const Cart = () => {
     }
 
     return 0;
-  })
+  });
 
   return (
     <>
@@ -76,7 +75,7 @@ const Cart = () => {
             <div>{String(total)}$</div>
           </TotalPrice>
           <DivQuote>
-            <Link href={"/quote"}>
+            <Link href={'/quote'}>
               <ButtonQuote>Get a quote</ButtonQuote>
             </Link>
           </DivQuote>

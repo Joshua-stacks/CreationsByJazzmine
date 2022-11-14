@@ -1,4 +1,4 @@
-import { NextApiResponse, NextApiRequest } from 'next'
+import { NextApiResponse, NextApiRequest } from 'next';
 import { MongoClient, ObjectId } from 'mongodb';
 import { setCookie } from '@/utils/cookies';
 
@@ -13,8 +13,8 @@ export default async function handler(
 
     try {
       await client.connect();
-      const carts = client.db("Project").collection("Carts");
-      const cartIdCookie = req.cookies["cartId"];
+      const carts = client.db('Project').collection('Carts');
+      const cartIdCookie = req.cookies['cartId'];
 
       // Check if the client already has a cart.
       if (cartIdCookie) {
@@ -32,7 +32,7 @@ export default async function handler(
         } else {
           return res.status(404).json({
             status: 404,
-            message: "Cart not found.",
+            message: 'Cart not found.',
           });
         }
       }
@@ -43,7 +43,7 @@ export default async function handler(
       // Verify that the cart was created successfully.
       if (response.insertedId) {
         // Send a cookie with the cart's id.
-        setCookie(res, "cartId", response.insertedId.toString(), {
+        setCookie(res, 'cartId', response.insertedId.toString(), {
           httpOnly: true,
           // Set the cookie to expire in a decade.
           maxAge: 10 * 365 * 86400 * 1000,
@@ -54,14 +54,14 @@ export default async function handler(
       } else {
         return res.status(502).json({
           status: 502,
-          message: "Creation failed, please try again.",
+          message: 'Creation failed, please try again.',
         });
       }
     } catch (err) {
-      console.error("Error getting cart:", err);
+      console.error('Error getting cart:', err);
       return res.status(500).json({
         status: 500,
-        message: "An unknown error occurred.",
+        message: 'An unknown error occurred.',
       });
     } finally {
       client.close();

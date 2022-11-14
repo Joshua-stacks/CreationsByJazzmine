@@ -1,4 +1,4 @@
-import { NextApiResponse, NextApiRequest } from 'next'
+import { NextApiResponse, NextApiRequest } from 'next';
 import { MongoClient } from 'mongodb';
 
 const { MONGO_URI } = process.env;
@@ -17,7 +17,7 @@ export default async function handler(
     if (!category || !max || !min || !name || !options || !price) {
       return res.status(400).json({
         status: 400,
-        message: "Request is missing data.",
+        message: 'Request is missing data.',
       });
     }
 
@@ -26,7 +26,7 @@ export default async function handler(
 
     try {
       await client.connect();
-      const products = client.db("Project").collection("Product");
+      const products = client.db('Project').collection('Product');
 
       // Insert the new product into the database.
       const response = await products.insertOne(newProduct);
@@ -37,15 +37,15 @@ export default async function handler(
       } else {
         return res.status(502).json({
           status: 502,
-          message: "Creation failed, please try again.",
+          message: 'Creation failed, please try again.',
           data: { ...newProduct },
         });
       }
     } catch (err) {
-      console.error("Error creating product:", err);
+      console.error('Error creating product:', err);
       return res.status(500).json({
         status: 500,
-        message: "An unknown error occured.",
+        message: 'An unknown error occured.',
       });
     } finally {
       client.close();
