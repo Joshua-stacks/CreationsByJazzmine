@@ -1,0 +1,51 @@
+{
+  "collectionName": "components_options_options",
+  "info": {
+    "displayName": "options",
+    "icon": "dog",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "theme": {
+      "type": "enumeration",
+      "enum": [
+        "mermaid",
+        "construction",
+        "unicorn",
+        "dinosaur",
+        "custom"
+      ]
+    },
+    "ledlight": {
+      "type": "boolean"
+    },
+    "shirts": {
+      "type": "boolean"
+    },
+    "balloons": {
+      "type": "boolean"
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": [
+        "glitter gold",
+        "glitter silver",
+        "glitter blue",
+        "glitter black",
+        "glitter pink",
+        "glitter fuschia",
+        "glitter purple",
+        "chrome gold",
+        "chrome silver",
+        "blue",
+        "white",
+        "black",
+        "purple",
+        "red",
+        "custom",
+        "pink"
+      ]
+    }
+  }
+}
