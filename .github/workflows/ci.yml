@@ -25,10 +25,10 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: "{{defaultContext}}:apps/jazz"
+          context: .
           push: true
           tags: ${{ format('{0}/jazz:latest', secrets.DOCKERHUB_REGISTRY) }}
-          file: Containerfile
+          file: apps/jazz/Containerfile
 
   docker-strapi:
     runs-on: ubuntu-latest
@@ -52,4 +52,4 @@ jobs:
           context: "{{defaultContext}}:apps/strapi"
           push: true
           tags: ${{ format('{0}/strapi:latest', secrets.DOCKERHUB_REGISTRY) }}
-          file: Containerfile
+          file: apps/strapi/Containerfile
