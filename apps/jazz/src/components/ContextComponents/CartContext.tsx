@@ -10,7 +10,7 @@ export interface ICartProps {
   numItem: any;
 
   total: number;
-  setTotal: number;
+  setTotal: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const CartContext = createContext<ICartProps>({} as ICartProps);
