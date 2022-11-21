@@ -12,25 +12,20 @@ const Products: NextPageWithLayout = () => {
 
   const [selectedCat, setSelectedCat] = useState('All');
 
-  const categories = [...new Set(products?.map((x) => x.category))];
+  const categories = ['All', ...new Set(products?.map((x) => x.category))];
 
   const filteredProd = products?.filter((d) => d.category === selectedCat);
 
   return (
     <Wrapper>
       <CatSelector>
-        <ButtonCat
-          value="All"
-          onClick={(ev) => setSelectedCat((ev.target as any).value)}
-        >
-          All
-        </ButtonCat>
         {categories.map((cat) => {
           return (
             <ButtonCat
               key={cat}
               value={cat}
               onClick={(ev) => setSelectedCat((ev.target as any).value)}
+              selected={selectedCat === cat}
             >
               {cat}
             </ButtonCat>
@@ -102,11 +97,12 @@ const CatSelector = styled.div`
   padding-bottom: 5px;
 `;
 
-const ButtonCat = styled.button`
+const ButtonCat = styled.button<{selected: boolean}>`
   margin: 5px 10px;
   background: none;
   border-radius: 5px;
   border: 1px solid;
+  background-color: ${props => props.selected ? 'red' : 'inherit'};
 `;
 const ProdDiv = styled.div`
   display: flex;

@@ -53,48 +53,44 @@ const ProductPage: NextPageWithLayout = () => {
           <DiForm>
             <form onSubmit={handleSubmit}>
               {keys?.map((key, i) => (
-                <>
-                  <DivOpt key={i}>
-                    <KeySpan>{key}:</KeySpan>
-                    <span>
-                      {typeof product.options[key] === 'boolean' ? (
-                        <>
-                          <label>
-                            <select name={keys[i]} id={keys[i]}>
-                              <option value={String(true)}>Yes</option>
-                              <option value={String(false)}>No</option>
-                            </select>
-                          </label>
-                        </>
-                      ) : (
-                        <>
-                          <label>
-                            <select
-                              name={keys[i]}
-                              onChange={(ev) => setTheme(ev.target.value)}
-                              id={keys[i]}
-                            >
-                              <option>chose</option>
-                              {/* TODO: fix type */}
-                              {/* {product.options[key].map((element) => {
+                <DivOpt key={i}>
+                  <KeySpan>{key}:</KeySpan>
+                  <span>
+                    {typeof product.options[key] === 'boolean' ? (
+                      <label>
+                        <select name={keys[i]} id={keys[i]}>
+                          <option value={String(true)}>Yes</option>
+                          <option value={String(false)}>No</option>
+                        </select>
+                      </label>
+                    ) : (
+                      <>
+                        <label>
+                          <select
+                            name={keys[i]}
+                            onChange={(ev) => setTheme(ev.target.value)}
+                            id={keys[i]}
+                          >
+                            <option>chose</option>
+                            {/* TODO: fix type */}
+                            {/* {product.options[key].map((element) => {
                               return (
                                 <>
                                   <option value={element}>{element}</option>
                                 </>
                               );
                             })} */}
-                            </select>
-                            <div style={{ marginTop: '5px' }}>
-                              {theme === 'custom' && (
-                                <input placeholder="Please write custom theme" />
-                              )}
-                            </div>
-                          </label>
-                        </>
-                      )}
-                    </span>
-                  </DivOpt>
-                </>
+                          </select>
+                          <div style={{ marginTop: '5px' }}>
+                            {theme === 'custom' && (
+                              <input placeholder="Please write custom theme" />
+                            )}
+                          </div>
+                        </label>
+                      </>
+                    )}
+                  </span>
+                </DivOpt>
               ))}
               <QtyDiv>
                 <div>

@@ -10,23 +10,8 @@ import { CartContext } from '@/components/ContextComponents/CartContext';
 import { useContext, useState } from 'react';
 
 const Cart = () => {
-  const { cart, handleClickMinus, handleClickPlus, handleDelete } =
+  const { cart, handleClickMinus, handleClickPlus, handleDelete, total } =
     useContext(CartContext);
-
-  const total = useState(() => {
-    if (cart) {
-      const arrayPrice = cart.map((itm, index) => {
-        const itms = itm.item;
-        const num = cart[index].count;
-
-        return Number((parseFloat(itms.price) * num).toFixed(2));
-      });
-
-      return arrayPrice.reduce((acc, value) => value + acc, 0);
-    }
-
-    return 0;
-  });
 
   return (
     <>
@@ -72,7 +57,7 @@ const Cart = () => {
           })}
           <TotalPrice>
             <div>Est. Total Price</div>
-            <div>{String(total)}$</div>
+            <div>{total.toFixed(2)}$</div>
           </TotalPrice>
           <DivQuote>
             <Link href={'/quote'}>

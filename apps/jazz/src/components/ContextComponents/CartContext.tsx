@@ -8,6 +8,9 @@ export interface ICartProps {
   handleClickPlus: any;
   handleDelete: any;
   numItem: any;
+
+  total: number;
+  setTotal: number;
 }
 
 export const CartContext = createContext<ICartProps>({} as ICartProps);
@@ -16,9 +19,23 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   //States
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState<Item[]>([]);
   const [load, setLoad] = useState(false);
   const [numItem, setNumItem] = useState(0);
+  const [ total, setTotal ] = useState(0);
+
+  useEffect(() => {
+    if (cart) {
+      const arrayPrice = cart.map((itm, index) => {
+        const itms = itm.item;
+        const num = cart[index].count;
+
+        return Number((parseFloat(itms.price) * num).toFixed(2));
+      });
+
+      setTotal(arrayPrice.reduce((acc, value) => value + acc, 0));
+    }
+  }, [cart]);
 
   //fetching data
   useEffect(() => {
@@ -119,6 +136,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         handleClickMinus,
         handleClickPlus,
         handleDelete,
+        total,
+        setTotal
       }}
     >
       {children}
