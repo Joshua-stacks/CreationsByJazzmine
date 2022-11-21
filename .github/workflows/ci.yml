@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  docker-next:
+  build-next:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -36,7 +36,7 @@ jobs:
       - name: Print image url
         run: echo "Image pushed to ${{ steps.push-to-registry.outputs.registry-paths }}"
 
-  docker-strapi:
+  build-strapi:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -49,7 +49,7 @@ jobs:
           tags: latest
           containerfiles: |
             ./apps/strapi/Containerfile
-          context: ./apps/strapi
+          context: .
 
       # Podman Login action (https://github.com/redhat-actions/podman-login) also be used to log in,
       # in which case 'username' and 'password' can be omitted.
