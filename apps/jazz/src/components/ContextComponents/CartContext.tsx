@@ -22,7 +22,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   const [cart, setCart] = useState<Item[]>([]);
   const [load, setLoad] = useState(false);
   const [numItem, setNumItem] = useState(0);
-  const [ total, setTotal ] = useState(0);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     if (cart) {
@@ -137,7 +137,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         handleClickPlus,
         handleDelete,
         total,
-        setTotal
+        setTotal,
       }}
     >
       {children}
