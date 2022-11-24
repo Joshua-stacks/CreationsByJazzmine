@@ -102,7 +102,7 @@ const ButtonCat = styled.button<{ selected: boolean }>`
   background: none;
   border-radius: 5px;
   border: 1px solid;
-  background-color: ${(props) => (props.selected ? 'red' : 'inherit')};
+  background-color: ${(props) => (props.selected ? 'green' : 'inherit')};
 `;
 const ProdDiv = styled.div`
   display: flex;
