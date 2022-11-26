@@ -1,7 +1,4 @@
 import { useContext, useState } from 'react';
-import styled from 'styled-components';
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
 
 import { ProductPageContext } from '@/components/ContextComponents/ProductPageContext';
 import { CartContext } from '@/components/ContextComponents/CartContext';

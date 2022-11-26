@@ -1,13 +1,8 @@
 import Link from 'next/link';
-import styled from 'styled-components';
-
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-
 import { CartContext } from '@/components/ContextComponents/CartContext';
 
 import { useContext, useState } from 'react';
+import Image from 'next/image';
 
 const Cart = () => {
   const { cart, handleClickMinus, handleClickPlus, handleDelete, total } =
@@ -15,55 +10,69 @@ const Cart = () => {
 
   return (
     <>
-      <Title>Your cart</Title>
+      <h1 className='text-4xl font-extrabold dark:text-white'>Your cart</h1>
+
       {cart && cart.length !== 0 ? (
         <>
           {cart.map((itm, index) => {
             const itms = itm.item;
             const num = cart[index].count;
             return (
-              <Wrapper key={itm.item.name}>
+              <div className='border border-gray-100 rounded-2xl m-2.5 p-2.5' key={itm.item.name}>
                 <div>{itms.name}</div>
                 <div>From {itms.category}</div>
-                <Edit>
-                  <ImgProd src={itms.image_src} />
-                  <DivAll>
-                    <DivPlusMin>
-                      <QtyButton
+                <div className='flex items-center justify-between mt-2'>
+                  <Image className='w-48 h-48 rounded-2xl shadow' src={itms.image_src} alt={itm.item.name} />
+                  <div className='flex flex-col items-center'>
+                    <div className='flex items-center'>
+                      <button
+                        className='m-2.5 rounded-2xl bg-white border'
                         disabled={num === itms.min}
                         onClick={() => handleClickMinus(num, itms)}
                         type="button"
                       >
-                        <RemoveIcon />
-                      </QtyButton>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </button>
                       <div>{num}</div>
-                      <QtyButton
+                      <button
+                        className='m-2.5 rounded-2xl bg-white border'
                         disabled={num === itms.max}
                         onClick={() => handleClickPlus(num, itms)}
                         type="button"
                       >
-                        <AddIcon />
-                      </QtyButton>
-                    </DivPlusMin>
-                    <DeleteIcon onClick={() => handleDelete(itms)} />
-                  </DivAll>
-                </Edit>
-                <ItemPrice>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </button>
+                    </div>
+                    <button
+                      type='button'
+                      onClick={() => handleDelete(itms)}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div className='border-t p-1 mt-4 mr-1 mb-1 ml-1 flex justify-between'>
                   <div>Est. Price</div>
                   <div>{(parseFloat(itms.price) * num).toFixed(2)}$</div>
-                </ItemPrice>
-              </Wrapper>
+                </div>
+              </div>
             );
           })}
-          <TotalPrice>
+          <div className='text-lg font-bold flex justify-between border rounded-2xl m-2.5 p-2.5'>
             <div>Est. Total Price</div>
             <div>{total.toFixed(2)}$</div>
-          </TotalPrice>
-          <DivQuote>
+          </div>
+          <div className='flex justify-center mb-4'>
             <Link href={'/quote'}>
-              <ButtonQuote>Get a quote</ButtonQuote>
+              <div className='text-lg bg-primary text-white border-none rounded-2xl p-2.5'>Get a quote</div>
             </Link>
-          </DivQuote>
+          </div>
         </>
       ) : (
         <>Cart is empty</>
@@ -71,76 +80,5 @@ const Cart = () => {
     </>
   );
 };
-const ButtonQuote = styled.button`
-  font-size: large;
-  background: var(--color-primary);
-  color: white;
-  border: none;
-  border-radius: 15px;
-  padding: 10px;
-`;
-const DivQuote = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
-`;
-const Wrapper = styled.div`
-  border: solid 1px lightgray;
-  border-radius: 15px;
-  margin: 10px;
-  padding: 10px;
-`;
-const Title = styled.div`
-  margin: 10px 0px;
-  font-size: 30px;
-  padding: 5px 10px;
-  padding-right: 30px;
-  border-bottom: solid;
-  width: fit-content;
-  font-weight: bold;
-`;
-const TotalPrice = styled.div`
-  font-size: larger;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  border: solid 1px lightgray;
-  border-radius: 15px;
-  margin: 10px;
-  padding: 10px;
-`;
-const ItemPrice = styled.div`
-  border-top: solid 1px lightgray;
-  padding: 5px;
-  margin: 15px 5px 5px 5px;
-  display: flex;
-  justify-content: space-between;
-`;
-const ImgProd = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: 15px;
-  box-shadow: 5px 5px lightgray;
-`;
-const Edit = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 7px;
-`;
-const QtyButton = styled.button`
-  margin: 10px;
-  border-radius: 15px;
-  background-color: white;
-  border: 1px solid;
-`;
-const DivPlusMin = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const DivAll = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+
 export default Cart;

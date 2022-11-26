@@ -18,7 +18,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <CartProvider>
       <NavBar />
-      {/* {children} */}
+      {children}
     </CartProvider>
   );
 };
