@@ -1,9 +1,9 @@
 import type { AppProps } from 'next/app';
 import type { NextPage } from 'next';
 
-import { CartProvider } from '@/components/ContextComponents/CartContext';
-/* import GlobalStyles from '@/styles/globalStyles'; */
+import '../styles/globals.css';
 
+import { CartProvider } from '@/components/ContextComponents/CartContext';
 import NavBar from '@/components/Header/Navbar';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

@@ -1,7 +1,7 @@
 export default function Logo() {
   return (
-    <div className="text-primary text-base">
+    <span className="self-center text-primary text-xl font-semibold whitespace-nowrap dark:text-white">
       CreationsByJazzmine
-    </div>
+    </span>
   )
 }
