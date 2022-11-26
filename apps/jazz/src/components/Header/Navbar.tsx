@@ -4,8 +4,7 @@ import { useState, useContext } from 'react';
 
 import { CartContext } from '@/components/ContextComponents/CartContext';
 import Logo from './Logo';
-import Image from 'next/image';
-import BagIcon from '../icons/BagIcon';
+import Bag from '../Bag';
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
@@ -45,7 +44,7 @@ export default function Navbar() {
         </Link>
 
         <Link href="/cart" className='md:order-last'>
-          <BagIcon />
+          <Bag />
         </Link>
 
         {/* menu items */}

@@ -7,7 +7,7 @@ export interface ICartProps {
   handleClickMinus: any;
   handleClickPlus: any;
   handleDelete: any;
-  numItem: any;
+  numItem: number;
 
   total: number;
   setTotal: React.Dispatch<React.SetStateAction<number>>;

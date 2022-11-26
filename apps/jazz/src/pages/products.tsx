@@ -4,8 +4,8 @@ import {
   ProductProvider,
 } from '@/components/ContextComponents/ProductContext';
 import { useContext, useState } from 'react';
-import styled from 'styled-components';
 import { NextPageWithLayout } from './_app';
+import ProductList from '@/components/ProductList';
 
 const Products: NextPageWithLayout = () => {
   const { products } = useContext(ProductContext);
@@ -17,23 +17,24 @@ const Products: NextPageWithLayout = () => {
   const filteredProd = products?.filter((d) => d.category === selectedCat);
 
   return (
-    <Wrapper>
-      <CatSelector>
+    <div>
+      <div className='flex overflow-x-scroll border-b pb-1'>
         {categories.map((cat) => {
           return (
-            <ButtonCat
+            <button
               key={cat}
               value={cat}
+              className={ `mx-1 my-2.5 bg-none rounded border ${selectedCat === cat ? 'green' : 'inherit'}` }
               onClick={(ev) => setSelectedCat((ev.target as any).value)}
-              selected={selectedCat === cat}
             >
               {cat}
-            </ButtonCat>
+            </button>
           );
         })}
-      </CatSelector>
-      <ProdDiv>
-        {selectedCat === 'All'
+      </div>
+      <div className='flex flex-col m-1'>
+        <ProductList />
+        {/* {selectedCat === 'All'
           ? products?.map((s) => {
               return (
                 <LinkProd href={`/product/${s._id}`} key={s.name}>
@@ -59,9 +60,9 @@ const Products: NextPageWithLayout = () => {
                   </ProdsDiv>
                 </LinkProd>
               );
-            })}
-      </ProdDiv>
-    </Wrapper>
+            })} */}
+      </div>
+    </div>
   );
 };
 
@@ -69,7 +70,7 @@ Products.getLayout = (page) => {
   return <ProductProvider>{page}</ProductProvider>;
 };
 
-const Name = styled.h1`
+/* const Name = styled.h1`
   font-size: larger;
 `;
 const Info = styled.div`
@@ -113,6 +114,6 @@ const ImgProd = styled.img`
   width: 150px;
   height: 150px;
   border-radius: 15px;
-`;
+`; */
 
 export default Products;
