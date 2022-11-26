@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 import type { NextPage } from 'next';
 
 import { CartProvider } from '@/components/ContextComponents/CartContext';
-import GlobalStyles from '@/styles/globalStyles';
+/* import GlobalStyles from '@/styles/globalStyles'; */
 
 import NavBar from '@/components/Header/Navbar';
 
@@ -17,9 +17,8 @@ type AppPropsWithLayout = AppProps & {
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <CartProvider>
-      <GlobalStyles />
       <NavBar />
-      {children}
+      {/* {children} */}
     </CartProvider>
   );
 };

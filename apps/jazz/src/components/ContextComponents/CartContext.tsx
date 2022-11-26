@@ -20,7 +20,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   //States
   const [cart, setCart] = useState<Item[]>([]);
-  const [load, setLoad] = useState(false);
   const [numItem, setNumItem] = useState(0);
   const [total, setTotal] = useState(0);
 
@@ -43,21 +42,19 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       const data = await fetch('/api/cart');
       const prod = await data.json();
       setCart(prod.data);
-      setLoad(true);
+
       if (prod.data !== undefined) {
         const num = prod.data.reduce((sum, acc) => sum + acc.count, 0);
         setNumItem(num);
       }
+
       return prod;
     };
+
     fetchProd().catch((err) => {
       console.log(err);
     });
   }, []);
-  //Loading data
-  if (!load) {
-    return <></>;
-  }
 
   const addCart = (count: number, product, options) => {
     fetch('/api/cart/client', {
