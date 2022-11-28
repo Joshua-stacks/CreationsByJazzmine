@@ -9,12 +9,15 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@strapi/typescript-utils": "^4.5.2"
+  },
   "dependencies": {
-    "@strapi/strapi": "4.5.0",
-    "@strapi/plugin-users-permissions": "4.5.0",
-    "@strapi/plugin-i18n": "4.5.0",
-    "pg": "8.6.0"
+    "@strapi/plugin-i18n": "4.5.2",
+    "@strapi/plugin-users-permissions": "4.5.2",
+    "@strapi/provider-upload-local": "^4.5.2",
+    "@strapi/strapi": "4.5.2",
+    "pg": "8.8.0"
   },
   "author": {
     "name": "Your man Josh"

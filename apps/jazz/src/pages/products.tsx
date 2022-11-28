@@ -1,40 +1,78 @@
 import Link from 'next/link';
-import {
-  ProductContext,
-  ProductProvider,
-} from '@/components/ContextComponents/ProductContext';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { NextPageWithLayout } from './_app';
 import ProductList from '@/components/ProductList';
+import Image from 'next/image';
 
-const Products: NextPageWithLayout = () => {
-  const { products } = useContext(ProductContext);
+const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
+  const [category, setCategory] = useState('All');
 
-  const [selectedCat, setSelectedCat] = useState('All');
-
-  const categories = ['All', ...new Set(products?.map((x) => x.category))];
-
-  const filteredProd = products?.filter((d) => d.category === selectedCat);
+  /* const categories = ['All', ...new Set(products?.map((x) => x.category))]; */
+  /**/
+  /* const filteredProd = products?.filter((d) => d.category === selectedCat); */
 
   return (
-    <div>
-      <div className='flex overflow-x-scroll border-b pb-1'>
-        {categories.map((cat) => {
-          return (
-            <button
-              key={cat}
-              value={cat}
-              className={ `mx-1 my-2.5 bg-none rounded border ${selectedCat === cat ? 'green' : 'inherit'}` }
-              onClick={(ev) => setSelectedCat((ev.target as any).value)}
+    <div className='flex flex-col'>
+
+      <div className='flex flex-col'>
+        <h1 className='text-4xl font-extrabold dark:text-white'>Best Sellers</h1>
+
+        <div className='overflow-x-auto mt-5 flex md:grid md:grid-cols-6 md:auto-rows-auto'>
+          {products.map(({ id, attributes }) => (
+            <div
+              key={id}
+              className='relative flex flex-col items-center p-2 w-full'
             >
-              {cat}
-            </button>
-          );
-        })}
+              <div className='relative w-36 h-36'>
+                <Image
+                  className='rounded-xl object-contain'
+                  src='/assets/partyHats.jpg'
+                  alt='hi'
+                  fill
+                />
+              </div>
+              <span className='text-pink-800 text-xl font-semibold dark:text-white'>
+                {attributes.name}
+              </span>
+
+              <div className='absolute -top-0.5 -right-0.5 p-1 rounded-xl bg-red-500'>
+                <span className='text-xs font-bold'>
+                  17% Off
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className='flex flex-col m-1'>
-        <ProductList />
-        {/* {selectedCat === 'All'
+
+      <div className='flex flex-col'>
+        <h1 className='text-4xl font-extrabold dark:text-white'>Catalog</h1>
+
+      </div>
+
+    </div>
+  );
+};
+
+// This function gets called at build time on server-side.
+// It may be called again, on a serverless function, if
+// revalidation is enabled and a new request comes in
+export async function getStaticProps() {
+  const response = await fetch('http://localhost:1337/api/products?populate=media');
+  const { data: products } = await response.json();
+
+  return {
+    props: {
+      products
+    },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 10 seconds
+    revalidate: 60, // In seconds
+  }
+}
+
+{/* {selectedCat === 'All'
           ? products?.map((s) => {
               return (
                 <LinkProd href={`/product/${s._id}`} key={s.name}>
@@ -61,14 +99,10 @@ const Products: NextPageWithLayout = () => {
                 </LinkProd>
               );
             })} */}
-      </div>
-    </div>
-  );
-};
 
-Products.getLayout = (page) => {
-  return <ProductProvider>{page}</ProductProvider>;
-};
+/* Products.getLayout = (page) => { */
+/*   return <ProductProvider>{page}</ProductProvider>; */
+/* }; */
 
 /* const Name = styled.h1`
   font-size: larger;
