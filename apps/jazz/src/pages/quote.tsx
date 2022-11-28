@@ -20,69 +20,78 @@ const Quote = () => {
   const [email, setEmail] = useState('');
 
   return (
-    <ThemeProvider theme={theme}>
-      <SignForm>
-        <AdminSign>Your Information</AdminSign>
-        <AdminSign>
-          <TextField
-            label="First name"
-            variant="outlined"
+    <Wrapper>
+      <ThemeProvider theme={theme}>
+        <SignForm>
+          <AdminSign>Your Information</AdminSign>
+          <AdminSign>
+            <TextField
+              label="First name"
+              variant="outlined"
+              size="small"
+              color="neutral"
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
+            />
+          </AdminSign>
+          <AdminSign>
+            <TextField
+              label="Last name"
+              variant="outlined"
+              size="small"
+              color="neutral"
+              onChange={(event) => {
+                setLastName(event.target.value);
+              }}
+            />
+          </AdminSign>
+          <AdminSign>
+            <TextField
+              label="Phone Number"
+              variant="outlined"
+              size="small"
+              color="neutral"
+              onChange={(event) => {
+                setNum(event.target.value);
+              }}
+            />
+          </AdminSign>
+          <AdminSign>
+            <TextField
+              label="email"
+              variant="outlined"
+              size="small"
+              color="neutral"
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+            />
+          </AdminSign>
+          <Button
+            variant="contained"
+            type={'submit'}
             size="small"
             color="neutral"
-            onChange={(event) => {
-              setName(event.target.value);
-            }}
-          />
-        </AdminSign>
-        <AdminSign>
-          <TextField
-            label="Last name"
-            variant="outlined"
-            size="small"
-            color="neutral"
-            onChange={(event) => {
-              setLastName(event.target.value);
-            }}
-          />
-        </AdminSign>
-        <AdminSign>
-          <TextField
-            label="Phone Number"
-            variant="outlined"
-            size="small"
-            color="neutral"
-            onChange={(event) => {
-              setNum(event.target.value);
-            }}
-          />
-        </AdminSign>
-        <AdminSign>
-          <TextField
-            label="email"
-            variant="outlined"
-            size="small"
-            color="neutral"
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-          />
-        </AdminSign>
-        <Button
-          variant="contained"
-          type={'submit'}
-          size="small"
-          color="neutral"
-        >
-          Reserve
-        </Button>
-      </SignForm>
-    </ThemeProvider>
+          >
+            Reserve
+          </Button>
+        </SignForm>
+      </ThemeProvider>
+    </Wrapper>
   );
 };
 const SignForm = styled.form`
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const AdminSign = styled.div`
   margin: 5px;
+`;
+const Wrapper = styled.div`
+  z-index: 5;
 `;
 export default Quote;

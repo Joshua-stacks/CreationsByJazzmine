@@ -3,6 +3,11 @@ import { createGlobalStyle } from 'styled-components';
 export default createGlobalStyle`
 
 
+body,
+html,
+#__next {
+  height: 100%;
+}
 
 :root{
 	--color-primary: #C291A4;
