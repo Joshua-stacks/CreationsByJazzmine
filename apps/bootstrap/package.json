@@ -1,0 +1,9 @@
+{
+    "name": "boostrap",
+    "version": "0.0.1",
+    "type": "module",
+    "dependencies": {
+        "dotenv": "^16.0.3",
+        "node-fetch": "^3.3.0"
+    }
+}
