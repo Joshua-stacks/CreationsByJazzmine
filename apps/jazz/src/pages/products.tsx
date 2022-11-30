@@ -8,31 +8,32 @@ const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
   const [category, setCategory] = useState('All');
 
   /* const categories = ['All', ...new Set(products?.map((x) => x.category))]; */
-  /**/
+
   /* const filteredProd = products?.filter((d) => d.category === selectedCat); */
 
   return (
     <div className='flex flex-col'>
 
       <div className='flex flex-col'>
-        <h1 className='text-4xl font-extrabold dark:text-white'>Best Sellers</h1>
+        <h1 className='text-3xl font-extrabold dark:text-white'>Best Sellers</h1>
 
         <div className='overflow-x-auto mt-5 flex md:grid md:grid-cols-6 md:auto-rows-auto'>
-          {products.map(({ id, attributes }) => (
-            <div
+          {products.map(({ name, _id: id, image_src }) => (
+            <Link
               key={id}
+              href='/'
               className='relative flex flex-col items-center p-2 w-full'
             >
               <div className='relative w-36 h-36'>
                 <Image
                   className='rounded-xl object-contain'
-                  src='/assets/partyHats.jpg'
-                  alt='hi'
+                  src={image_src}
+                  alt={name}
                   fill
                 />
               </div>
-              <span className='text-pink-800 text-xl font-semibold dark:text-white'>
-                {attributes.name}
+              <span className='text-base dark:text-white'>
+                {name}
               </span>
 
               <div className='absolute -top-0.5 -right-0.5 p-1 rounded-xl bg-red-500'>
@@ -40,13 +41,14 @@ const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
                   17% Off
                 </span>
               </div>
-            </div>
+
+            </Link>
           ))}
         </div>
       </div>
 
       <div className='flex flex-col'>
-        <h1 className='text-4xl font-extrabold dark:text-white'>Catalog</h1>
+        <h1 className='text-3xl font-extrabold dark:text-white'>Catalog</h1>
 
       </div>
 
@@ -58,8 +60,8 @@ const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
 // It may be called again, on a serverless function, if
 // revalidation is enabled and a new request comes in
 export async function getStaticProps() {
-  const response = await fetch('http://localhost:1337/api/products?populate=media');
-  const { data: products } = await response.json();
+  const products = await getMongoProducts();
+  console.log(products);
 
   return {
     props: {
@@ -71,6 +73,20 @@ export async function getStaticProps() {
     revalidate: 60, // In seconds
   }
 }
+
+const getStrapiProducts = async () => {
+  const response = await fetch('http://localhost:1337/api/products?populate=media');
+  const { data: products } = await response.json();
+
+  return products;
+};
+
+const getMongoProducts = async () => {
+  const data = await fetch('http://localhost:3000/api/products');
+  const { products } = await data.json();
+
+  return products;
+};
 
 {/* {selectedCat === 'All'
           ? products?.map((s) => {
