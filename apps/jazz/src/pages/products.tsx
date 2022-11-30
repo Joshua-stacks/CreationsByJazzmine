@@ -6,15 +6,27 @@ import {
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { NextPageWithLayout } from './_app';
+import { WindowSharp } from '@mui/icons-material';
 
 const Products: NextPageWithLayout = () => {
   const { products } = useContext(ProductContext);
 
   const [selectedCat, setSelectedCat] = useState('All');
+  const [slice, setSlice] = useState(5);
 
   const categories = ['All', ...new Set(products?.map((x) => x.category))];
 
   const filteredProd = products?.filter((d) => d.category === selectedCat);
+
+  const handleClick = () => {
+    if (products !== undefined) {
+      if (slice < products?.length) {
+        setSlice(slice + 5);
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+  };
 
   return (
     <Wrapper>
@@ -34,7 +46,7 @@ const Products: NextPageWithLayout = () => {
       </CatSelector>
       <ProdDiv>
         {selectedCat === 'All'
-          ? products?.map((s) => {
+          ? products?.slice(0, slice).map((s) => {
               return (
                 <LinkProd href={`/product/${s._id}`} key={s.name}>
                   <ProdsDiv>
@@ -47,7 +59,7 @@ const Products: NextPageWithLayout = () => {
                 </LinkProd>
               );
             })
-          : filteredProd?.map((s) => {
+          : filteredProd?.slice(0, slice).map((s) => {
               return (
                 <LinkProd href={`/product/${s._id}`} key={s.name}>
                   <ProdsDiv>
@@ -61,6 +73,13 @@ const Products: NextPageWithLayout = () => {
               );
             })}
       </ProdDiv>
+      <Div>
+        {products !== undefined && slice < products?.length ? (
+          <Button onClick={handleClick}>Load More</Button>
+        ) : (
+          <Button onClick={handleClick}>Back to top</Button>
+        )}
+      </Div>
     </Wrapper>
   );
 };
@@ -69,6 +88,18 @@ Products.getLayout = (page) => {
   return <ProductProvider>{page}</ProductProvider>;
 };
 
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const Button = styled.button`
+  background-color: var(--color-primary);
+  width: fit-content;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  color: white;
+`;
 const Name = styled.h1`
   font-size: larger;
 `;
@@ -88,7 +119,10 @@ const ProdsDiv = styled.div`
   border-bottom: solid 1px lightgray;
   padding: 5px;
 `;
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const CatSelector = styled.div`
   display: flex;
