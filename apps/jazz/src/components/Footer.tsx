@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   background-color: var(--color-primary);
   color: white;
   margin-top: auto;
-  height: 80px;
+  min-height: 80px;
 `;
 const Web = styled.a`
   color: white;
