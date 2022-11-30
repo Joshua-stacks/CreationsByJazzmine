@@ -59,7 +59,7 @@ const Products: NextPageWithLayout = () => {
                 </LinkProd>
               );
             })
-          : filteredProd?.slice(0, slice).map((s) => {
+          : filteredProd?.map((s) => {
               return (
                 <LinkProd href={`/product/${s._id}`} key={s.name}>
                   <ProdsDiv>
@@ -75,9 +75,23 @@ const Products: NextPageWithLayout = () => {
       </ProdDiv>
       <Div>
         {products !== undefined && slice < products?.length ? (
-          <Button onClick={handleClick}>Load More</Button>
+          <Button
+            onClick={handleClick}
+            style={
+              selectedCat === 'All' ? { display: 'block' } : { display: 'none' }
+            }
+          >
+            Load More
+          </Button>
         ) : (
-          <Button onClick={handleClick}>Back to top</Button>
+          <Button
+            onClick={handleClick}
+            style={
+              selectedCat === 'All' ? { display: 'block' } : { display: 'none' }
+            }
+          >
+            Back to top
+          </Button>
         )}
       </Div>
     </Wrapper>
