@@ -20,7 +20,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <div className='h-full flex flex-col'>
         <NavBar />
 
-        <main className='grow dark:bg-gray-900'>
+        <main className='grow'>
           <div className='mt-6 p-4 md:p-16'>
             {children}
           </div>

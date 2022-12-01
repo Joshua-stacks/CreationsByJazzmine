@@ -9,6 +9,8 @@ html, body, #__next {
 @layer base {
   :root {
     --color-primary: 194 145 164;
-    --color-secondary: 111 114 185;
+    --color-secondary: 143 107 121;
+    --color-tertiary: 66 30 44;
+    --color-playful: 204 92 135;
   }
 }

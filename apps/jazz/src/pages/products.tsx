@@ -15,7 +15,7 @@ const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
     <div className='flex flex-col'>
 
       <div className='flex flex-col'>
-        <h1 className='text-3xl font-extrabold dark:text-white'>Best Sellers</h1>
+        <h1 className='text-3xl font-extrabold'>Best Sellers</h1>
 
         <div className='overflow-x-auto mt-5 flex md:grid md:grid-cols-6 md:auto-rows-auto'>
           {products.map(({ name, _id: id, image_src }) => (
@@ -32,7 +32,7 @@ const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
                   fill
                 />
               </div>
-              <span className='text-base dark:text-white'>
+              <span className='text-base'>
                 {name}
               </span>
 
@@ -48,8 +48,7 @@ const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
       </div>
 
       <div className='flex flex-col'>
-        <h1 className='text-3xl font-extrabold dark:text-white'>Catalog</h1>
-
+        <h1 className='text-3xl font-extrabold'>Catalog</h1>
       </div>
 
     </div>
@@ -61,7 +60,6 @@ const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
 // revalidation is enabled and a new request comes in
 export async function getStaticProps() {
   const products = await getMongoProducts();
-  console.log(products);
 
   return {
     props: {

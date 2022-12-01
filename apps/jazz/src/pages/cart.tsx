@@ -10,7 +10,7 @@ const Cart = () => {
 
   return (
     <>
-      <h1 className='text-4xl font-extrabold dark:text-white'>Your cart</h1>
+      <h1 className='text-4xl font-extrabold'>Your cart</h1>
 
       {cart && cart.length !== 0 ? (
         <>
