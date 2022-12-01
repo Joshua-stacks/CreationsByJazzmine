@@ -135,20 +135,19 @@ const ProductPage: NextPageWithLayout = () => {
 // It may be called again, on a serverless function, if
 // the path has not been generated.
 export async function getStaticPaths() {
-  const response = await fetch('http://localhost:1337/api/products')
-  const { data: products } = await response.json()
+  const response = await fetch('http://localhost:1337/api/products');
+  const { data: products } = await response.json();
 
   // Get the paths we want to pre-render based on posts
   const paths = products.map((product) => ({
     params: { id: product.id },
-  }))
+  }));
 
   // We'll pre-render only these paths at build time.
   // { fallback: blocking } will server-render pages
   // on-demand if the path doesn't exist.
-  return { paths, fallback: 'blocking' }
+  return { paths, fallback: 'blocking' };
 }
-
 
 ProductPage.getLayout = (page) => {
   return <ProductPageProvider>{page}</ProductPageProvider>;

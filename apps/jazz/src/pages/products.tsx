@@ -12,45 +12,38 @@ const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
   /* const filteredProd = products?.filter((d) => d.category === selectedCat); */
 
   return (
-    <div className='flex flex-col'>
+    <div className="flex flex-col">
+      <div className="flex flex-col">
+        <h1 className="text-3xl font-extrabold">Best Sellers</h1>
 
-      <div className='flex flex-col'>
-        <h1 className='text-3xl font-extrabold'>Best Sellers</h1>
-
-        <div className='overflow-x-auto mt-5 flex md:grid md:grid-cols-6 md:auto-rows-auto'>
+        <div className="overflow-x-auto mt-5 flex md:grid md:grid-cols-6 md:auto-rows-auto">
           {products.map(({ name, _id: id, image_src }) => (
             <Link
               key={id}
-              href='/'
-              className='relative flex flex-col items-center p-2 w-full'
+              href="/"
+              className="relative flex flex-col items-center p-2 w-full"
             >
-              <div className='relative w-36 h-36'>
+              <div className="relative w-36 h-36">
                 <Image
-                  className='rounded-xl object-contain'
+                  className="rounded-xl object-contain"
                   src={image_src}
                   alt={name}
                   fill
                 />
               </div>
-              <span className='text-base'>
-                {name}
-              </span>
+              <span className="text-base">{name}</span>
 
-              <div className='absolute -top-0.5 -right-0.5 p-1 rounded-xl bg-red-500'>
-                <span className='text-xs font-bold'>
-                  17% Off
-                </span>
+              <div className="absolute -top-0.5 -right-0.5 p-1 rounded-xl bg-red-500">
+                <span className="text-xs font-bold">17% Off</span>
               </div>
-
             </Link>
           ))}
         </div>
       </div>
 
-      <div className='flex flex-col'>
-        <h1 className='text-3xl font-extrabold'>Catalog</h1>
+      <div className="flex flex-col">
+        <h1 className="text-3xl font-extrabold">Catalog</h1>
       </div>
-
     </div>
   );
 };
@@ -63,17 +56,19 @@ export async function getStaticProps() {
 
   return {
     props: {
-      products
+      products,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 10 seconds
     revalidate: 60, // In seconds
-  }
+  };
 }
 
 const getStrapiProducts = async () => {
-  const response = await fetch('http://localhost:1337/api/products?populate=media');
+  const response = await fetch(
+    'http://localhost:1337/api/products?populate=media'
+  );
   const { data: products } = await response.json();
 
   return products;
@@ -86,7 +81,8 @@ const getMongoProducts = async () => {
   return products;
 };
 
-{/* {selectedCat === 'All'
+{
+  /* {selectedCat === 'All'
           ? products?.map((s) => {
               return (
                 <LinkProd href={`/product/${s._id}`} key={s.name}>
@@ -112,7 +108,8 @@ const getMongoProducts = async () => {
                   </ProdsDiv>
                 </LinkProd>
               );
-            })} */}
+            })} */
+}
 
 /* Products.getLayout = (page) => { */
 /*   return <ProductProvider>{page}</ProductProvider>; */

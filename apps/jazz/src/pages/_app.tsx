@@ -17,15 +17,12 @@ type AppPropsWithLayout = AppProps & {
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <CartProvider>
-      <div className='h-full flex flex-col'>
+      <div className="h-full flex flex-col">
         <NavBar />
 
-        <main className='grow'>
-          <div className='mt-6 p-4 md:p-16'>
-            {children}
-          </div>
+        <main className="grow">
+          <div className="mt-6 p-4 md:p-16">{children}</div>
         </main>
-
       </div>
     </CartProvider>
   );
