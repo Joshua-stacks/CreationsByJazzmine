@@ -19,21 +19,21 @@ const Cart = () => {
             const num = cart[index].count;
             return (
               <div
-                className="border border-gray-100 rounded-2xl m-2.5 p-2.5"
+                className="m-2.5 rounded-2xl border border-gray-100 p-2.5"
                 key={itm.item.name}
               >
                 <div>{itms.name}</div>
                 <div>From {itms.category}</div>
-                <div className="flex items-center justify-between mt-2">
+                <div className="mt-2 flex items-center justify-between">
                   <Image
-                    className="w-48 h-48 rounded-2xl shadow"
+                    className="h-48 w-48 rounded-2xl shadow"
                     src={itms.image_src}
                     alt={itm.item.name}
                   />
                   <div className="flex flex-col items-center">
                     <div className="flex items-center">
                       <button
-                        className="m-2.5 rounded-2xl bg-white border"
+                        className="m-2.5 rounded-2xl border bg-white"
                         disabled={num === itms.min}
                         onClick={() => handleClickMinus(num, itms)}
                         type="button"
@@ -44,7 +44,7 @@ const Cart = () => {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-6 h-6"
+                          className="h-6 w-6"
                         >
                           <path
                             strokeLinecap="round"
@@ -55,7 +55,7 @@ const Cart = () => {
                       </button>
                       <div>{num}</div>
                       <button
-                        className="m-2.5 rounded-2xl bg-white border"
+                        className="m-2.5 rounded-2xl border bg-white"
                         disabled={num === itms.max}
                         onClick={() => handleClickPlus(num, itms)}
                         type="button"
@@ -66,7 +66,7 @@ const Cart = () => {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-6 h-6"
+                          className="h-6 w-6"
                         >
                           <path
                             strokeLinecap="round"
@@ -83,7 +83,7 @@ const Cart = () => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6"
+                        className="h-6 w-6"
                       >
                         <path
                           strokeLinecap="round"
@@ -94,20 +94,20 @@ const Cart = () => {
                     </button>
                   </div>
                 </div>
-                <div className="border-t p-1 mt-4 mr-1 mb-1 ml-1 flex justify-between">
+                <div className="mt-4 mr-1 mb-1 ml-1 flex justify-between border-t p-1">
                   <div>Est. Price</div>
                   <div>{(parseFloat(itms.price) * num).toFixed(2)}$</div>
                 </div>
               </div>
             );
           })}
-          <div className="text-lg font-bold flex justify-between border rounded-2xl m-2.5 p-2.5">
+          <div className="m-2.5 flex justify-between rounded-2xl border p-2.5 text-lg font-bold">
             <div>Est. Total Price</div>
             <div>{total.toFixed(2)}$</div>
           </div>
-          <div className="flex justify-center mb-4">
+          <div className="mb-4 flex justify-center">
             <Link href={'/quote'}>
-              <div className="text-lg bg-primary text-white border-none rounded-2xl p-2.5">
+              <div className="bg-primary rounded-2xl border-none p-2.5 text-lg text-white">
                 Get a quote
               </div>
             </Link>

@@ -6,14 +6,14 @@ export default function BagIcon() {
   const { numItem } = useContext(CartContext);
 
   return (
-    <div className="inline-flex gap-1 relative items-center p-3 text-sm font-medium text-center">
+    <div className="relative inline-flex items-center gap-1 p-3 text-center text-sm font-medium">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-6 h-6 fill-rose-100"
+        className="h-6 w-6 fill-rose-100"
       >
         <path
           strokeLinecap="round"
@@ -25,7 +25,7 @@ export default function BagIcon() {
       <div
         className={`${
           numItem ? 'inline-flex' : 'hidden'
-        } absolute -top-0.5 -right-0.5 justify-center items-center w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white`}
+        } absolute -top-0.5 -right-0.5 h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-red-500 text-xs font-bold text-white`}
       >
         {numItem}
       </div>

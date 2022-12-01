@@ -1,6 +1,6 @@
 export default function Logo() {
   return (
-    <span className="font-extrabold tracking-tight leading-none text-primary text-2xl whitespace-nowrap">
+    <span className="text-primary whitespace-nowrap text-2xl font-extrabold leading-none tracking-tight">
       CreationsByJazzmine
     </span>
   );

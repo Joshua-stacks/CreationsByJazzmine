@@ -3,21 +3,21 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <div>
-      <h1 className="text-center mb-4 text-4xl font-extrabold tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 md:text-5xl lg:text-6xl">
+      <h1 className="mb-4 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-center text-4xl font-extrabold leading-none tracking-tight text-transparent md:text-5xl lg:text-6xl">
         Party Decorations and More!
       </h1>
 
-      <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48">
+      <p className="mb-6 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48">
         Placeholder
       </p>
 
       <Link
         href="/products"
-        className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:ring-rose-300"
+        className="inline-flex items-center justify-center rounded-lg bg-rose-700 py-3 px-5 text-center text-base font-medium text-white hover:bg-rose-800 focus:ring-4 focus:ring-rose-300"
       >
         View products
         <svg
-          className="ml-2 -mr-1 w-5 h-5"
+          className="ml-2 -mr-1 h-5 w-5"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"

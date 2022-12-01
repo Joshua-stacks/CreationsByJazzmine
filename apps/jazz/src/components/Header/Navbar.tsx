@@ -15,21 +15,21 @@ export default function Navbar() {
   const { numItem } = useContext(CartContext);
 
   return (
-    <nav className="border-gray-200 px-2 sm:px-4 py-2.5">
-      <div className="container flex flex-wrap md:flex-nowrap items-center justify-between md:justify-start mx-auto">
+    <nav className="border-gray-200 px-2 py-2.5 sm:px-4">
+      <div className="container mx-auto flex flex-wrap items-center justify-between md:flex-nowrap md:justify-start">
         <div className="flex md:order-2">
           {/* burger */}
           <button
             onClick={() => setIsOpen((curr) => !curr)}
             data-collapse-toggle="navbar-search"
             type="button"
-            className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden"
             aria-controls="navbar-search"
             aria-expanded="false"
           >
             <span className="sr-only">Open menu</span>
             <svg
-              className="w-6 h-6"
+              className="h-6 w-6"
               aria-hidden="true"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -56,10 +56,10 @@ export default function Navbar() {
         <div
           className={`items-center justify-between ${
             isOpen ? '' : 'hidden'
-          } w-full md:flex md:w-auto md:order-1 md:grow`}
+          } w-full md:order-1 md:flex md:w-auto md:grow`}
           id="navbar-search"
         >
-          <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
+          <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium">
             <MenuItem
               onLinkClick={() => setIsOpen(false)}
               href="/"
@@ -103,8 +103,8 @@ const MenuItem: React.FC<{
       <Link
         onClick={onLinkClick}
         href={href}
-        className={`block py-2 pl-3 pr-4 rounded md:bg-transparent md:text-tertiary md:p-0
-          ${pathname === match ? 'text-white bg-playful' : 'text-gray-700'}`}
+        className={`md:text-tertiary block rounded py-2 pl-3 pr-4 md:bg-transparent md:p-0
+          ${pathname === match ? 'bg-playful text-white' : 'text-gray-700'}`}
       >
         {children}
       </Link>

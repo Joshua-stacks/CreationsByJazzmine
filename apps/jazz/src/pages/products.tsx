@@ -16,14 +16,14 @@ const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
       <div className="flex flex-col">
         <h1 className="text-3xl font-extrabold">Best Sellers</h1>
 
-        <div className="overflow-x-auto mt-5 flex md:grid md:grid-cols-6 md:auto-rows-auto">
+        <div className="mt-5 flex overflow-x-auto md:grid md:auto-rows-auto md:grid-cols-6">
           {products.map(({ name, _id: id, image_src }) => (
             <Link
               key={id}
               href="/"
-              className="relative flex flex-col items-center p-2 w-full"
+              className="relative flex w-full flex-col items-center p-2"
             >
-              <div className="relative w-36 h-36">
+              <div className="relative h-36 w-36">
                 <Image
                   className="rounded-xl object-contain"
                   src={image_src}
@@ -33,7 +33,7 @@ const Products: NextPageWithLayout<{ products: any[] }> = ({ products }) => {
               </div>
               <span className="text-base">{name}</span>
 
-              <div className="absolute -top-0.5 -right-0.5 p-1 rounded-xl bg-red-500">
+              <div className="absolute -top-0.5 -right-0.5 rounded-xl bg-red-500 p-1">
                 <span className="text-xs font-bold">17% Off</span>
               </div>
             </Link>

@@ -5,7 +5,7 @@ import EmailIcon from '@mui/icons-material/Email';
 
 const Footer = () => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       Connect with us:
       <div>
         <Web href="https://www.instagram.com/creationsbyjazzminerose/">
