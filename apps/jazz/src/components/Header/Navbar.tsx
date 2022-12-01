@@ -50,7 +50,7 @@ const NavBar = () => {
 const fadeIn = keyframes`
 from {
     opacity: 0;
-    transform: translatey(-10px)
+    transform: translatey(-2px)
 }
 to{
     opacity: 1;
@@ -74,12 +74,11 @@ const Wrapper = styled.div`
   height: 55px;
   padding-right: 10px;
   width: 100%;
-  overflow-x: hidden;
+
   box-shadow: 12px 0 15px -4px var(--color-primary),
     -12px 0 8px -4px var(--color-primary);
   background-color: white;
   border-bottom: solid 1px lightgray;
-  z-index: 5;
 `;
 
 const CompanyName = styled.div`
@@ -88,7 +87,6 @@ const CompanyName = styled.div`
 `;
 
 const Dropdown = styled.div`
-  position: absolute;
   background-color: #f2f2f2;
   width: 100%;
   color: var(--color-primary);

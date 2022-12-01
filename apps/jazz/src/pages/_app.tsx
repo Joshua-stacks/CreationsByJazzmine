@@ -22,10 +22,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <CartProvider>
       <GlobalStyles />
 
-      <NavBar />
-
       <div className="flex flex-col h-full">
-        <div className="grow">{children}</div>
+        <NavBar />
+        <div>{children}</div>
         <Footer />
       </div>
     </CartProvider>

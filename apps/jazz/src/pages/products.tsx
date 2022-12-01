@@ -7,6 +7,7 @@ import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { NextPageWithLayout } from './_app';
 import { WindowSharp } from '@mui/icons-material';
+import Image from 'next/image';
 
 const Products: NextPageWithLayout = () => {
   const { products } = useContext(ProductContext);
@@ -48,28 +49,57 @@ const Products: NextPageWithLayout = () => {
         {selectedCat === 'All'
           ? products?.slice(0, slice).map((s) => {
               return (
-                <LinkProd href={`/product/${s._id}`} key={s.name}>
-                  <ProdsDiv>
-                    <ImgProd src={s.image_src} />
-                    <Info>
-                      <Name>{s.name}</Name>
-                      <div>From {s.price}$</div>
-                    </Info>
-                  </ProdsDiv>
-                </LinkProd>
+                <>
+                  <LinkProd href={`/product/${s._id}`} key={s.name}>
+                    <div className="flex flex-col p-5 justify-center items-center border-4">
+                      <div className="flex flex-col border">
+                        <div className="relative w-80 h-80">
+                          <Image
+                            className="rounded-xl "
+                            src={s.image_src}
+                            alt={s.name}
+                            fill
+                          />
+                        </div>
+                        <div className="flex items-center align-middle justify-between">
+                          <div>
+                            <div className="font-bold text-lg">{s.name}</div>
+                            <div className="italic">{s.category}</div>
+                          </div>
+                          <div
+                            className="font-semibold text-2xl"
+                            style={{ color: 'var(--color-primary)' }}
+                          >
+                            ${s.price}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </LinkProd>
+                </>
+                // <LinkProd href={`/product/${s._id}`} key={s.name}>
+                //   <ProdsDiv>
+                //     <ImgProd src={s.image_src} />
+                //     <Info>
+                //       <Name className=''>{s.name}</Name>
+                //       <div>From {s.price}$</div>
+                //     </Info>
+                //   </ProdsDiv>
+                // </LinkProd>
               );
             })
           : filteredProd?.map((s) => {
               return (
-                <LinkProd href={`/product/${s._id}`} key={s.name}>
-                  <ProdsDiv>
-                    <ImgProd src={s.image_src} />
-                    <Info>
-                      <Name>{s.name}</Name>
-                      <div>From {s.price}$</div>
-                    </Info>
-                  </ProdsDiv>
-                </LinkProd>
+                <></>
+                // <LinkProd href={`/product/${s._id}`} key={s.name}>
+                //   <ProdsDiv>
+                //     <ImgProd src={s.image_src} />
+                //     <Info>
+                //       <Name>{s.name}</Name>
+                //       <div>From {s.price}$</div>
+                //     </Info>
+                //   </ProdsDiv>
+                // </LinkProd>
               );
             })}
       </ProdDiv>
