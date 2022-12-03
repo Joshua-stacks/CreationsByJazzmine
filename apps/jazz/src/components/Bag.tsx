@@ -30,7 +30,7 @@ export default function BagIcon() {
         {numItem}
       </div>
 
-      <span className="hidden md:block">Cart</span>
+      <span className="font-fredoka font-bold text-lg text-tertiary hidden md:block">Cart</span>
     </div>
   );
 }

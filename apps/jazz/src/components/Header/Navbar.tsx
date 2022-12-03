@@ -54,9 +54,10 @@ export default function Navbar() {
 
         {/* menu items */}
         <div
-          className={`items-center justify-between ${
-            isOpen ? '' : 'hidden'
-          } w-full md:order-1 md:flex md:w-auto md:grow`}
+          className={`
+          ${ isOpen ? 'opacity-1' : 'hidden opacity-0'}
+          motion-safe:transition
+          items-center justify-between  w-full md:order-1 md:flex md:w-auto md:grow`}
           id="navbar-search"
         >
           <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium">

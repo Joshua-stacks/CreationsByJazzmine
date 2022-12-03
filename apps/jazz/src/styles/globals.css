@@ -8,6 +8,9 @@ body,
   height: 100%;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 @layer base {
   :root {
     --color-primary: 194 145 164;
