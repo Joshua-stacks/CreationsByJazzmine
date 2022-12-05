@@ -1,8 +1,6 @@
-FROM node:18-alpine AS pruner
-
+FROM node:18-alpine AS builder
 RUN apk add --no-cache libc6-compat
 RUN apk update
-
 # Set working directory
 WORKDIR /app
 RUN yarn global add turbo
@@ -11,41 +9,26 @@ RUN turbo prune --scope=strapi --docker
 
 
 # Add lockfile and package.json's of isolated subworkspace
-FROM node:18-alpine AS builder
-
-# curl for installing pnpm in the layer below, libc6-compat for turborepo's post
-# installation script
-RUN apk --no-cache add curl libc6-compat
-
-# Add pnpm
-RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-
+FROM node:18-alpine AS installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
 WORKDIR /app
 
 # First install the dependencies (as they change less often)
 COPY .gitignore .gitignore
-COPY --from=pruner /app/out/json/ .
-COPY --from=pruner /app/out/pnpm-lock.yaml .
-RUN pnpm fetch
-RUN pnpm install -r --offline
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/yarn.lock ./yarn.lock
+RUN yarn install
 
 # Build the project
-COPY --from=pruner /app/out/full/ .
+COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
-RUN pnpm exec turbo run build --filter=strapi
+RUN yarn turbo run build --filter=strapi
 
 
 FROM node:18-alpine AS runner
-
-# curl for installing pnpm in the layer below, libc6-compat for turborepo's post
-# installation script
-RUN apk --no-cache add curl libc6-compat
-
-# Add pnpm
-RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-
 WORKDIR /app
 
-COPY --from=builder /app/ .
+COPY --from=installer /app/ .
 
-CMD pnpm run start --filter strapi
+CMD yarn workspace strapi start
