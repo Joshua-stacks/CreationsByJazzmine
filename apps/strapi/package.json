@@ -23,7 +23,7 @@
     "name": "Your man Josh"
   },
   "strapi": {
-    "uuid": "95342744-1161-4e30-9eff-034cfb0b3624"
+    "telemetryDisabled": true
   },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
