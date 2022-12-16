@@ -44,17 +44,6 @@
       "required": true,
       "min": 0
     },
-    "options": {
-      "displayName": "options",
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "options.options"
-    },
     "min": {
       "pluginOptions": {
         "i18n": {
@@ -96,18 +85,26 @@
       ]
     },
     "media": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
       "allowedTypes": [
         "images",
         "videos"
       ],
-      "type": "media",
-      "multiple": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "options": {
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
-      "required": true
+      "type": "json"
     }
   }
 }

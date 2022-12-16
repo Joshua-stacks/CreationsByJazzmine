@@ -20,24 +20,27 @@ export default {
    */
   async bootstrap({ strapi }: { strapi: Strapi }) {
     if (process.env.BOOTSTRAP) {
-      const { name, max, min, price, category, options, imageSrc } = products[0];
       const uploads = await strapi.entityService.findMany('plugin::upload.file');
-
       const fileNameToId = Object.fromEntries(uploads.map(({ name, id }) => [name, id]));
 
-      await strapi.entityService.create(
-        'api::product.product', {
-        data: {
-          name,
-          media: fileNameToId[imageSrc],
-          price,
-          min,
-          max,
-          category,
-          options
+      await Promise.all(products.map(product => {
+        const { name, max, min, price, category, options, imageSrc } = product;
+
+        return strapi.entityService.create(
+          'api::product.product', {
+          data: {
+            name,
+            media: fileNameToId[imageSrc],
+            price,
+            min,
+            max,
+            category,
+            options,
+            publishedAt: new Date()
+          }
         }
-      }
-      )
+        )
+      }));
     }
   },
 };

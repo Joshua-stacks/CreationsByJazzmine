@@ -130,7 +130,7 @@ const products = [
     },
     {
       name: "Piñatas",
-      category: "piñatas",
+      category: "pinatas",
       price: 20,
       imageSrc: "pinata.jpg",
       min: 1,
@@ -308,7 +308,7 @@ const products = [
     },
     {
       name: "Ceramic frame",
-      category: "home decoration",
+      category: "home decorations",
       price: 50,
       imageSrc: "CeramicFrame.jpg",
       min: 1,
@@ -319,7 +319,7 @@ const products = [
     },
     {
       name: "Custom frames",
-      category: "home decoration",
+      category: "home decorations",
       price: 15,
       imageSrc: "frames.jpg",
       min: 1,
