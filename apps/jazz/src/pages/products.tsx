@@ -70,7 +70,7 @@ const Products: NextPageWithLayout = () => {
                             className="font-semibold text-2xl"
                             style={{ color: 'var(--color-primary)' }}
                           >
-                            ${s.price}
+                            ${parseFloat(s.price).toFixed(2)}
                           </div>
                         </div>
                       </div>
