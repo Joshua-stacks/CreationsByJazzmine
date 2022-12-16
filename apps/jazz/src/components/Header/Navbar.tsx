@@ -1,18 +1,17 @@
-import { useRouter } from 'next/router';
+"use client";
+
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 
-import { CartContext } from '@/components/ContextComponents/CartContext';
 import Logo from './Logo';
 import Bag from '../Bag';
 
 export default function Navbar() {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const { numItem } = useContext(CartContext);
 
   return (
     <nav className="border-gray-200 px-2 py-2.5 sm:px-4">
@@ -96,7 +95,7 @@ const MenuItem: React.FC<{
   match: string;
   href: string;
   onLinkClick: () => void;
-  pathname: string;
+  pathname: string | null;
   children: React.ReactNode;
 }> = ({ href, onLinkClick, pathname, match, children }) => {
   return (

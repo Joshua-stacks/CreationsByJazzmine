@@ -1,3 +1,4 @@
+import Burger from '@/components/Burger';
 import Link from 'next/link';
 
 export default function Home() {
@@ -29,6 +30,8 @@ export default function Home() {
           ></path>
         </svg>
       </Link>
+
+      <Burger />
     </div>
   );
 }
