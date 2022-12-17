@@ -173,6 +173,10 @@ const CatSelector = styled.div`
   overflow-x: scroll;
   border-bottom: solid lightgray 1px;
   padding-bottom: 5px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
 `;
 
 const ButtonCat = styled.button<{ selected: boolean }>`

@@ -15,7 +15,7 @@ const NavBar = () => {
   const { numItem } = useContext(CartContext);
 
   return (
-    <>
+    <Div>
       <Wrapper>
         <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
         <>
@@ -44,7 +44,7 @@ const NavBar = () => {
           </Ul>
         </Dropdown>
       )}
-    </>
+    </Div>
   );
 };
 const fadeIn = keyframes`
@@ -66,7 +66,12 @@ to{
     transform: translatey(-10px)
 }
 `;
-
+const Div = styled.div`
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+`;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -74,7 +79,6 @@ const Wrapper = styled.div`
   height: 55px;
   padding-right: 10px;
   width: 100%;
-
   box-shadow: 12px 0 15px -4px var(--color-primary),
     -12px 0 8px -4px var(--color-primary);
   background-color: white;
